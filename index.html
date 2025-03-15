@@ -102,7 +102,6 @@
 
 <div class="container">
     <form id="formulario">
-        <!-- Informações Pessoais -->
         <h2>Informações Pessoais</h2>
         <div class="form-row">
             <div>
@@ -157,16 +156,10 @@
             });
 
             const result = await response.json();
-
-            if (result.status === 'sucesso') {
-                alert('✅ Formulário enviado com sucesso!');
-                window.location.href = 'confirmacao.html';
-            } else {
-                alert(`❌ Erro: ${result.message}`);
-            }
+            alert(result.message);
         } catch (error) {
-            alert('❌ Erro ao enviar formulário. Tente novamente.');
             console.error('Erro:', error);
+            alert('Erro ao enviar formulário. Tente novamente.');
         }
     });
 </script>
