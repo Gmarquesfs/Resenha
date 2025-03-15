@@ -180,14 +180,12 @@
             </div>
         </div>
 
-        <!-- Botão -->
         <div class="button-container">
             <button type="submit">Enviar Formulário</button>
         </div>
     </form>
 </div>
 
-<!-- SCRIPT -->
 <script>
     document.getElementById('formulario').addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -210,8 +208,7 @@
 
         try {
             console.log('📤 Enviando dados...');
-
-            const response = await fetch('https://script.google.com/macros/s/AKfycbzBBP1KSwUcxTm-_MibAb9ejd_IQiD0EgfsuatI4gqmMQyfhc3GeTz1s65wLMsH314/exec', {
+            const response = await fetch('https://script.google.com/macros/s/AKfycby9sI5OzM_ikyCQpQUnRZzncZygo74cixb9zi3MG7DjvuQWcJCNhkbFLpFTdLcbXNH6/exec', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -228,7 +225,7 @@
                 alert(`❌ Erro: ${result.message}`);
             }
         } catch (error) {
-            alert('❌ Erro ao enviar formulário.');
+            alert('❌ Erro ao enviar formulário. Tente novamente.');
             console.error('Erro:', error);
         }
     });
