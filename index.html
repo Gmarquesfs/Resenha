@@ -201,6 +201,7 @@
     </form>
 </div>
 
+<!-- Script -->
 <script>
     document.getElementById('formulario').addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -208,6 +209,7 @@
         const button = document.getElementById('submitButton');
         const loading = document.getElementById('loading');
 
+        // Desativar botão e mostrar spinner
         button.disabled = true;
         loading.style.display = 'block';
 
@@ -237,8 +239,6 @@
         } catch (error) {
             alert('Erro ao enviar o formulário. Tente novamente!');
             console.error('Erro:', error);
-            button.disabled = false;
-            loading.style.display = 'none';
         }
     });
 </script>
