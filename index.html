@@ -163,6 +163,36 @@
             </div>
         </div>
 
+        <!-- Informações de Contato -->
+        <div class="form-section">
+            <h2>Informações de Contato</h2>
+            <div class="form-row">
+                <div>
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div>
+                    <label for="phone">Telefone:</label>
+                    <input type="tel" id="phone" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informações Profissionais -->
+        <div class="form-section">
+            <h2>Informações Profissionais</h2>
+            <div class="form-row">
+                <div>
+                    <label for="company">Empresa:</label>
+                    <input type="text" id="company">
+                </div>
+                <div>
+                    <label for="position">Cargo:</label>
+                    <input type="text" id="position">
+                </div>
+            </div>
+        </div>
+
         <!-- Botão de Envio -->
         <div class="button-container">
             <button type="submit" id="submitButton">Enviar Formulário</button>
@@ -171,7 +201,6 @@
     </form>
 </div>
 
-<!-- Script -->
 <script>
     document.getElementById('formulario').addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -179,7 +208,6 @@
         const button = document.getElementById('submitButton');
         const loading = document.getElementById('loading');
 
-        // Desativar botão e exibir spinner
         button.disabled = true;
         loading.style.display = 'block';
 
@@ -187,7 +215,11 @@
             nomeCompleto: document.getElementById('fullName').value,
             dataNascimento: document.getElementById('birthDate').value,
             nacionalidade: document.getElementById('nationality').value,
-            estadoCivil: document.getElementById('maritalStatus').value
+            estadoCivil: document.getElementById('maritalStatus').value,
+            email: document.getElementById('email').value,
+            telefone: document.getElementById('phone').value,
+            empresa: document.getElementById('company').value,
+            cargo: document.getElementById('position').value
         };
 
         try {
@@ -198,7 +230,6 @@
                 body: JSON.stringify(formData)
             });
 
-            // Forçar o redirecionamento após 500ms
             setTimeout(() => {
                 window.location.href = 'confirmacao.html';
             }, 500);
