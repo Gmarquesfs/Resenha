@@ -190,15 +190,25 @@
             estadoCivil: document.getElementById('maritalStatus').value
         };
 
-        await fetch('https://script.google.com/macros/s/AKfycbzlYi3VwVZ51BKgbrRPngq4pJfVCA06ps7i7Ij0s78rWcYaVYFrBbcTcaWDBfWdRWEJkw/exec', {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(formData)
-        });
+        try {
+            await fetch('https://script.google.com/macros/s/AKfycbzlYi3VwVZ51BKgbrRPngq4pJfVCA06ps7i7Ij0s78rWcYaVYFrBbcTcaWDBfWdRWEJkw/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(formData)
+            });
 
-        // Redirecionar para página de confirmação
-        window.location.href = 'confirmacao.html';
+            // Forçar o redirecionamento após 500ms
+            setTimeout(() => {
+                window.location.href = 'confirmacao.html';
+            }, 500);
+
+        } catch (error) {
+            alert('Erro ao enviar o formulário. Tente novamente!');
+            console.error('Erro:', error);
+            button.disabled = false;
+            loading.style.display = 'none';
+        }
     });
 </script>
 
