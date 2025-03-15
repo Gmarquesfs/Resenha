@@ -34,14 +34,6 @@
             padding-bottom: 5px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #4b0082;
-            font-size: 14px;
-        }
-
         input, select, textarea {
             width: calc(100% - 20px);
             padding: 12px;
@@ -50,43 +42,18 @@
             border-radius: 8px;
             font-size: 16px;
             box-sizing: border-box;
-            background-color: #f0f0ff;
+            background-color: #ffffff;
             color: #4b0082;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: #800080;
-            outline: none;
-            box-shadow: 0 0 8px rgba(128, 0, 128, 0.5);
-        }
-
-        .form-section {
-            margin-bottom: 24px;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 16px;
-        }
-
-        .form-row > div {
-            flex: 1;
-        }
-
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
         }
 
         button {
             background-color: #4b0082;
             color: #ffffff;
-            padding: 12px 20px;
+            padding: 12px;
             border: none;
             border-radius: 8px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
             width: 100%;
             font-weight: bold;
         }
@@ -94,53 +61,18 @@
         button:hover {
             background-color: #3a006e;
         }
-
-        @media (max-width: 600px) {
-            .form-row {
-                flex-direction: column;
-            }
-        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <form id="formulario">
-        <div class="form-section">
-            <h2>Informações Pessoais</h2>
-            <div class="form-row">
-                <div>
-                    <label for="fullName">Nome Completo:</label>
-                    <input type="text" id="fullName" required>
-                </div>
-                <div>
-                    <label for="birthDate">Data de Nascimento:</label>
-                    <input type="date" id="birthDate" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div>
-                    <label for="nationality">Nacionalidade:</label>
-                    <input type="text" id="nationality" required>
-                </div>
-                <div>
-                    <label for="maritalStatus">Estado Civil:</label>
-                    <select id="maritalStatus" required>
-                        <option value="">Selecione</option>
-                        <option value="solteiro">Solteiro(a)</option>
-                        <option value="casado">Casado(a)</option>
-                        <option value="divorciado">Divorciado(a)</option>
-                        <option value="viuvo">Viúvo(a)</option>
-                        <option value="outro">Outro</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="button-container">
-            <button type="submit">Enviar Formulário</button>
-        </div>
+        <h2>Informações Pessoais</h2>
+        <input type="text" id="fullName" placeholder="Nome Completo" required>
+        <input type="date" id="birthDate" required>
+        <input type="text" id="nationality" placeholder="Nacionalidade" required>
+        <input type="text" id="estadoCivil" placeholder="Estado Civil" required>
+        <button type="submit">Enviar Formulário</button>
     </form>
 </div>
 
@@ -152,7 +84,7 @@
             nomeCompleto: document.getElementById('fullName').value,
             dataNascimento: document.getElementById('birthDate').value,
             nacionalidade: document.getElementById('nationality').value,
-            estadoCivil: document.getElementById('maritalStatus').value
+            estadoCivil: document.getElementById('estadoCivil').value
         };
 
         try {
@@ -160,15 +92,21 @@
 
             const response = await fetch('https://script.google.com/macros/s/AKfycbxHPmH8WGapEOu_AHy8LF0qD3NqX6a9XH4z5taQfpkxfGruifrPxgvfPA7OWOgrdzQbfw/exec', {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             });
 
-            console.log('✅ Dados enviados com sucesso!');
-            window.location.href = 'confirmacao.html';
+            const result = await response.json();
+            console.log(result);
+
+            if (result.status === 'sucesso') {
+                alert('✅ Formulário enviado com sucesso!');
+                window.location.href = 'confirmacao.html';
+            } else {
+                alert(`Erro: ${result.message}`);
+            }
         } catch (error) {
             console.error('❌ Erro na comunicação com o servidor:', error);
             alert('Erro ao enviar formulário. Tente novamente.');
