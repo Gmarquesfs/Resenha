@@ -215,31 +215,18 @@
     document.getElementById('formulario').addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const formData = {
-            nomeCompleto: document.getElementById('fullName').value,
-            dataNascimento: document.getElementById('birthDate').value,
-            nacionalidade: document.getElementById('nationality').value,
-            estadoCivil: document.getElementById('maritalStatus').value,
-            cpf: document.getElementById('cpf').value,
-            rg: document.getElementById('rg').value,
-            endereco: document.getElementById('address').value,
-            cidade: document.getElementById('city').value,
-            estado: document.getElementById('state').value,
-            telefone: document.getElementById('phone').value,
-            email: document.getElementById('email').value,
-            empresa: document.getElementById('company').value,
-            cnpj: document.getElementById('cnpj').value,
-            segmento: document.getElementById('segment').value,
-            cargo: document.getElementById('position').value
-        };
+        const formData = new FormData(event.target);
 
-        await fetch('https://script.google.com/macros/s/AKfycbzVzyLrRacMgue8SeZX_rARVpXO0Dg48iDcBBmqj0B2zh471mvdqYv1KfYJ0dPX238Mkw/exec', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(formData)
-        });
-
-        window.location.href = 'confirmacao.html';
+        try {
+            await fetch('https://script.google.com/macros/s/AKfycbzVzyLrRacMgue8SeZX_rARVpXO0Dg48iDcBBmqj0B2zh471mvdqYv1KfYJ0dPX238Mkw/exec', {
+                method: 'POST',
+                body: formData,
+            });
+            window.location.href = 'confirmacao.html';
+        } catch (error) {
+            alert('Erro ao enviar formulário.');
+            console.error(error);
+        }
     });
 </script>
 
