@@ -50,7 +50,7 @@
             border-radius: 8px;
             font-size: 16px;
             box-sizing: border-box;
-            background-color: #ffffff;
+            background-color: #f0f0ff;
             color: #4b0082;
         }
 
@@ -205,12 +205,11 @@
         </div>
 
         <div class="button-container">
-            <button type="submit" id="submitBtn">Enviar Formulário</button>
+            <button type="submit">Enviar Formulário</button>
         </div>
     </form>
 </div>
 
-<!-- Script para envio -->
 <script>
     document.getElementById('formulario').addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -233,11 +232,9 @@
             cargo: document.getElementById('position').value
         };
 
-        console.log(formData);
-
-        const response = await fetch('https://script.google.com/macros/s/AKfycbyo93vgrQixL3-HaP1MCZgNmn0mEd5LYi17yeKGERZO5evs-lOJ19X3Z9C_mwoG-IIylQ/exec', {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxHPmH8WGapEOu_AHy8LF0qD3NqX6a9XH4z5taQfpkxfGruifrPxgvfPA7OWOgrdzQbfw/exec', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(formData)
         });
 
