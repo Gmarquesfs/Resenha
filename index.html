@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Formulário de Cadastro</title>
     <style>
         body {
@@ -119,6 +119,7 @@
                     <input type="date" id="birthDate" required>
                 </div>
             </div>
+
             <div class="form-row">
                 <div>
                     <label for="nationality">Nacionalidade:</label>
@@ -136,6 +137,7 @@
                     </select>
                 </div>
             </div>
+
             <div class="form-row">
                 <div>
                     <label for="cpf">CPF:</label>
@@ -165,6 +167,7 @@
                     <input type="text" id="state" required>
                 </div>
             </div>
+
             <div class="form-row">
                 <div>
                     <label for="phone">Telefone:</label>
@@ -190,6 +193,16 @@
                     <input type="text" id="cnpj" required>
                 </div>
             </div>
+            <div class="form-row">
+                <div>
+                    <label for="segment">Segmento:</label>
+                    <input type="text" id="segment" required>
+                </div>
+                <div>
+                    <label for="position">Cargo:</label>
+                    <input type="text" id="position" required>
+                </div>
+            </div>
         </div>
 
         <div class="button-container">
@@ -202,14 +215,38 @@
     document.getElementById('formulario').addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const formData = { /* MANTIDO COMO ESTÁ */ };
+        const formData = {
+            nomeCompleto: document.getElementById('fullName').value,
+            dataNascimento: document.getElementById('birthDate').value,
+            nacionalidade: document.getElementById('nationality').value,
+            estadoCivil: document.getElementById('maritalStatus').value,
+            cpf: document.getElementById('cpf').value,
+            rg: document.getElementById('rg').value,
+            endereco: document.getElementById('address').value,
+            cidade: document.getElementById('city').value,
+            estado: document.getElementById('state').value,
+            telefone: document.getElementById('phone').value,
+            email: document.getElementById('email').value,
+            empresa: document.getElementById('company').value,
+            cnpj: document.getElementById('cnpj').value,
+            segmento: document.getElementById('segment').value,
+            cargo: document.getElementById('position').value
+        };
 
-        await fetch("https://script.google.com/macros/s/AKfycbxHPmH8WGapEOu_AHy8LF0qD3NqX6a9XH4z5taQfpkxfGruifrPxgvfPA7OWOgrdzQbfw/exec", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-            mode: "no-cors"
-        });
+        try {
+            await fetch("https://script.google.com/macros/s/AKfycbz6TkSALmja4eMlyZpm-hMJewt0x6Oy9ftrU4s5ME0WnHPRNN3XaPbaWgKDIggAvRZpIw/exec", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            window.location.href = 'confirmacao.html';
+
+        } catch (error) {
+            alert("❌ Erro ao enviar formulário");
+        }
     });
 </script>
 
