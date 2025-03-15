@@ -97,28 +97,6 @@
             background-color: #3a006e;
         }
 
-        .loading {
-            display: none;
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 24px;
-            height: 24px;
-            border: 3px solid #4b0082;
-            border-top: 3px solid transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
         @media (max-width: 600px) {
             .form-row {
                 flex-direction: column;
@@ -130,7 +108,6 @@
 
 <div class="container">
     <form id="formulario">
-        <!-- Informações Pessoais -->
         <div class="form-section">
             <h2>Informações Pessoais</h2>
             <div class="form-row">
@@ -163,64 +140,21 @@
             </div>
         </div>
 
-        <!-- Informações de Contato -->
-        <div class="form-section">
-            <h2>Informações de Contato</h2>
-            <div class="form-row">
-                <div>
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div>
-                    <label for="telefone">Telefone:</label>
-                    <input type="tel" id="telefone" required>
-                </div>
-            </div>
-        </div>
-
-        <!-- Informações Profissionais -->
-        <div class="form-section">
-            <h2>Informações Profissionais</h2>
-            <div class="form-row">
-                <div>
-                    <label for="empresa">Empresa:</label>
-                    <input type="text" id="empresa">
-                </div>
-                <div>
-                    <label for="cargo">Cargo:</label>
-                    <input type="text" id="cargo">
-                </div>
-            </div>
-        </div>
-
-        <!-- Botão de Envio -->
         <div class="button-container">
             <button type="submit" id="submitButton">Enviar Formulário</button>
-            <div class="loading" id="loading"></div>
         </div>
     </form>
 </div>
 
-<!-- Script -->
 <script>
     document.getElementById('formulario').addEventListener('submit', async (event) => {
         event.preventDefault();
-
-        const button = document.getElementById('submitButton');
-        const loading = document.getElementById('loading');
-
-        button.disabled = true;
-        loading.style.display = 'block';
 
         const formData = {
             nomeCompleto: document.getElementById('nomeCompleto').value,
             dataNascimento: document.getElementById('dataNascimento').value,
             nacionalidade: document.getElementById('nacionalidade').value,
             estadoCivil: document.getElementById('estadoCivil').value,
-            email: document.getElementById('email').value,
-            telefone: document.getElementById('telefone').value,
-            empresa: document.getElementById('empresa').value,
-            cargo: document.getElementById('cargo').value
         };
 
         try {
@@ -231,10 +165,12 @@
                 body: JSON.stringify(formData)
             });
 
+            alert('Formulário enviado com sucesso!');
             window.location.href = 'confirmacao.html';
 
         } catch (error) {
-            alert('Erro ao enviar o formulário!');
+            alert('Erro ao enviar o formulário.');
+            console.error('Erro:', error);
         }
     });
 </script>
