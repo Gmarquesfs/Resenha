@@ -233,7 +233,7 @@
             cargo: document.getElementById('position').value
         };
 
-        await fetch('URL_DO_SEU_SCRIPT', {
+        await fetch('https://script.google.com/macros/s/AKfycbzlYi3VwVZ51BKgbrRPngq4pJfVCA06ps7i7Ij0s78rWcYaVYFrBbcTcaWDBfWdRWEJkw/exec', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(formData)
