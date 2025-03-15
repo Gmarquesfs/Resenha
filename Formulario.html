@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulário de Cadastro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #faf5ff;
+            color: #4b0082;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(75, 0, 130, 0.2);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h2 {
+            color: #4b0082;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #d3bce3;
+            padding-bottom: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #4b0082;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #d3bce3;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+            background-color: #ffffff;
+            color: #4b0082;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #800080;
+            outline: none;
+            box-shadow: 0 0 8px rgba(128, 0, 128, 0.5);
+        }
+
+        .form-section {
+            margin-bottom: 24px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .form-row > div {
+            flex: 1;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #4b0082;
+            color: #ffffff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #3a006e;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Informações Pessoais -->
+    <form>
+        <div class="form-section">
+            <h2>Informações Pessoais</h2>
+            <div class="form-row">
+                <div>
+                    <label for="fullName">Nome Completo:</label>
+                    <input type="text" id="fullName" placeholder="Digite seu nome completo" required>
+                </div>
+                <div>
+                    <label for="birthDate">Data de Nascimento:</label>
+                    <input type="date" id="birthDate" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label for="nationality">Nacionalidade:</label>
+                    <input type="text" id="nationality" placeholder="Digite sua nacionalidade" required>
+                </div>
+                <div>
+                    <label for="maritalStatus">Estado Civil:</label>
+                    <select id="maritalStatus" required>
+                        <option value="">Selecione</option>
+                        <option value="solteiro">Solteiro(a)</option>
+                        <option value="casado">Casado(a)</option>
+                        <option value="divorciado">Divorciado(a)</option>
+                        <option value="viuvo">Viúvo(a)</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" placeholder="000.000.000-00" required>
+                </div>
+                <div>
+                    <label for="rg">RG:</label>
+                    <input type="text" id="rg" placeholder="00.000.000-0" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Endereço e Contato -->
+        <div class="form-section">
+            <h2>Endereço e Contato</h2>
+            <div>
+                <label for="address">Endereço:</label>
+                <input type="text" id="address" placeholder="Digite seu endereço completo" required>
+            </div>
+            <div class="form-row">
+                <div>
+                    <label for="city">Cidade:</label>
+                    <input type="text" id="city" placeholder="Digite sua cidade" required>
+                </div>
+                <div>
+                    <label for="state">Estado:</label>
+                    <input type="text" id="state" placeholder="Digite seu estado" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div>
+                    <label for="phone">Telefone:</label>
+                    <input type="tel" id="phone" placeholder="(00) 00000-0000" required>
+                </div>
+                <div>
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" placeholder="exemplo@email.com" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informações Profissionais -->
+        <div class="form-section">
+            <h2>Informações Profissionais</h2>
+            <div class="form-row">
+                <div>
+                    <label for="company">Empresa:</label>
+                    <input type="text" id="company" placeholder="Digite o nome da empresa" required>
+                </div>
+                <div>
+                    <label for="cnpj">CNPJ:</label>
+                    <input type="text" id="cnpj" placeholder="00.000.000/0000-00" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div>
+                    <label for="segment">Segmento:</label>
+                    <input type="text" id="segment" placeholder="Digite o segmento" required>
+                </div>
+                <div>
+                    <label for="position">Cargo:</label>
+                    <input type="text" id="position" placeholder="Digite seu cargo" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão de Envio -->
+        <div class="button-container">
+            <button type="submit">Enviar Formulário</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
