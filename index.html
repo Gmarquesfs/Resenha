@@ -150,9 +150,9 @@
             </div>
         </div>
 
-        <!-- Informações de Contato -->
+        <!-- Endereço e Contato -->
         <div class="form-section">
-            <h2>Informações de Contato</h2>
+            <h2>Endereço e Contato</h2>
             <div class="form-row">
                 <div>
                     <label for="address">Endereço:</label>
@@ -167,6 +167,7 @@
                     <input type="text" id="state" required>
                 </div>
             </div>
+
             <div class="form-row">
                 <div>
                     <label for="phone">Telefone:</label>
@@ -210,13 +211,30 @@
     </form>
 </div>
 
-<!-- SCRIPT -->
+<!-- SCRIPT DE ENVIO -->
 <script>
     document.getElementById('formulario').addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        console.log('✅ Formulário enviado com sucesso!');
-        window.location.href = 'confirmacao.html';
+        const formData = {
+            nomeCompleto: document.getElementById('fullName').value,
+            dataNascimento: document.getElementById('birthDate').value,
+            nacionalidade: document.getElementById('nationality').value,
+            estadoCivil: document.getElementById('maritalStatus').value,
+            cpf: document.getElementById('cpf').value,
+            rg: document.getElementById('rg').value,
+            endereco: document.getElementById('address').value,
+            cidade: document.getElementById('city').value,
+            estado: document.getElementById('state').value,
+            telefone: document.getElementById('phone').value,
+            email: document.getElementById('email').value,
+            empresa: document.getElementById('company').value,
+            cnpj: document.getElementById('cnpj').value,
+            segmento: document.getElementById('segment').value,
+            cargo: document.getElementById('position').value
+        };
+
+        alert(JSON.stringify(formData));
     });
 </script>
 
