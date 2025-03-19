@@ -1,147 +1,111 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Cadastro</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Font Awesome for the image icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Cadastro</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f5f3ff; margin: 0; padding: 20px; }
+    .container { max-width: 800px; margin: 0 auto; background: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .header { background-color: #7c3aed; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+    .header h1 { margin: 0; }
+    .content { padding: 20px; }
+    .section-title { color: #7c3aed; font-weight: bold; margin-top: 20px; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; color: #555; }
+    .form-group input, .form-group select { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+    .submit-btn { width: 100%; padding: 12px; background-color: #7c3aed; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+    .submit-btn:hover { background-color: #6d28d9; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Logo Area -->
-        <div class="logo-container">
-            <div class="logo-placeholder">
-                <i class="fa-solid fa-image"></i>
-                <span>Logo da Empresa</span>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-header">
-                <h1 class="card-title">Formulário de Cadastro</h1>
-                <p class="card-description">Preencha todos os campos com suas informações</p>
-            </div>
-            
-            <div class="card-content">
-                <!-- Personal Information Section -->
-                <div class="form-section">
-                    <div class="section-header">
-                        <h2 class="section-title">INFORMAÇÕES PESSOAIS</h2>
-                        <div class="separator"></div>
-                    </div>
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="fullName">NOME COMPLETO</label>
-                            <input type="text" id="fullName" placeholder="Digite seu nome completo">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="birthDate">DATA DE NASCIMENTO</label>
-                            <input type="date" id="birthDate">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="nationality">NACIONALIDADE</label>
-                            <input type="text" id="nationality" placeholder="Digite sua nacionalidade">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="maritalStatus">ESTADO CIVIL</label>
-                            <select id="maritalStatus">
-                                <option value="" disabled selected>Selecione seu estado civil</option>
-                                <option value="solteiro">Solteiro(a)</option>
-                                <option value="casado">Casado(a)</option>
-                                <option value="divorciado">Divorciado(a)</option>
-                                <option value="viuvo">Viúvo(a)</option>
-                                <option value="outro">Outro</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="cpf">CPF</label>
-                            <input type="text" id="cpf" placeholder="000.000.000-00">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="rg">RG</label>
-                            <input type="text" id="rg" placeholder="00.000.000-0">
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Address and Contact Section -->
-                <div class="form-section">
-                    <div class="section-header">
-                        <h2 class="section-title">ENDEREÇO E CONTATO</h2>
-                        <div class="separator"></div>
-                    </div>
-                    
-                    <div class="form-grid">
-                        <div class="form-group full-width">
-                            <label for="address">ENDEREÇO</label>
-                            <input type="text" id="address" placeholder="Digite seu endereço completo">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="city">CIDADE</label>
-                            <input type="text" id="city" placeholder="Digite sua cidade">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="state">ESTADO</label>
-                            <input type="text" id="state" placeholder="Digite seu estado">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">TELEFONE</label>
-                            <input type="text" id="phone" placeholder="(00) 00000-0000">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">E-MAIL</label>
-                            <input type="email" id="email" placeholder="exemplo@email.com">
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Professional Information Section -->
-                <div class="form-section">
-                    <div class="section-header">
-                        <h2 class="section-title">INFORMAÇÕES PROFISSIONAIS</h2>
-                        <div class="separator"></div>
-                    </div>
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="company">EMPRESA</label>
-                            <input type="text" id="company" placeholder="Digite o nome da empresa">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="cnpj">CNPJ</label>
-                            <input type="text" id="cnpj" placeholder="00.000.000/0000-00">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="segment">SEGMENTO</label>
-                            <input type="text" id="segment" placeholder="Digite o segmento da empresa">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="position">CARGO</label>
-                            <input type="text" id="position" placeholder="Digite seu cargo">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card-footer">
-                <button type="submit" class="submit-button">Enviar Formulário</button>
-            </div>
-        </div>
-    </div>
+
+<div class="container">
+  <div class="header">
+    <h1>Formulário de Cadastro</h1>
+    <p>Preencha todos os campos com suas informações</p>
+  </div>
+
+  <div class="content">
+    <form action="#" method="POST">
+
+      <div class="section-title">Informações Pessoais</div>
+      <div class="form-group">
+        <label>Nome Completo:</label>
+        <input type="text" required placeholder="Digite seu nome completo">
+      </div>
+      <div class="form-group">
+        <label>Data de Nascimento:</label>
+        <input type="date" required>
+      </div>
+      <div class="form-group">
+        <label>Nacionalidade:</label>
+        <input type="text" required placeholder="Digite sua nacionalidade">
+      </div>
+      <div class="form-group">
+        <label>Estado Civil:</label>
+        <select required>
+          <option value="">Selecione seu estado civil</option>
+          <option>Solteiro(a)</option>
+          <option>Casado(a)</option>
+          <option>Divorciado(a)</option>
+          <option>Viúvo(a)</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>CPF:</label>
+        <input type="text" required placeholder="000.000.000-00">
+      </div>
+      <div class="form-group">
+        <label>RG:</label>
+        <input type="text" required placeholder="00.000.000-0">
+      </div>
+
+      <div class="section-title">Endereço e Contato</div>
+      <div class="form-group">
+        <label>Endereço:</label>
+        <input type="text" required placeholder="Digite seu endereço completo">
+      </div>
+      <div class="form-group">
+        <label>Cidade:</label>
+        <input type="text" required placeholder="Digite sua cidade">
+      </div>
+      <div class="form-group">
+        <label>Estado:</label>
+        <input type="text" required placeholder="Digite seu estado">
+      </div>
+      <div class="form-group">
+        <label>Telefone:</label>
+        <input type="text" required placeholder="(00) 00000-0000">
+      </div>
+      <div class="form-group">
+        <label>E-mail:</label>
+        <input type="email" required placeholder="exemplo@email.com">
+      </div>
+
+      <div class="section-title">Informações Profissionais</div>
+      <div class="form-group">
+        <label>Empresa:</label>
+        <input type="text" required placeholder="Digite o nome da empresa">
+      </div>
+      <div class="form-group">
+        <label>CNPJ:</label>
+        <input type="text" required placeholder="00.000.000/0000-00">
+      </div>
+      <div class="form-group">
+        <label>Segmento:</label>
+        <input type="text" required placeholder="Digite o segmento da empresa">
+      </div>
+      <div class="form-group">
+        <label>Cargo:</label>
+        <input type="text" required placeholder="Digite seu cargo">
+      </div>
+
+      <button type="submit" class="submit-btn">Enviar Formulário</button>
+    </form>
+  </div>
+</div>
+
 </body>
 </html>
