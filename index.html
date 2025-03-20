@@ -78,7 +78,7 @@ form.addEventListener('submit', e => {
   const btn = form.querySelector('button[type=submit]');
   btn.disabled = true;
   const data = new FormData(form);
-  fetch('https://script.google.com/macros/s/AKfycbzXkrc81fwyxpXwxnZkqY1aHICSb-1IyD6xTcnT5wT8S6MpOrkNhBYDLsxKgMasEYwC/exec', {
+  fetch('https://script.google.com/macros/s/AKfycbz4GHH6yaIzfC16F68zLAnPmf1lm9E50ZxotitKiKWX7zEVuxyuHf-uvJwXyplaAOc/exec', {
     method: 'POST',
     body: data
   })
