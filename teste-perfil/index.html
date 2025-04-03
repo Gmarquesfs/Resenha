@@ -137,6 +137,56 @@
             background-color: #553c9a;
         }
 
+        /* Registration form */
+        .registration-form {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid #e9d8fd;
+        }
+
+        .registration-form h2 {
+            color: #6b46c1;
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e9d8fd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #9061f9;
+            box-shadow: 0 0 0 3px rgba(144, 97, 249, 0.2);
+        }
+
+        .form-group .error {
+            color: #e53e3e;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
         /* Form styles (hidden initially) */
         .assessment-form {
             display: none;
@@ -240,86 +290,6 @@
             background-color: #553c9a;
         }
 
-        /* Results styles (hidden initially) */
-        .results {
-            display: none;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            margin-bottom: 30px;
-            border: 1px solid #e9d8fd;
-            text-align: center;
-        }
-
-        .results h2 {
-            color: #6b46c1;
-            font-size: 28px;
-            margin-bottom: 30px;
-        }
-
-        .chart-container {
-            display: flex;
-            justify-content: space-around;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-
-        .chart-bar {
-            width: 100px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .bar {
-            width: 60px;
-            background-color: #6b46c1;
-            margin-bottom: 10px;
-            border-radius: 4px 4px 0 0;
-        }
-
-        .bar-label {
-            font-weight: bold;
-            color: #553c9a;
-        }
-
-        .bar-value {
-            font-size: 14px;
-            color: #4a5568;
-        }
-
-        .dominant-profile {
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #f8f4ff;
-            border-radius: 8px;
-            border: 1px solid #e9d8fd;
-        }
-
-        .dominant-profile h3 {
-            color: #6b46c1;
-            margin-bottom: 15px;
-        }
-
-        .restart-button {
-            background-color: #6b46c1;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 30px;
-            font-weight: 600;
-        }
-
-        .restart-button:hover {
-            background-color: #553c9a;
-        }
-
         /* Pagination */
         .page {
             display: none;
@@ -412,7 +382,39 @@
             
             <p>Este teste contém 25 questões e leva aproximadamente 10 minutos para ser concluído. Escolha a alternativa que melhor representa como você se sente ou age na maioria das situações.</p>
             
-            <button class="start-button" onclick="startAssessment()">Iniciar Avaliação</button>
+            <button class="start-button" onclick="showRegistrationForm()">Iniciar Avaliação</button>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="registration-form" id="registration-form" style="display: none;">
+            <h2>Antes de começar, precisamos de algumas informações</h2>
+            <form id="user-info-form">
+                <div class="form-group">
+                    <label for="name">Nome Completo*</label>
+                    <input type="text" id="name" name="name" required>
+                    <div class="error" id="name-error">Por favor, informe seu nome completo.</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-mail*</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error" id="email-error">Por favor, informe um e-mail válido.</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Telefone*</label>
+                    <input type="tel" id="phone" name="phone" required>
+                    <div class="error" id="phone-error">Por favor, informe um telefone válido.</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="company">Empresa*</label>
+                    <input type="text" id="company" name="company" required>
+                    <div class="error" id="company-error">Por favor, informe o nome da empresa.</div>
+                </div>
+                
+                <button type="button" class="submit-button" onclick="validateRegistration()">Continuar</button>
+            </form>
         </div>
 
         <!-- Assessment Form -->
@@ -1217,50 +1219,79 @@
                 </div>
             </form>
         </div>
-
-        <!-- Results Section -->
-        <div class="results" id="results">
-            <h2>Seu Perfil Comportamental</h2>
-            
-            <div class="chart-container">
-                <div class="chart-bar">
-                    <div class="bar" id="aguia-bar" style="height: 0px;"></div>
-                    <div class="bar-label">Águia</div>
-                    <div class="bar-value" id="aguia-value">0%</div>
-                </div>
-                
-                <div class="chart-bar">
-                    <div class="bar" id="gato-bar" style="height: 0px;"></div>
-                    <div class="bar-label">Gato</div>
-                    <div class="bar-value" id="gato-value">0%</div>
-                </div>
-                
-                <div class="chart-bar">
-                    <div class="bar" id="lobo-bar" style="height: 0px;"></div>
-                    <div class="bar-label">Lobo</div>
-                    <div class="bar-value" id="lobo-value">0%</div>
-                </div>
-                
-                <div class="chart-bar">
-                    <div class="bar" id="tubarao-bar" style="height: 0px;"></div>
-                    <div class="bar-label">Tubarão</div>
-                    <div class="bar-value" id="tubarao-value">0%</div>
-                </div>
-            </div>
-            
-            <div class="dominant-profile" id="dominant-profile">
-                <h3>Seu perfil predominante: <span id="dominant-name">-</span></h3>
-                <p id="dominant-description"></p>
-            </div>
-            
-            <button class="restart-button" onclick="restartAssessment()">Refazer Avaliação</button>
-        </div>
     </div>
 
     <script>
         // Current page
         let currentPage = 1;
         const totalPages = 5;
+        
+        // Function to show registration form
+        function showRegistrationForm() {
+            document.getElementById('presentation').style.display = 'none';
+            document.getElementById('registration-form').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+        
+        // Function to validate registration form
+        function validateRegistration() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const company = document.getElementById('company').value.trim();
+            
+            let isValid = true;
+            
+            // Validate name
+            if (name === '') {
+                document.getElementById('name-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('name-error').style.display = 'none';
+            }
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email === '' || !emailRegex.test(email)) {
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('email-error').style.display = 'none';
+            }
+            
+            // Validate phone
+            if (phone === '') {
+                document.getElementById('phone-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('phone-error').style.display = 'none';
+            }
+            
+            // Validate company
+            if (company === '') {
+                document.getElementById('company-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('company-error').style.display = 'none';
+            }
+            
+            if (isValid) {
+                // Save user info to localStorage
+                const userInfo = {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    company: company
+                };
+                
+                localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                
+                // Show assessment form
+                document.getElementById('registration-form').style.display = 'none';
+                document.getElementById('assessment-form').style.display = 'block';
+                window.scrollTo(0, 0);
+            }
+        }
         
         // Function to start the assessment
         function startAssessment() {
@@ -1296,9 +1327,10 @@
                 return;
             }
             
-            // If on the last page, show results
+            // If on the last page, save results and redirect to results page
             if (currentPage === totalPages) {
-                calculateResults();
+                saveResults();
+                window.location.href = 'resultado.html';
                 return;
             }
             
@@ -1337,18 +1369,23 @@
             window.scrollTo(0, 0);
         }
         
-        // Function to calculate results
-        function calculateResults() {
+        // Function to save results to localStorage
+        function saveResults() {
             // Count the answers
             let countI = 0; // Águia
             let countC = 0; // Gato
             let countO = 0; // Lobo
             let countA = 0; // Tubarão
             
+            const answers = {};
+            
             for (let i = 1; i <= 25; i++) {
                 const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
                 if (selectedOption) {
-                    switch (selectedOption.value) {
+                    const value = selectedOption.value;
+                    answers[`q${i}`] = value;
+                    
+                    switch (value) {
                         case 'I':
                             countI++;
                             break;
@@ -1372,61 +1409,24 @@
             const percentO = Math.round((countO / total) * 100);
             const percentA = Math.round((countA / total) * 100);
             
-            // Update the chart
-            document.getElementById('aguia-bar').style.height = `${percentI * 2}px`;
-            document.getElementById('aguia-value').textContent = `${percentI}%`;
+            // Save results to localStorage
+            const results = {
+                answers: answers,
+                counts: {
+                    I: countI,
+                    C: countC,
+                    O: countO,
+                    A: countA
+                },
+                percentages: {
+                    I: percentI,
+                    C: percentC,
+                    O: percentO,
+                    A: percentA
+                }
+            };
             
-            document.getElementById('gato-bar').style.height = `${percentC * 2}px`;
-            document.getElementById('gato-value').textContent = `${percentC}%`;
-            
-            document.getElementById('lobo-bar').style.height = `${percentO * 2}px`;
-            document.getElementById('lobo-value').textContent = `${percentO}%`;
-            
-            document.getElementById('tubarao-bar').style.height = `${percentA * 2}px`;
-            document.getElementById('tubarao-value').textContent = `${percentA}%`;
-            
-            // Determine dominant profile
-            const profiles = [
-                { name: 'Águia', percent: percentI, description: 'Você é criativo, visionário e inovador. Tem foco no futuro e em novas possibilidades. Gosta de liberdade e de fazer as coisas de maneira diferente. Seu ponto forte é a criatividade e a capacidade de antecipar tendências.' },
-                { name: 'Gato', percent: percentC, description: 'Você é comunicativo, harmonioso e focado em relacionamentos. Valoriza o trabalho em equipe e a colaboração. Busca a felicidade e a igualdade nas relações. Seu ponto forte é a capacidade de criar conexões e manter a harmonia no ambiente.' },
-                { name: 'Lobo', percent: percentO, description: 'Você é organizado, detalhista e estrategista. Valoriza a ordem, controle e planejamento. Prefere seguir regras e procedimentos estabelecidos. Seu ponto forte é a consistência, conformidade e qualidade em tudo o que faz.' },
-                { name: 'Tubarão', percent: percentA, description: 'Você é dinâmico, prático e focado em resultados. Age com rapidez e determinação. Tem senso de urgência e gosta de desafios. Seu ponto forte é fazer as coisas acontecerem e obter resultados rápidos.' }
-            ];
-            
-            // Sort by percentage (highest first)
-            profiles.sort((a, b) => b.percent - a.percent);
-            
-            // Display dominant profile
-            document.getElementById('dominant-name').textContent = profiles[0].name;
-            document.getElementById('dominant-description').textContent = profiles[0].description;
-            
-            // Show results
-            document.getElementById('assessment-form').style.display = 'none';
-            document.getElementById('results').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-        
-        // Function to restart the assessment
-        function restartAssessment() {
-            // Reset form
-            document.getElementById('profile-form').reset();
-            
-            // Reset to first page
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById('page-1').classList.add('active');
-            currentPage = 1;
-            
-            // Reset pagination controls
-            document.getElementById('current-page').textContent = '1';
-            document.getElementById('prev-button').disabled = true;
-            document.getElementById('next-button').textContent = 'Continuar';
-            
-            // Show presentation page
-            document.getElementById('results').style.display = 'none';
-            document.getElementById('presentation').style.display = 'block';
-            window.scrollTo(0, 0);
+            localStorage.setItem('profileResults', JSON.stringify(results));
         }
     </script>
 </body>
