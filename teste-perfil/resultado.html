@@ -1,104 +1,482 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Resultado do Perfil</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
-  <style>
-    @keyframes fade-in {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-in {
-      animation: fade-in 0.6s ease-out;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado - Avaliação de Perfil Comportamental</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f0ff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Logo area */
+        .logo-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .logo-placeholder {
+            width: 128px;
+            height: 128px;
+            border: 2px dashed #9061f9;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            color: #6b46c1;
+        }
+
+        .logo-icon {
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+
+        /* Results styles */
+        .results {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid #e9d8fd;
+            text-align: center;
+        }
+
+        .results h2 {
+            color: #6b46c1;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .results h3 {
+            color: #6b46c1;
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+
+        .results p {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: #4a5568;
+        }
+
+        .success-icon {
+            font-size: 64px;
+            color: #6b46c1;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .chart-bar-container {
+            width: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background-color: #e9d8fd;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #6b46c1;
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+
+        .bar-label {
+            font-weight: bold;
+            color: #553c9a;
+        }
+
+        .bar-value {
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .dominant-profile {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f8f4ff;
+            border-radius: 8px;
+            border: 1px solid #e9d8fd;
+            text-align: left;
+        }
+
+        .dominant-profile h3 {
+            color: #6b46c1;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .dominant-profile p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .profile-characteristics {
+            margin-top: 20px;
+        }
+
+        .profile-characteristics h4 {
+            color: #553c9a;
+            margin-bottom: 10px;
+        }
+
+        .profile-characteristics ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .profile-characteristics li {
+            margin-bottom: 5px;
+        }
+
+        .restart-button {
+            background-color: #6b46c1;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 30px;
+            font-weight: 600;
+        }
+
+        .restart-button:hover {
+            background-color: #553c9a;
+        }
+
+        .error-message {
+            background-color: #fed7d7;
+            color: #c53030;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .profile-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #6b46c1;
+        }
+    </style>
 </head>
-<body class="bg-purple-50 py-12 px-4">
-  <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-xl animate-fade-in">
-    <div class="text-center">
-      <div class="text-purple-600 mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-        </svg>
-      </div>
-      <h1 id="perfilTitulo" class="text-3xl font-bold text-purple-700 mb-2"></h1>
-      <p id="perfilDescricao" class="text-gray-600 text-lg mb-6">Seu perfil comportamental foi calculado com base nas suas respostas.</p>
-    </div>
-
-    <div id="percentuais" class="text-left max-w-md mx-auto space-y-4 mb-10"></div>
-
-    <div id="caracteristicas" class="space-y-8">
-      <div>
-        <h2 class="text-xl font-semibold text-purple-700 mb-2">🦅 Águia</h2>
-        <p class="text-gray-700 text-sm leading-relaxed">
-          Inovadora, visionária e criativa. A Águia pensa no futuro, busca fazer diferente e é movida pela liberdade. Tem dificuldade com o presente e detalhes, mas é excelente em pensar estrategicamente e provocar mudanças. Gosta de ambientes livres e desafiadores.
-        </p>
-      </div>
-      <div>
-        <h2 class="text-xl font-semibold text-purple-700 mb-2">🐱 Gato</h2>
-        <p class="text-gray-700 text-sm leading-relaxed">
-          Comunicador, colaborativo e harmonioso. O Gato busca aceitação social, trabalha bem em equipe e valoriza a felicidade coletiva. Tem facilidade com relacionamentos e comunicação, mas evita conflitos e pode se sentir inseguro sem reconhecimento.
-        </p>
-      </div>
-      <div>
-        <h2 class="text-xl font-semibold text-purple-700 mb-2">🐺 Lobo</h2>
-        <p class="text-gray-700 text-sm leading-relaxed">
-          Organizado, confiável e leal. O Lobo é estrategista, gosta de seguir regras, valoriza a ordem e tem estabilidade emocional. Dificuldade com mudanças e improviso, mas excelente para ambientes estruturados que exigem controle e planejamento.
-        </p>
-      </div>
-      <div>
-        <h2 class="text-xl font-semibold text-purple-700 mb-2">🦈 Tubarão</h2>
-        <p class="text-gray-700 text-sm leading-relaxed">
-          Executor, prático e competitivo. O Tubarão foca em resultados, age com senso de urgência e não gosta de enrolação. Tem dificuldades para delegar e pouca paciência, mas é altamente produtivo quando precisa “fazer acontecer”.
-        </p>
-      </div>
-    </div>
-
-    <div class="text-center mt-10">
-      <a href="index.html" class="inline-block bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition">
-        Refazer Teste
-      </a>
-    </div>
-  </div>
-
-<script>
-  function getQueryParams() {
-    const params = new URLSearchParams(window.location.search);
-    return {
-      perfil: params.get("perfil"),
-      i: parseInt(params.get("i")) || 0,
-      c: parseInt(params.get("c")) || 0,
-      o: parseInt(params.get("o")) || 0,
-      a: parseInt(params.get("a")) || 0,
-      nome: params.get("nome") || "Você"
-    };
-  }
-
-  const { perfil, i, c, o, a, nome } = getQueryParams();
-
-  const nomes = {
-    i: "🦅 Águia",
-    c: "🐱 Gato",
-    o: "🐺 Lobo",
-    a: "🦈 Tubarão"
-  };
-
-  document.getElementById("perfilTitulo").textContent = `${nome}, parabéns! Seu perfil é ${nomes[perfil]}`;
-
-  const percentuaisDiv = document.getElementById("percentuais");
-  const perfis = { i, c, o, a };
-
-  for (let p in perfis) {
-    percentuaisDiv.innerHTML += `
-      <div>
-        <p class="text-sm text-gray-700 mb-1">${nomes[p]}: ${perfis[p]}%</p>
-        <div class="w-full bg-gray-200 rounded-full h-4">
-          <div class="bg-purple-600 h-4 rounded-full transition-all duration-300" style="width: ${perfis[p]}%"></div>
+<body>
+    <div class="container">
+        <!-- Logo Area -->
+        <div class="logo-container">
+            <div class="logo-placeholder">
+                <div class="logo-icon">&#128247;</div>
+                <span>Logo da Empresa</span>
+            </div>
         </div>
-      </div>`;
-  }
-</script>
+
+        <!-- Results Section -->
+        <div class="results" id="results">
+            <div class="success-icon">&#10003;</div>
+            
+            <div id="error-container" style="display: none;" class="error-message">
+                <p>Não foi possível encontrar seus resultados. Por favor, complete a avaliação primeiro.</p>
+                <button class="restart-button" onclick="goToAssessment()">Fazer Avaliação</button>
+            </div>
+            
+            <div id="results-container">
+                <h2 id="congratulations-heading">Parabéns!</h2>
+                <h3>Seu perfil comportamental foi calculado com base nas suas respostas.</h3>
+                
+                <div class="chart-container">
+                    <div class="chart-bar-container">
+                        <div class="profile-icon">&#129413;</div>
+                        <div class="bar-label">Águia</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="aguia-bar" style="width: 0%;"></div>
+                        </div>
+                        <div class="bar-value" id="aguia-value">0%</div>
+                    </div>
+                    
+                    <div class="chart-bar-container">
+                        <div class="profile-icon">&#128008;</div>
+                        <div class="bar-label">Gato</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="gato-bar" style="width: 0%;"></div>
+                        </div>
+                        <div class="bar-value" id="gato-value">0%</div>
+                    </div>
+                    
+                    <div class="chart-bar-container">
+                        <div class="profile-icon">&#128058;</div>
+                        <div class="bar-label">Lobo</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="lobo-bar" style="width: 0%;"></div>
+                        </div>
+                        <div class="bar-value" id="lobo-value">0%</div>
+                    </div>
+                    
+                    <div class="chart-bar-container">
+                        <div class="profile-icon">&#128011;</div>
+                        <div class="bar-label">Tubarão</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="tubarao-bar" style="width: 0%;"></div>
+                        </div>
+                        <div class="bar-value" id="tubarao-value">0%</div>
+                    </div>
+                </div>
+                
+                <div class="dominant-profile" id="dominant-profile">
+                    <h3>Seu perfil predominante: <span id="dominant-name">-</span></h3>
+                    <div id="profile-description"></div>
+                </div>
+                
+                <button class="restart-button" onclick="goToAssessment()">Refazer Avaliação</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Detailed profile descriptions
+        const profileDescriptions = {
+            'Águia': {
+                icon: '&#129413;',
+                summary: 'Inovadora, visionária e criativa. A Águia pensa no futuro, busca fazer diferente e é movida pela liberdade. Tem dificuldade com o presente e detalhes, mas é excelente em pensar estrategicamente e provocar mudanças. Gosta de ambientes livres e desafiadores.',
+                details: `<p>A Águia representa o perfil criativo e visionário. Pessoas com este perfil predominante são inovadoras, pensam "fora da caixa" e estão sempre buscando novas possibilidades e horizontes. São movidas pela liberdade e pela necessidade de criar e transformar.</p>
+                <p>Águias são excelentes em visualizar o futuro e criar estratégias de longo prazo. Têm facilidade para identificar tendências e antecipar mudanças no ambiente. São pessoas que inspiram os outros com suas ideias e visão.</p>
+                
+                <div class="profile-characteristics">
+                    <h4>Características principais:</h4>
+                    <ul>
+                        <li>Criatividade e inovação</li>
+                        <li>Pensamento estratégico e visão de futuro</li>
+                        <li>Capacidade de inspirar e motivar</li>
+                        <li>Adaptabilidade e flexibilidade</li>
+                        <li>Busca por liberdade e autonomia</li>
+                    </ul>
+                    
+                    <h4>Pontos fortes:</h4>
+                    <ul>
+                        <li>Capacidade de visualizar possibilidades que outros não veem</li>
+                        <li>Habilidade para criar soluções inovadoras</li>
+                        <li>Facilidade para se adaptar a mudanças</li>
+                        <li>Pensamento não-linear e criativo</li>
+                        <li>Entusiasmo contagiante</li>
+                    </ul>
+                    
+                    <h4>Áreas de desenvolvimento:</h4>
+                    <ul>
+                        <li>Pode ter dificuldade com detalhes e tarefas rotineiras</li>
+                        <li>Às vezes pode parecer desconectada da realidade presente</li>
+                        <li>Pode iniciar muitos projetos sem concluí-los</li>
+                        <li>Pode resistir a estruturas e regras rígidas</li>
+                        <li>Pode ter dificuldade em focar em uma única tarefa</li>
+                    </ul>
+                </div>`
+            },
+            'Gato': {
+                icon: '&#128008;',
+                summary: 'Comunicativo, harmonioso e focado em relacionamentos. Valoriza o trabalho em equipe e a colaboração. Busca a felicidade e a igualdade nas relações. Seu ponto forte é a capacidade de criar conexões e manter a harmonia no ambiente.',
+                details: `<p>O Gato representa o perfil social e comunicativo. Pessoas com este perfil predominante são harmoniosas, empáticas e focadas em relacionamentos interpessoais. São movidas pela necessidade de conexão e pelo desejo de criar ambientes colaborativos e positivos.</p>
+                <p>Gatos são excelentes em construir pontes entre pessoas e ideias. Têm facilidade para entender as necessidades dos outros e criar ambientes onde todos se sintam valorizados. São pessoas que trazem calor humano e espírito de equipe para qualquer grupo.</p>
+                
+                <div class="profile-characteristics">
+                    <h4>Características principais:</h4>
+                    <ul>
+                        <li>Empatia e sensibilidade</li>
+                        <li>Habilidades de comunicação e escuta ativa</li>
+                        <li>Capacidade de construir relacionamentos</li>
+                        <li>Espírito de equipe e colaboração</li>
+                        <li>Busca por harmonia e bem-estar coletivo</li>
+                    </ul>
+                    
+                    <h4>Pontos fortes:</h4>
+                    <ul>
+                        <li>Habilidade para entender e conectar-se com as pessoas</li>
+                        <li>Capacidade de mediar conflitos</li>
+                        <li>Facilidade para trabalhar em equipe</li>
+                        <li>Comunicação clara e acolhedora</li>
+                        <li>Criação de ambientes positivos e motivadores</li>
+                    </ul>
+                    
+                    <h4>Áreas de desenvolvimento:</h4>
+                    <ul>
+                        <li>Pode evitar conflitos necessários para manter a harmonia</li>
+                        <li>Às vezes pode colocar as necessidades dos outros acima das próprias</li>
+                        <li>Pode ter dificuldade em tomar decisões impopulares</li>
+                        <li>Pode ser muito sensível a críticas</li>
+                        <li>Pode ter dificuldade com tarefas que exigem distanciamento emocional</li>
+                    </ul>
+                </div>`
+            },
+            'Lobo': {
+                icon: '&#128058;',
+                summary: 'Organizado, detalhista e estrategista. Valoriza a ordem, controle e planejamento. Prefere seguir regras e procedimentos estabelecidos. Seu ponto forte é a consistência, conformidade e qualidade em tudo o que faz.',
+                details: `<p>O Lobo representa o perfil analítico e organizado. Pessoas com este perfil predominante são metódicas, detalhistas e focadas em processos e estruturas. São movidas pela necessidade de ordem, controle e previsibilidade.</p>
+                <p>Lobos são excelentes em criar sistemas eficientes e garantir que tudo funcione conforme o planejado. Têm facilidade para identificar falhas e implementar melhorias em processos. São pessoas que trazem consistência, qualidade e confiabilidade para qualquer projeto.</p>
+                
+                <div class="profile-characteristics">
+                    <h4>Características principais:</h4>
+                    <ul>
+                        <li>Organização e metodologia</li>
+                        <li>Atenção aos detalhes e precisão</li>
+                        <li>Pensamento lógico e analítico</li>
+                        <li>Disciplina e consistência</li>
+                        <li>Busca por qualidade e excelência</li>
+                    </ul>
+                    
+                    <h4>Pontos fortes:</h4>
+                    <ul>
+                        <li>Capacidade de criar e seguir processos eficientes</li>
+                        <li>Habilidade para identificar falhas e riscos</li>
+                        <li>Facilidade para organizar informações complexas</li>
+                        <li>Confiabilidade e comprometimento</li>
+                        <li>Foco na qualidade e nos resultados consistentes</li>
+                    </ul>
+                    
+                    <h4>Áreas de desenvolvimento:</h4>
+                    <ul>
+                        <li>Pode ser resistente a mudanças e inovações</li>
+                        <li>Às vezes pode ser muito crítico ou perfeccionista</li>
+                        <li>Pode ter dificuldade com ambiguidades e incertezas</li>
+                        <li>Pode se prender demais a regras e procedimentos</li>
+                        <li>Pode ter dificuldade em lidar com situações que exigem flexibilidade</li>
+                    </ul>
+                </div>`
+            },
+            'Tubarão': {
+                icon: '&#128011;',
+                summary: 'Dinâmico, prático e focado em resultados. Age com rapidez e determinação. Tem senso de urgência e gosta de desafios. Seu ponto forte é fazer as coisas acontecerem e obter resultados rápidos.',
+                details: `<p>O Tubarão representa o perfil executivo e orientado a resultados. Pessoas com este perfil predominante são dinâmicas, práticas e focadas em ação. São movidas pela necessidade de conquista, desafios e resultados tangíveis.</p>
+                <p>Tubarões são excelentes em tomar decisões rápidas e fazer as coisas acontecerem. Têm facilidade para identificar oportunidades e agir com determinação. São pessoas que trazem energia, foco e senso de urgência para qualquer situação.</p>
+                
+                <div class="profile-characteristics">
+                    <h4>Características principais:</h4>
+                    <ul>
+                        <li>Orientação para resultados e ação</li>
+                        <li>Determinação e persistência</li>
+                        <li>Capacidade de decisão e pragmatismo</li>
+                        <li>Competitividade e ambição</li>
+                        <li>Busca por desafios e conquistas</li>
+                    </ul>
+                    
+                    <h4>Pontos fortes:</h4>
+                    <ul>
+                        <li>Capacidade de tomar decisões rápidas e eficazes</li>
+                        <li>Habilidade para identificar e aproveitar oportunidades</li>
+                        <li>Facilidade para lidar com pressão e desafios</li>
+                        <li>Foco em resultados e eficiência</li>
+                        <li>Liderança direta e objetiva</li>
+                    </ul>
+                    
+                    <h4>Áreas de desenvolvimento:</h4>
+                    <ul>
+                        <li>Pode ser impaciente com processos mais lentos</li>
+                        <li>Às vezes pode parecer muito direto ou agressivo</li>
+                        <li>Pode ter dificuldade em considerar o impacto emocional de suas ações</li>
+                        <li>Pode focar demais no curto prazo</li>
+                        <li>Pode ter dificuldade em delegar ou confiar no trabalho dos outros</li>
+                    </ul>
+                </div>`
+            }
+        };
+
+        // Function to load and display results
+        function loadResults() {
+            // Get user info and results from localStorage
+            const userInfoData = localStorage.getItem('userInfo');
+            const resultsData = localStorage.getItem('profileResults');
+            
+            if (!resultsData || !userInfoData) {
+                document.getElementById('error-container').style.display = 'block';
+                document.getElementById('results-container').style.display = 'none';
+                return;
+            }
+            
+            const userInfo = JSON.parse(userInfoData);
+            const results = JSON.parse(resultsData);
+            
+            // Update congratulations heading with user's name
+            document.getElementById('congratulations-heading').textContent = `${userInfo.name}, parabéns!`;
+            
+            const percentI = results.percentages.I;
+            const percentC = results.percentages.C;
+            const percentO = results.percentages.O;
+            const percentA = results.percentages.A;
+            
+            // Update the progress bars with animation
+            setTimeout(() => {
+                document.getElementById('aguia-bar').style.width = `${percentI}%`;
+                document.getElementById('aguia-value').textContent = `${percentI}%`;
+                
+                document.getElementById('gato-bar').style.width = `${percentC}%`;
+                document.getElementById('gato-value').textContent = `${percentC}%`;
+                
+                document.getElementById('lobo-bar').style.width = `${percentO}%`;
+                document.getElementById('lobo-value').textContent = `${percentO}%`;
+                
+                document.getElementById('tubarao-bar').style.width = `${percentA}%`;
+                document.getElementById('tubarao-value').textContent = `${percentA}%`;
+            }, 500);
+            
+            // Determine dominant profile
+            const profiles = [
+                { name: 'Águia', percent: percentI },
+                { name: 'Gato', percent: percentC },
+                { name: 'Lobo', percent: percentO },
+                { name: 'Tubarão', percent: percentA }
+            ];
+            
+            // Sort by percentage (highest first)
+            profiles.sort((a, b) => b.percent - a.percent);
+            
+            // Display dominant profile
+            const dominantProfile = profiles[0].name;
+            document.getElementById('dominant-name').textContent = dominantProfile;
+            
+            // Display profile description
+            const profileDescription = profileDescriptions[dominantProfile];
+            document.getElementById('profile-description').innerHTML = profileDescription.details;
+        }
+        
+        // Function to go back to assessment
+        function goToAssessment() {
+            window.location.href = 'index.html';
+        }
+        
+        // Load results when page loads
+        window.onload = loadResults;
+    </script>
 </body>
 </html>
