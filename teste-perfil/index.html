@@ -1,127 +1,164 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Avaliação de Perfil Comportamental</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-purple-50 py-12 px-4">
-  <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-xl p-8">
+<body class="bg-purple-50 min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white rounded-2xl shadow-xl max-w-3xl w-full p-8">
     <div class="flex justify-between items-center mb-6">
       <div>
-        <h1 class="text-3xl font-bold text-purple-700">Avaliação de Perfil Comportamental</h1>
-        <p class="text-gray-500">Descubra qual é seu estilo predominante de atuação profissional respondendo nosso teste de 25 perguntas. Ao final, você receberá seu perfil com uma análise completa.</p>
+        <h1 class="text-2xl md:text-3xl font-bold text-purple-700">Avaliação de Perfil Comportamental</h1>
+        <p class="text-gray-600 text-sm md:text-base mt-2">Descubra qual é seu estilo predominante de atuação profissional respondendo nosso teste de 25 perguntas. Ao final, você receberá seu perfil com uma análise completa.</p>
       </div>
-      <img src="logo.png" alt="Logo" class="h-16 w-auto" />
+      <img src="logo.png" alt="Logo" class="h-10 md:h-16">
     </div>
 
-    <!-- Tela de dados pessoais -->
     <form id="quizForm" class="space-y-6">
-      <div id="bloco-inicial">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <input name="nome" type="text" placeholder="Nome completo" required class="border border-purple-200 rounded-md p-3">
-          <input name="email" type="email" placeholder="E-mail" required class="border border-purple-200 rounded-md p-3">
-          <input name="telefone" type="text" placeholder="Telefone" required class="border border-purple-200 rounded-md p-3">
-          <input name="empresa" type="text" placeholder="Empresa" required class="border border-purple-200 rounded-md p-3">
+      <!-- Tela inicial -->
+      <div id="tela-inicial">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input name="nome" type="text" placeholder="Nome completo" required class="border border-purple-300 rounded-md p-3">
+          <input name="email" type="email" placeholder="E-mail" required class="border border-purple-300 rounded-md p-3">
+          <input name="telefone" type="text" placeholder="Telefone" required class="border border-purple-300 rounded-md p-3">
+          <input name="empresa" type="text" placeholder="Empresa" required class="border border-purple-300 rounded-md p-3">
         </div>
-        <div class="text-right">
-          <button type="button" id="btnIniciar" class="bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-700 transition duration-200">
-            Iniciar Teste
-          </button>
+        <div class="text-right mt-6">
+          <button type="button" id="btnIniciar" class="bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-700 transition">Iniciar Avaliação</button>
         </div>
       </div>
 
-      <!-- Perguntas do teste -->
-      <div id="bloco-perguntas" class="hidden space-y-6 mt-8"></div>
+      <!-- Perguntas -->
+      <div id="bloco-perguntas" class="hidden space-y-6 mt-6"></div>
 
       <div id="navegacao" class="hidden flex justify-end mt-6">
-        <button type="button" id="btnContinuar" class="bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-700 transition duration-200">
-          Próximo
-        </button>
-        <button type="submit" id="btnFinalizar" class="hidden bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-700 transition duration-200 ml-4">
-          Ver meu Perfil
-        </button>
+        <button type="button" id="btnContinuar" class="bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-700 transition">Próximo</button>
+        <button type="submit" id="btnFinalizar" class="hidden bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-700 transition ml-4">Ver meu Perfil</button>
       </div>
     </form>
   </div>
 
-<script>
-  const perguntas = [...Array(25).keys()].map((_, i) => `Pergunta ${i + 1}`);
-  const opcoes = Array.from({ length: 25 }, () => ["i", "c", "o", "a"]);
-  const textos = Array.from({ length: 100 }, (_, i) => `Alternativa ${i + 1}`);
+  <script>
+    const perguntas = [
+      "Eu sou...", "Eu gosto de...", "Se você quiser se dar bem comigo...", "Para conseguir obter bons resultados é preciso...",
+      "Eu me divirto quando...", "Eu penso que...", "Minha preocupação é...", "Eu prefiro...",
+      "Eu gosto de...", "Eu gosto de chegar...", "Um ótimo dia para mim é quando...", "Eu vejo a morte como...",
+      "Minha filosofia de vida é...", "Eu sempre gostei de...", "Eu gosto de mudanças se...", "Não existe nada de errado em...",
+      "Eu gosto de buscar conselhos de...", "Meu lema é...", "Eu gosto de...", "Tempo para mim é...",
+      "Se eu fosse bilionário...", "Eu acredito que...", "Eu acredito também que...", "Eu acredito ainda que...", "Eu penso que..."
+    ];
 
-  let paginaAtual = 0;
-  const bloco = document.getElementById("bloco-perguntas");
-  const btnIniciar = document.getElementById("btnIniciar");
-  const btnContinuar = document.getElementById("btnContinuar");
-  const btnFinalizar = document.getElementById("btnFinalizar");
-  const blocoInicial = document.getElementById("bloco-inicial");
-  const navegacao = document.getElementById("navegacao");
+    const opcoes = [
+      ["i", "c", "o", "a"], ["a", "c", "o", "i"], ["i", "o", "a", "c"], ["i", "o", "c", "a"],
+      ["a", "i", "c", "o"], ["c", "a", "i", "o"], ["i", "c", "o", "a"], ["i", "c", "o", "a"],
+      ["a", "i", "o", "c"], ["a", "c", "o", "i"], ["a", "c", "o", "i"], ["i", "c", "o", "a"],
+      ["a", "c", "o", "i"], ["i", "o", "a", "c"], ["a", "c", "i", "o"], ["a", "c", "i", "o"],
+      ["a", "c", "o", "i"], ["i", "c", "o", "a"], ["i", "c", "o", "a"], ["a", "c", "o", "i"],
+      ["c", "o", "i", "a"], ["a", "c", "o", "i"], ["a", "c", "o", "i"], ["o", "i", "a", "c"], ["i", "c", "o", "a"]
+    ];
 
-  btnIniciar.addEventListener("click", () => {
-    blocoInicial.classList.add("hidden");
-    bloco.classList.remove("hidden");
-    navegacao.classList.remove("hidden");
-    renderPerguntas(paginaAtual);
-  });
+    const textos = [
+      "Idealista, criativo e visionário", "Divertido, espiritual e benéfico", "Confiável, meticuloso e previsível", "Focado, determinado e persistente",
+      "Ser piloto", "Conversar com os passageiros", "Planejar a viagem", "Explorar novas rotas",
+      "Me dê liberdade", "Me deixe saber sua expectativa", "Lidere, siga ou saia do caminho", "Seja amigável, carinhoso e compreensivo",
+      "Ter incertezas", "Controlar o essencial", "Diversão e celebração", "Planejar e obter recursos",
+      "Estou me exercitando", "Tenho novidades", "Estou com os outros", "Determino as regras",
+      "Unidos venceremos, divididos perderemos", "O ataque é melhor que a defesa", "É bom ser manso, mas andar com um porrete", "Um homem prevenido vale por dois",
+      "Gerar a ideia global", "Fazer com que as pessoas gostem", "Fazer com que funcione", "Fazer com que aconteça",
+      "Perguntas a respostas", "Que todos tenham a chance de serem ouvidos", "Ter todos os detalhes", "Vantagens a meu favor",
+      "Fazer progresso", "Construir memórias", "Fazer sentido", "Tornar as pessoas confortáveis",
+      "Na frente", "Junto", "Na hora", "Em outro lugar",
+      "Consigo fazer muitas coisas", "Me divirto com meus amigos", "Tudo segue conforme planejado", "Desfruto de coisas novas e estimulantes",
+      "Uma grande aventura misteriosa", "Oportunidade para rever os falecidos", "Um modo de receber recompensas", "Algo que sempre chega muito cedo",
+      "Há ganhadores e perdedores, e eu acredito ser um ganhador", "Para eu ganhar, ninguém precisa perder", "Para ganhar, é preciso seguir as regras", "Para ganhar, é necessário inventar novas regras",
+      "Explorar", "Evitar surpresas", "Focalizar a meta", "Realizar uma abordagem natural",
+      "Me der uma vantagem competitiva", "For divertido e puder ser compartilhado", "Me der mais liberdade e variedade", "Melhorar ou me der mais controle",
+      "Se colocar na frente", "Colocar os outros na frente", "Mudar de ideia", "Ser consistente",
+      "Pessoas bem-sucedidas", "Anciões e conselheiros", "Autoridades no assunto", "Lugares, os mais estranhos",
+      "Fazer o que precisa ser feito", "Fazer junto com o grupo", "Fazer bem feito", "Simplesmente fazer",
+      "Complexidade, mesmo se confuso", "Calor humano e animação", "Ordem e sistematização", "Coisas claras e simples",
+      "Algo que detesto desperdiçar", "Um grande ciclo", "Uma flecha que leva ao inevitável", "Irrelevante",
+      "Faria doações para muitas entidades", "Criaria uma poupança avantajada", "Faria o que desse na cabeça", "Me exibiria bastante para algumas pessoas",
+      "O destino é mais importante que a jornada", "A jornada é mais importante que o destino", "Um centavo economizado é um centavo ganho", "Bastam um navio e uma estrela para navegar",
+      "Aquele que hesita está perdido", "O que vai, volta", "De grão em grão a galinha enche o papo", "Um sorriso ou uma careta é o mesmo para quem é cego",
+      "É melhor prudência que arrependimento", "A autoridade deve ser desafiada", "Ganhar é fundamental", "O coletivo é mais importante do que o individual",
+      "Não é fácil ficar encurralado", "Duas cabeças pensam melhor do que uma", "É preferível olhar, antes de pular", "Se você não tem condições de competir, não compita"
+    ];
 
-  function renderPerguntas(pagina) {
-    bloco.innerHTML = "";
-    const inicio = pagina * 5;
-    const fim = Math.min(inicio + 5, perguntas.length);
+    let paginaAtual = 0;
+    const bloco = document.getElementById("bloco-perguntas");
+    const btnIniciar = document.getElementById("btnIniciar");
+    const btnContinuar = document.getElementById("btnContinuar");
+    const btnFinalizar = document.getElementById("btnFinalizar");
+    const telaInicial = document.getElementById("tela-inicial");
+    const navegacao = document.getElementById("navegacao");
 
-    const grid = document.createElement("div");
-    grid.className = "grid grid-cols-1 md:grid-cols-2 gap-6";
+    btnIniciar.addEventListener("click", () => {
+      if (document.querySelector("input[name='nome']").value.trim() === "") return alert("Preencha seu nome.");
+      telaInicial.classList.add("hidden");
+      bloco.classList.remove("hidden");
+      navegacao.classList.remove("hidden");
+      renderPerguntas(paginaAtual);
+    });
 
-    for (let i = inicio; i < fim; i++) {
-      const wrapper = document.createElement("div");
-      let html = `<p class='text-purple-600 font-semibold mb-2'>${i + 1}. ${perguntas[i]}</p>`;
-      for (let j = 0; j < 4; j++) {
-        const value = opcoes[i][j];
-        html += `<label class='block mb-1'><input type='radio' name='q${i + 1}' value='${value}' required> ${textos[i * 4 + j]}</label>`;
+    function renderPerguntas(pagina) {
+      bloco.innerHTML = "";
+      const inicio = pagina * 5;
+      const fim = Math.min(inicio + 5, perguntas.length);
+      for (let i = inicio; i < fim; i++) {
+        const perguntaEl = document.createElement("div");
+        perguntaEl.className = "bg-gray-50 p-4 rounded-md border border-purple-100";
+        perguntaEl.innerHTML = `<p class='font-semibold text-purple-700 mb-2'>${i + 1}. ${perguntas[i]}</p>`;
+        for (let j = 0; j < 4; j++) {
+          const value = opcoes[i][j];
+          perguntaEl.innerHTML += `<label class='block text-sm mb-1'><input type='radio' name='q${i + 1}' value='${value}' required> ${textos[i * 4 + j]}</label>`;
+        }
+        bloco.appendChild(perguntaEl);
       }
-      wrapper.innerHTML = html;
-      grid.appendChild(wrapper);
     }
-    bloco.appendChild(grid);
-  }
 
-  btnContinuar.addEventListener("click", () => {
-    paginaAtual++;
-    renderPerguntas(paginaAtual);
-    if ((paginaAtual + 1) * 5 >= perguntas.length) {
-      btnContinuar.classList.add("hidden");
-      btnFinalizar.classList.remove("hidden");
-    }
-  });
+    btnContinuar.addEventListener("click", () => {
+      const inputs = document.querySelectorAll(`#bloco-perguntas input[type='radio']`);
+      const respostasPreenchidas = Array.from(inputs).filter(input => input.checked);
+      const totalPerguntas = Math.min((paginaAtual + 1) * 5, 25);
+      if (respostasPreenchidas.length < totalPerguntas) {
+        alert("Responda todas as perguntas antes de continuar.");
+        return;
+      }
+      paginaAtual++;
+      renderPerguntas(paginaAtual);
+      if ((paginaAtual + 1) * 5 >= perguntas.length) {
+        btnContinuar.classList.add("hidden");
+        btnFinalizar.classList.remove("hidden");
+      }
+    });
 
-  const form = document.getElementById('quizForm');
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const respostas = new FormData(form);
-    const contagem = { i: 0, c: 0, o: 0, a: 0 };
-    for (let [key, value] of respostas.entries()) {
-      if (contagem[value] !== undefined) contagem[value]++;
-    }
-    const percentuais = {};
-    for (let perfil in contagem) {
-      percentuais[perfil] = contagem[perfil] * 4;
-    }
-    const perfilDominante = Object.keys(contagem).reduce((a, b) => contagem[a] > contagem[b] ? a : b);
-
-    const nome = respostas.get('nome');
-    const query = new URLSearchParams({
-      perfil: perfilDominante,
-      i: percentuais.i,
-      c: percentuais.c,
-      o: percentuais.o,
-      a: percentuais.a,
-      nome: nome
-    }).toString();
-
-    window.location.href = "resultado.html?" + query;
-  });
-</script>
+    const form = document.getElementById('quizForm');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const respostas = new FormData(form);
+      const contagem = { i: 0, c: 0, o: 0, a: 0 };
+      for (let [key, value] of respostas.entries()) {
+        if (contagem[value] !== undefined) contagem[value]++;
+      }
+      const percentuais = {};
+      for (let perfil in contagem) {
+        percentuais[perfil] = contagem[perfil] * 4;
+      }
+      const perfilDominante = Object.keys(contagem).reduce((a, b) => contagem[a] > contagem[b] ? a : b);
+      const nome = respostas.get("nome");
+      const query = new URLSearchParams({
+        perfil: perfilDominante,
+        i: percentuais.i,
+        c: percentuais.c,
+        o: percentuais.o,
+        a: percentuais.a,
+        nome: nome
+      }).toString();
+      window.location.href = "resultado.html?" + query;
+    });
+  </script>
 </body>
 </html>
