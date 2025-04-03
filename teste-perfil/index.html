@@ -67,12 +67,8 @@
             flex-wrap: nowrap;
             overflow-x: auto;
             padding-bottom: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .profiles-container {
-                flex-wrap: wrap;
-            }
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
         }
 
         .profile-card {
@@ -84,6 +80,7 @@
             text-align: center;
             border: 1px solid #e9d8fd;
             transition: transform 0.3s, box-shadow 0.3s;
+            scroll-snap-align: center;
         }
 
         .profile-card:hover {
@@ -122,6 +119,27 @@
 
         .start-button:hover {
             background-color: #553c9a;
+        }
+
+        /* Carousel indicators */
+        .carousel-indicators {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #e9d8fd;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .indicator.active {
+            background-color: #6b46c1;
         }
 
         /* Registration form */
@@ -324,6 +342,101 @@
         .pagination-info span {
             margin: 0 5px;
         }
+
+        /* Mobile optimizations */
+        @media (max-width: 767px) {
+            .container {
+                padding: 15px;
+            }
+
+            .logo {
+                max-width: 150px;
+            }
+
+            .presentation {
+                padding: 25px 20px;
+            }
+
+            .presentation h1 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .presentation p {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+
+            .profiles-container {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 15px;
+                margin: 25px 0;
+                padding-bottom: 5px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .profile-card {
+                min-width: 85%;
+                flex: 0 0 85%;
+                padding: 15px;
+                scroll-snap-align: center;
+            }
+
+            .carousel-indicators {
+                display: block;
+            }
+
+            .profile-icon {
+                font-size: 36px;
+                margin-bottom: 10px;
+            }
+
+            .profile-card h3 {
+                font-size: 18px;
+            }
+
+            .profile-card p {
+                font-size: 13px;
+            }
+
+            .start-button {
+                padding: 12px 25px;
+                font-size: 16px;
+                margin-top: 20px;
+            }
+
+            .registration-form, .assessment-form {
+                padding: 25px 20px;
+            }
+
+            .registration-form h2, .assessment-form h2 {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .question h3 {
+                font-size: 16px;
+            }
+
+            .option {
+                padding: 8px;
+            }
+
+            .option label {
+                font-size: 14px;
+            }
+
+            .pagination-button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .pagination-info {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -338,7 +451,7 @@
             <h1>Avaliação de Perfil Comportamental</h1>
             <p>Descubra seu perfil comportamental predominante e entenda melhor suas características, pontos fortes e áreas de desenvolvimento.</p>
             
-            <div class="profiles-container">
+            <div class="profiles-container" id="profiles-container">
                 <div class="profile-card">
                     <div class="profile-icon">&#129413;</div>
                     <h3>Águia</h3>
@@ -362,6 +475,14 @@
                     <h3>Tubarão</h3>
                     <p>Dinâmico, prático e focado em resultados. Age com rapidez e determinação.</p>
                 </div>
+            </div>
+            
+            <!-- Carousel indicators for mobile -->
+            <div class="carousel-indicators" id="carousel-indicators">
+                <span class="indicator active" data-index="0"></span>
+                <span class="indicator" data-index="1"></span>
+                <span class="indicator" data-index="2"></span>
+                <span class="indicator" data-index="3"></span>
             </div>
             
             <p>Este teste contém 25 questões e leva aproximadamente 10 minutos para ser concluído. Escolha a alternativa que melhor representa como você se sente ou age na maioria das situações.</p>
@@ -1412,6 +1533,54 @@
             
             localStorage.setItem('profileResults', JSON.stringify(results));
         }
+
+        // Mobile carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Only initialize carousel for mobile
+            if (window.innerWidth <= 767) {
+                const container = document.getElementById('profiles-container');
+                
+                const indicators = document.getElementById('carousel-indicators').querySelectorAll('.indicator');
+                const cards = container.querySelectorAll('.profile-card');
+                
+                // Set up indicators
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        // Calculate scroll position
+                        const card = cards[index];
+                        const scrollLeft = card.offsetLeft - (container.clientWidth - card.clientWidth) / 2;
+                        
+                        // Smooth scroll to the card
+                        container.scrollTo({
+                            left: scrollLeft,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active indicator
+                        indicators.forEach(ind => ind.classList.remove('active'));
+                        indicator.classList.add('active');
+                    });
+                });
+                
+                // Update indicators on scroll
+                container.addEventListener('scroll', () => {
+                    const scrollPosition = container.scrollLeft;
+                    const containerWidth = container.clientWidth;
+                    
+                    cards.forEach((card, index) => {
+                        const cardLeft = card.offsetLeft;
+                        const cardWidth = card.clientWidth;
+                        
+                        // Check if card is in view
+                        if (scrollPosition >= cardLeft - containerWidth / 2 && 
+                            scrollPosition < cardLeft + cardWidth - containerWidth / 2) {
+                            indicators.forEach(ind => ind.classList.remove('active'));
+                            indicators[index].classList.add('active');
+                        }
+                    });
+                });
+            }
+        });
     </script>
 </body>
 </html>
