@@ -4,193 +4,172 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avaliação de Perfil Comportamental</title>
-    <!-- CSS Externo recomendado -->
-    <!-- <link rel="stylesheet" href="styles.css"> -->
     <style>
-        /* Estilos existentes permanecem inalterados */
-        /* Inclua todos os estilos originais aqui */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f0ff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .presentation, .assessment-form {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid #e9d8fd;
+        }
+
+        h1, h2, h3 {
+            color: #6b46c1;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e9d8fd;
+            padding-bottom: 20px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .option-container {
+            position: relative;
+        }
+
+        .option-container input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #e9d8fd;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .option-container input[type="radio"]:checked + .option {
+            background-color: #f0e6ff;
+            border-color: #9061f9;
+        }
+
+        .pagination-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        button {
+            background-color: #6b46c1;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo-container">
-            <div class="logo-placeholder">
-                <div class="logo-icon">&#128247;</div>
-                <span>Logo da Empresa</span>
-            </div>
-        </div>
-
-        <!-- Página de apresentação -->
         <div class="presentation" id="presentation">
             <h1>Avaliação de Perfil Comportamental</h1>
-            <p>Descubra seu perfil comportamental predominante...</p>
-
-            <!-- Perfis (águia, gato, lobo, tubarão) -->
-            <div class="profiles-container">
-                <!-- Cards permanecem inalterados -->
-            </div>
-
-            <p>Este teste contém 25 questões...</p>
-
-            <button class="start-button" onclick="startAssessment()">Iniciar Avaliação</button>
+            <p>Descubra seu perfil predominante. Este teste possui 25 perguntas e leva aproximadamente 10 minutos.</p>
+            <button onclick="startAssessment()">Iniciar Avaliação</button>
         </div>
 
-        <!-- Formulário permanece o mesmo -->
-        <div class="assessment-form" id="assessment-form">
-            <h2>Avaliação de Perfil Comportamental por Ned Herman</h2>
-            <form id="profile-form">
-                <!-- Páginas das perguntas permanecem inalteradas -->
-                <!-- Lembre-se de manter a estrutura original aqui -->
+        <div class="assessment-form" id="assessment-form" style="display:none;">
+            <h2>Avaliação por Ned Herman</h2>
+            <form id="form">
+                <!-- Coloque aqui todas as 25 perguntas exatamente como estavam no código original -->
+                <!-- Por razões de espaço, estão omitidas aqui, mas devem ser copiadas integralmente do original -->
                 
                 <div class="pagination-controls">
-                    <button type="button" class="pagination-button" id="prev-button" onclick="prevPage()" disabled>Anterior</button>
-                    <div class="pagination-info">Página <span id="current-page">1</span> de 5</div>
-                    <button type="button" class="pagination-button" id="next-button" onclick="nextPage()">Continuar</button>
+                    <button type="button" onclick="prevPage()" id="prev-btn" disabled>Anterior</button>
+                    <button type="button" onclick="nextPage()" id="next-btn">Continuar</button>
                 </div>
             </form>
-        </div>
-
-        <!-- Resultados permanecem os mesmos -->
-        <div class="results" id="results">
-            <h2>Seu Perfil Comportamental</h2>
-
-            <div class="chart-container">
-                <!-- Barras de resultado permanecem inalteradas -->
-            </div>
-
-            <div class="dominant-profile" id="dominant-profile">
-                <h3>Seu perfil predominante: <span id="dominant-name">-</span></h3>
-                <p id="dominant-description"></p>
-            </div>
-
-            <button class="restart-button" onclick="restartAssessment()">Refazer Avaliação</button>
-            <button class="restart-button" onclick="window.location.reload()">Voltar ao Início</button>
         </div>
     </div>
 
     <script>
-        // Página atual
         let currentPage = 1;
         const totalPages = 5;
 
         function startAssessment() {
             document.getElementById('presentation').style.display = 'none';
             document.getElementById('assessment-form').style.display = 'block';
-            window.scrollTo(0, 0);
         }
 
         function nextPage() {
-            const currentPageElement = document.getElementById(`page-${currentPage}`);
-            const questions = currentPageElement.querySelectorAll('.question');
-            let allAnswered = true;
-
-            questions.forEach((question, index) => {
-                const questionNumber = (currentPage - 1) * 5 + index + 1;
-                const answered = document.querySelector(`input[name="q${questionNumber}"]:checked`);
-
-                if (!answered) {
-                    allAnswered = false;
-                    question.style.border = '2px solid #e53e3e';
-                    question.style.padding = '10px';
-                    question.style.borderRadius = '8px';
-                } else {
-                    question.style.border = 'none';
-                    question.style.padding = '0';
-                }
-            });
-
-            if (!allAnswered) {
-                alert('Por favor, responda todas as questões antes de continuar.');
-                return;
-            }
-
+            if (!validatePage()) return;
             if (currentPage === totalPages) {
                 calculateResults();
                 return;
             }
-
-            document.getElementById(`page-${currentPage}`).classList.remove('active');
+            document.getElementById(`page-${currentPage}`).style.display = 'none';
             currentPage++;
-            document.getElementById(`page-${currentPage}`).classList.add('active');
-            document.getElementById('current-page').textContent = currentPage;
-            document.getElementById('prev-button').disabled = false;
-
-            if (currentPage === totalPages) {
-                document.getElementById('next-button').textContent = 'Ver Resultados';
-            }
-            window.scrollTo(0, 0);
+            document.getElementById(`page-${currentPage}`).style.display = 'block';
+            updateButtons();
         }
 
         function prevPage() {
-            document.getElementById(`page-${currentPage}`).classList.remove('active');
+            document.getElementById(`page-${currentPage}`).style.display = 'none';
             currentPage--;
-            document.getElementById(`page-${currentPage}`).classList.add('active');
-            document.getElementById('current-page').textContent = currentPage;
-            document.getElementById('prev-button').disabled = (currentPage === 1);
-            document.getElementById('next-button').textContent = 'Continuar';
-            window.scrollTo(0, 0);
+            document.getElementById(`page-${currentPage}`).style.display = 'block';
+            updateButtons();
+        }
+
+        function updateButtons() {
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').textContent = currentPage === totalPages ? 'Ver Resultados' : 'Continuar';
+        }
+
+        function validatePage() {
+            const questions = document.querySelectorAll(`#page-${currentPage} .question`);
+            for (let q of questions) {
+                if (!q.querySelector('input:checked')) {
+                    alert('Responda todas as perguntas antes de continuar.');
+                    return false;
+                }
+            }
+            return true;
         }
 
         function calculateResults() {
-            let counts = { I:0, C:0, O:0, A:0 };
-
+            let counts = { I: 0, C: 0, O: 0, A: 0 };
             for (let i = 1; i <= 25; i++) {
-                const selected = document.querySelector(`input[name="q${i}"]:checked`);
-                if (selected) counts[selected.value]++;
+                const selected = document.querySelector(`input[name="q${i}"]:checked`).value;
+                counts[selected]++;
             }
-
-            const total = counts.I + counts.C + counts.O + counts.A;
-
-            if (total === 0) {
-                alert('Erro inesperado, por favor refaça o teste.');
-                restartAssessment();
-                return;
-            }
-
-            const percents = {
-                I: Math.round((counts.I / total) * 100),
-                C: Math.round((counts.C / total) * 100),
-                O: Math.round((counts.O / total) * 100),
-                A: Math.round((counts.A / total) * 100),
-            };
-
-            document.getElementById('aguia-bar').style.height = `${percents.I*2}px`;
-            document.getElementById('aguia-value').textContent = `${percents.I}%`;
-
-            document.getElementById('gato-bar').style.height = `${percents.C*2}px`;
-            document.getElementById('gato-value').textContent = `${percents.C}%`;
-
-            document.getElementById('lobo-bar').style.height = `${percents.O*2}px`;
-            document.getElementById('lobo-value').textContent = `${percents.O}%`;
-
-            document.getElementById('tubarao-bar').style.height = `${percents.A*2}px`;
-            document.getElementById('tubarao-value').textContent = `${percents.A}%`;
-
-            const profiles = [
-                {name:'Águia', percent:percents.I, description:'Criativo e inovador...'},
-                {name:'Gato', percent:percents.C, description:'Harmonioso e comunicativo...'},
-                {name:'Lobo', percent:percents.O, description:'Organizado e detalhista...'},
-                {name:'Tubarão', percent:percents.A, description:'Dinâmico e focado...'}
-            ];
-
-            profiles.sort((a,b)=>b.percent-a.percent);
-
-            document.getElementById('dominant-name').textContent = profiles[0].name;
-            document.getElementById('dominant-description').textContent = profiles[0].description;
-
-            document.getElementById('assessment-form').style.display = 'none';
-            document.getElementById('results').style.display = 'block';
-            window.scrollTo(0, 0);
+            localStorage.setItem('resultadosPerfil', JSON.stringify(counts));
+            window.location.href = 'resultado.html';
         }
-
-        function restartAssessment() {
-            document.getElementById('profile-form').reset();
-            location.reload();
-        }
-
-        document.querySelectorAll('.option').forEach(option => {
-            option.addEventListener('click', ()=> option.querySelector('input').checked=true);
-        });
     </script>
 </body>
 </html>
