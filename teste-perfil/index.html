@@ -12,25 +12,24 @@
 </head>
 <body class="bg-gray-50 py-10">
   <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-xl px-6 py-8">
-    <h1 class="text-3xl font-bold text-center text-purple-600 mb-2">Avaliação de Perfil Comportamental</h1>
-    <p class="text-gray-600 text-center mb-6">Responda com atenção para descobrir seu perfil.</p>
-
-    <form id="quizForm">
-      <div id="form-inicial" class="space-y-4">
-        <input type="text" name="nome" placeholder="Nome" required class="w-full border rounded-md p-3 border-gray-300">
-        <input type="email" name="email" placeholder="E-mail" required class="w-full border rounded-md p-3 border-gray-300">
-        <input type="tel" name="telefone" placeholder="Telefone" required class="w-full border rounded-md p-3 border-gray-300">
-        <input type="text" name="empresa" placeholder="Empresa" required class="w-full border rounded-md p-3 border-gray-300">
+    <div id="intro">
+      <h1 class="text-3xl font-bold text-center text-purple-600 mb-2">Avaliação de Perfil Comportamental</h1>
+      <p class="text-gray-600 text-center mb-6">Descubra seu perfil predominante através de 25 perguntas simples. Ao finalizar, receba uma análise completa sobre seu estilo comportamental.</p>
+      <div class="space-y-4">
+        <input type="text" name="nome" id="nome" placeholder="Nome" required class="w-full border rounded-md p-3 border-gray-300">
+        <input type="email" name="email" id="email" placeholder="E-mail" required class="w-full border rounded-md p-3 border-gray-300">
+        <input type="tel" name="telefone" id="telefone" placeholder="Telefone" required class="w-full border rounded-md p-3 border-gray-300">
+        <input type="text" name="empresa" id="empresa" placeholder="Empresa" required class="w-full border rounded-md p-3 border-gray-300">
         <button type="button" id="btn-start" class="mt-4 w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition">Começar</button>
       </div>
+    </div>
 
-      <div id="quiz-container" class="hidden">
-        <div id="questions-container" class="space-y-6"></div>
-        <div class="flex justify-between mt-6">
-          <button type="button" id="prev-btn" class="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hidden">Anterior</button>
-          <button type="button" id="next-btn" class="ml-auto bg-purple-600 text-white py-2 px-4 rounded-md">Próximo</button>
-          <button type="submit" id="submit-btn" class="ml-auto bg-green-600 text-white py-2 px-4 rounded-md hidden">Finalizar</button>
-        </div>
+    <form id="quizForm" class="hidden">
+      <div id="questions-container" class="space-y-6"></div>
+      <div class="flex justify-between mt-6">
+        <button type="button" id="prev-btn" class="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hidden">Anterior</button>
+        <button type="button" id="next-btn" class="ml-auto bg-purple-600 text-white py-2 px-4 rounded-md">Próximo</button>
+        <button type="submit" id="submit-btn" class="ml-auto bg-green-600 text-white py-2 px-4 rounded-md hidden">Finalizar</button>
       </div>
     </form>
   </div>
@@ -41,22 +40,27 @@
       "Minha filosofia é...", "Sempre gostei de...", "Mudanças são boas se...", "Nada de errado em...", "Busco conselhos de...", "Meu lema é...", "Eu gosto de...",
       "Tempo é...", "Se bilionário...", "Eu acredito que...", "Acredito também...", "Ainda acredito que...", "Eu penso que..."];
 
-    const opcoes = ["I", "C", "O", "A"];
-    const perfilMap = { I: 'i', C: 'c', O: 'o', A: 'a' };
+    const opcoes = [["i","c","o","a"], ["a","c","o","i"], ["i","o","a","c"], ["i","o","c","a"], ["a","i","c","o"],
+      ["c","a","i","o"], ["i","c","o","a"], ["i","c","o","a"], ["a","i","o","c"], ["a","c","o","i"], ["a","c","o","i"],
+      ["i","c","o","a"], ["a","c","o","i"], ["i","o","a","c"], ["a","c","i","o"], ["a","c","i","o"], ["a","c","o","i"],
+      ["i","c","o","a"], ["i","c","o","a"], ["a","c","o","i"], ["c","o","i","a"], ["a","c","o","i"], ["a","c","o","i"],
+      ["o","i","a","c"], ["i","c","o","a"]];
 
     let currentPage = 0;
-
-    const btnStart = document.getElementById("btn-start");
-    const formInicial = document.getElementById("form-inicial");
-    const quizContainer = document.getElementById("quiz-container");
+    const intro = document.getElementById("intro");
+    const quizForm = document.getElementById("quizForm");
     const questionsContainer = document.getElementById("questions-container");
+    const btnStart = document.getElementById("btn-start");
     const prevBtn = document.getElementById("prev-btn");
     const nextBtn = document.getElementById("next-btn");
     const submitBtn = document.getElementById("submit-btn");
 
     btnStart.onclick = () => {
-      formInicial.classList.add("hidden");
-      quizContainer.classList.remove("hidden");
+      if (!["nome", "email", "telefone", "empresa"].every(id => document.getElementById(id).value.trim() !== "")) {
+        return alert("Preencha todos os campos!");
+      }
+      intro.classList.add("hidden");
+      quizForm.classList.remove("hidden");
       renderQuestions();
     };
 
@@ -65,12 +69,12 @@
       const start = currentPage * 5;
       const end = start + 5;
 
-      perguntas.slice(start, end).forEach((pergunta, i) => {
+      perguntas.slice(start, end).forEach((pergunta, idx) => {
         const card = document.createElement("div");
         card.className = "question-card border border-gray-200 rounded-xl p-4";
-        card.innerHTML = `<h3 class="mb-2 font-semibold text-purple-600">${start + i + 1}. ${pergunta}</h3>`;
-        opcoes.forEach(op => {
-          card.innerHTML += `<label class="block"><input type="radio" name="q${start + i}" value="${perfilMap[op]}"> ${op}</label>`;
+        card.innerHTML = `<h3 class="mb-2 font-semibold text-purple-600">${start + idx + 1}. ${pergunta}</h3>`;
+        opcoes[start + idx].forEach(op => {
+          card.innerHTML += `<label class="block"><input type="radio" name="q${start + idx}" value="${op}"> ${op.toUpperCase()}</label>`;
         });
         questionsContainer.appendChild(card);
       });
@@ -80,42 +84,27 @@
       submitBtn.classList.toggle("hidden", end < perguntas.length);
     }
 
-    function checkAnswers() {
+    function validateAnswers() {
       let valid = true;
       document.querySelectorAll('.question-card').forEach(card => {
         card.classList.remove("error");
-        if (!card.querySelector('input[type="radio"]:checked')) {
-          card.classList.add("error");
-          valid = false;
-        }
+        if (!card.querySelector('input[type="radio"]:checked')) { card.classList.add("error"); valid = false; }
       });
       return valid;
     }
 
-    nextBtn.onclick = () => {
-      if (checkAnswers()) { currentPage++; renderQuestions(); }
-    };
-
+    nextBtn.onclick = () => { if (validateAnswers()) { currentPage++; renderQuestions(); }};
     prevBtn.onclick = () => { currentPage--; renderQuestions(); };
 
-    document.getElementById('quizForm').onsubmit = (e) => {
+    quizForm.onsubmit = (e) => {
       e.preventDefault();
-      if (!checkAnswers()) return;
-
+      if (!validateAnswers()) return;
       const data = new FormData(e.target);
-      const result = { i:0, c:0, o:0, a:0 };
-      for (let [key, value] of data.entries()) {
-        if (result[value] !== undefined) result[value]++;
-      }
-
-      const percentuais = {};
-      Object.keys(result).forEach(k => percentuais[k] = result[k] * 4);
-
-      const perfilDominante = Object.keys(result).reduce((a, b) => result[a] > result[b] ? a : b);
-
-      const nome = data.get("nome");
-      const query = new URLSearchParams({ perfil: perfilDominante, ...percentuais, nome }).toString();
-
+      const scores = { i:0, c:0, o:0, a:0 };
+      data.forEach(v => scores[v]++);
+      const nome = document.getElementById("nome").value;
+      const perfil = Object.keys(scores).reduce((a,b) => scores[a] > scores[b] ? a : b);
+      const query = new URLSearchParams({...scores, perfil, nome}).toString();
       window.location.href = "resultado.html?" + query;
     };
   </script>
