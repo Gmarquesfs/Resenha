@@ -142,4 +142,55 @@
             const total = counts.I + counts.C + counts.O + counts.A;
 
             if (total === 0) {
-                alert('Erro inesperado, por favor refa
+                alert('Erro inesperado, por favor refaça o teste.');
+                restartAssessment();
+                return;
+            }
+
+            const percents = {
+                I: Math.round((counts.I / total) * 100),
+                C: Math.round((counts.C / total) * 100),
+                O: Math.round((counts.O / total) * 100),
+                A: Math.round((counts.A / total) * 100),
+            };
+
+            document.getElementById('aguia-bar').style.height = `${percents.I*2}px`;
+            document.getElementById('aguia-value').textContent = `${percents.I}%`;
+
+            document.getElementById('gato-bar').style.height = `${percents.C*2}px`;
+            document.getElementById('gato-value').textContent = `${percents.C}%`;
+
+            document.getElementById('lobo-bar').style.height = `${percents.O*2}px`;
+            document.getElementById('lobo-value').textContent = `${percents.O}%`;
+
+            document.getElementById('tubarao-bar').style.height = `${percents.A*2}px`;
+            document.getElementById('tubarao-value').textContent = `${percents.A}%`;
+
+            const profiles = [
+                {name:'Águia', percent:percents.I, description:'Criativo e inovador...'},
+                {name:'Gato', percent:percents.C, description:'Harmonioso e comunicativo...'},
+                {name:'Lobo', percent:percents.O, description:'Organizado e detalhista...'},
+                {name:'Tubarão', percent:percents.A, description:'Dinâmico e focado...'}
+            ];
+
+            profiles.sort((a,b)=>b.percent-a.percent);
+
+            document.getElementById('dominant-name').textContent = profiles[0].name;
+            document.getElementById('dominant-description').textContent = profiles[0].description;
+
+            document.getElementById('assessment-form').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function restartAssessment() {
+            document.getElementById('profile-form').reset();
+            location.reload();
+        }
+
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', ()=> option.querySelector('input').checked=true);
+        });
+    </script>
+</body>
+</html>
