@@ -1,112 +1,43 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avaliação de Perfil Comportamental</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .question-card { transition: all 0.3s ease; }
-    .question-card.error { border-color: #ef4444; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação de Perfil Comportamental</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-50 py-10">
-  <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-xl px-6 py-8">
-    <div id="intro">
-      <h1 class="text-3xl font-bold text-center text-purple-600 mb-2">Avaliação de Perfil Comportamental</h1>
-      <p class="text-gray-600 text-center mb-6">Descubra seu perfil predominante através de 25 perguntas simples. Ao finalizar, receba uma análise completa sobre seu estilo comportamental.</p>
-      <div class="space-y-4">
-        <input type="text" name="nome" id="nome" placeholder="Nome" required class="w-full border rounded-md p-3 border-gray-300">
-        <input type="email" name="email" id="email" placeholder="E-mail" required class="w-full border rounded-md p-3 border-gray-300">
-        <input type="tel" name="telefone" id="telefone" placeholder="Telefone" required class="w-full border rounded-md p-3 border-gray-300">
-        <input type="text" name="empresa" id="empresa" placeholder="Empresa" required class="w-full border rounded-md p-3 border-gray-300">
-        <button type="button" id="btn-start" class="mt-4 w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition">Começar</button>
-      </div>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <div class="logo-placeholder">
+                <div class="logo-icon">📷</div>
+                <span>Logo da Empresa</span>
+            </div>
+        </div>
+        <div class="presentation" id="presentation">
+            <h1>Avaliação de Perfil Comportamental</h1>
+            <p>Descubra seu perfil predominante e entenda suas características.</p>
+            <button class="start-button" onclick="startAssessment()">Iniciar Avaliação</button>
+        </div>
+        <div class="assessment-form" id="assessment-form" style="display:none;">
+            <h2>Avaliação por Ned Herman</h2>
+            <form id="profile-form">
+                <!-- Inserir aqui suas perguntas já estruturadas -->
+                <div id="questions-container"></div>
+                <div class="pagination-controls">
+                    <button type="button" id="prev-button" onclick="prevPage()" disabled>Anterior</button>
+                    <div class="pagination-info">Página <span id="current-page">1</span> de 5</div>
+                    <button type="button" id="next-button" onclick="nextPage()">Continuar</button>
+                </div>
+            </form>
+        </div>
+        <div class="results" id="results" style="display:none;">
+            <h2>Seu Perfil Comportamental</h2>
+            <div class="dominant-profile" id="dominant-profile"></div>
+            <button onclick="restartAssessment()">Refazer Avaliação</button>
+            <button onclick="window.location.reload()">Voltar ao Início</button>
+        </div>
     </div>
-
-    <form id="quizForm" class="hidden">
-      <div id="questions-container" class="space-y-6"></div>
-      <div class="flex justify-between mt-6">
-        <button type="button" id="prev-btn" class="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hidden">Anterior</button>
-        <button type="button" id="next-btn" class="ml-auto bg-purple-600 text-white py-2 px-4 rounded-md">Próximo</button>
-        <button type="submit" id="submit-btn" class="ml-auto bg-green-600 text-white py-2 px-4 rounded-md hidden">Finalizar</button>
-      </div>
-    </form>
-  </div>
-
-  <script>
-    const perguntas = ["Eu sou...", "Eu gosto de...", "Se quiser se dar bem comigo...", "Para obter bons resultados é preciso...", "Eu me divirto quando...",
-      "Eu penso que...", "Minha preocupação é...", "Eu prefiro...", "Eu gosto de...", "Eu gosto de chegar...", "Um ótimo dia é quando...", "Vejo a morte como...",
-      "Minha filosofia é...", "Sempre gostei de...", "Mudanças são boas se...", "Nada de errado em...", "Busco conselhos de...", "Meu lema é...", "Eu gosto de...",
-      "Tempo é...", "Se bilionário...", "Eu acredito que...", "Acredito também...", "Ainda acredito que...", "Eu penso que..."];
-
-    const opcoes = [["i","c","o","a"], ["a","c","o","i"], ["i","o","a","c"], ["i","o","c","a"], ["a","i","c","o"],
-      ["c","a","i","o"], ["i","c","o","a"], ["i","c","o","a"], ["a","i","o","c"], ["a","c","o","i"], ["a","c","o","i"],
-      ["i","c","o","a"], ["a","c","o","i"], ["i","o","a","c"], ["a","c","i","o"], ["a","c","i","o"], ["a","c","o","i"],
-      ["i","c","o","a"], ["i","c","o","a"], ["a","c","o","i"], ["c","o","i","a"], ["a","c","o","i"], ["a","c","o","i"],
-      ["o","i","a","c"], ["i","c","o","a"]];
-
-    let currentPage = 0;
-    const intro = document.getElementById("intro");
-    const quizForm = document.getElementById("quizForm");
-    const questionsContainer = document.getElementById("questions-container");
-    const btnStart = document.getElementById("btn-start");
-    const prevBtn = document.getElementById("prev-btn");
-    const nextBtn = document.getElementById("next-btn");
-    const submitBtn = document.getElementById("submit-btn");
-
-    btnStart.onclick = () => {
-      if (!["nome", "email", "telefone", "empresa"].every(id => document.getElementById(id).value.trim() !== "")) {
-        return alert("Preencha todos os campos!");
-      }
-      intro.classList.add("hidden");
-      quizForm.classList.remove("hidden");
-      renderQuestions();
-    };
-
-    function renderQuestions() {
-      questionsContainer.innerHTML = "";
-      const start = currentPage * 5;
-      const end = start + 5;
-
-      perguntas.slice(start, end).forEach((pergunta, idx) => {
-        const card = document.createElement("div");
-        card.className = "question-card border border-gray-200 rounded-xl p-4";
-        card.innerHTML = `<h3 class="mb-2 font-semibold text-purple-600">${start + idx + 1}. ${pergunta}</h3>`;
-        opcoes[start + idx].forEach(op => {
-          card.innerHTML += `<label class="block"><input type="radio" name="q${start + idx}" value="${op}"> ${op.toUpperCase()}</label>`;
-        });
-        questionsContainer.appendChild(card);
-      });
-
-      prevBtn.classList.toggle("hidden", currentPage === 0);
-      nextBtn.classList.toggle("hidden", end >= perguntas.length);
-      submitBtn.classList.toggle("hidden", end < perguntas.length);
-    }
-
-    function validateAnswers() {
-      let valid = true;
-      document.querySelectorAll('.question-card').forEach(card => {
-        card.classList.remove("error");
-        if (!card.querySelector('input[type="radio"]:checked')) { card.classList.add("error"); valid = false; }
-      });
-      return valid;
-    }
-
-    nextBtn.onclick = () => { if (validateAnswers()) { currentPage++; renderQuestions(); }};
-    prevBtn.onclick = () => { currentPage--; renderQuestions(); };
-
-    quizForm.onsubmit = (e) => {
-      e.preventDefault();
-      if (!validateAnswers()) return;
-      const data = new FormData(e.target);
-      const scores = { i:0, c:0, o:0, a:0 };
-      data.forEach(v => scores[v]++);
-      const nome = document.getElementById("nome").value;
-      const perfil = Object.keys(scores).reduce((a,b) => scores[a] > scores[b] ? a : b);
-      const query = new URLSearchParams({...scores, perfil, nome}).toString();
-      window.location.href = "resultado.html?" + query;
-    };
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
