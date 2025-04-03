@@ -147,13 +147,15 @@
       percentuais[perfil] = contagem[perfil] * 4;
     }
     const perfilDominante = Object.keys(contagem).reduce((a, b) => contagem[a] > contagem[b] ? a : b);
+    const nome = respostas.get('nome');
     const query = new URLSearchParams({
       perfil: perfilDominante,
       i: percentuais.i,
       c: percentuais.c,
       o: percentuais.o,
-      a: percentuais.a
-    }).toString();
+      a: percentuais.a,
+      nome: nome
+}).toString();
     window.location.href = "resultado.html?" + query;
   });
 </script>
