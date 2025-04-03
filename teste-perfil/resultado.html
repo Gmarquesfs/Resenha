@@ -182,6 +182,32 @@
             color: #6b46c1;
         }
 
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .notification.success {
+            background-color: #48bb78;
+        }
+
+        .notification.error {
+            background-color: #e53e3e;
+        }
+
+        .notification.show {
+            opacity: 1;
+        }
+
         /* Mobile optimizations */
         @media (max-width: 767px) {
             .container {
@@ -340,6 +366,9 @@
         </div>
     </div>
 
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
     <script>
         // Detailed profile descriptions
         const profileDescriptions = {
@@ -485,6 +514,41 @@
             }
         };
 
+        // Função para mostrar notificação
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        // Função para enviar dados para o Google Sheets
+        function sendToGoogleSheets(data) {
+            // Substitua pela URL do seu script web app do Google Apps Script
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzP6ppkUUr5kFfvlnIlGwvLX-grorbAgnL_logQgVnH1d8uZGeeiibDuA9ktkDK14eM/exec';
+            
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(data).toString()
+            })
+            .then(() => {
+                showNotification('Dados salvos com sucesso!', 'success');
+                console.log('Dados enviados para o Google Sheets');
+            })
+            .catch(error => {
+                showNotification('Erro ao salvar os dados.', 'error');
+                console.error('Erro:', error);
+            });
+        }
+
         // Function to load and display results
         function loadResults() {
             // Get user info and results from localStorage
@@ -541,6 +605,27 @@
             // Display profile description
             const profileDescription = profileDescriptions[dominantProfile];
             document.getElementById('profile-description').innerHTML = profileDescription.details;
+
+            // Prepare data for Google Sheets
+            const dataToSend = {
+                'Nome': userInfo.name,
+                'Email': userInfo.email,
+                'Telefone': userInfo.phone,
+                'Empresa': userInfo.company,
+                'Perfil_Dominante': dominantProfile,
+                'Percentual_Aguia': percentI,
+                'Percentual_Gato': percentC,
+                'Percentual_Lobo': percentO,
+                'Percentual_Tubarao': percentA
+            };
+
+            // Add all answers to the data
+            for (const [question, answer] of Object.entries(results.answers)) {
+                dataToSend[`Resposta_${question}`] = answer;
+            }
+
+            // Send data to Google Sheets
+            sendToGoogleSheets(dataToSend);
         }
         
         // Function to go back to assessment
