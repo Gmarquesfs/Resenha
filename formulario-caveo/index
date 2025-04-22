@@ -1,1 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário Caveo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    :root {
+      --caveo-blue: #003890;
+      --caveo-green: #65DC7C;
+    }
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .header {
+      text-align: center;
+      padding: 25px 15px;
+      border-bottom: 1px solid #eee;
+      background-color: #f9f9f9;
+    }
+    .logo {
+      max-width: 180px;
+      margin: 0 auto 15px;
+      display: block;
+    }
+    .title {
+      color: var(--caveo-blue);
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+    .subtitle {
+      color: #666;
+      font-size: 16px;
+    }
+    .form-container {
+      padding: 20px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .section-title {
+      color: var(--caveo-blue);
+      font-size: 18px;
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid var(--caveo-blue);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .question {
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .grid {
+      display: grid;
+      gap: 15px;
+    }
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--caveo-blue);
+      box-shadow: 0 0 0 2px rgba(0, 56, 144, 0.2);
+    }
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 1em;
+      padding-right: 30px;
+    }
+    .checkbox-group, .radio-group {
+      margin-top: 8px;
+    }
+    .checkbox-item, .radio-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .checkbox-item input, .radio-item input {
+      margin-top: 5px;
+      margin-right: 10px;
+    }
+    .other-input {
+      margin-left: 25px;
+      margin-top: 5px;
+      width: calc(100% - 25px);
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: var(--caveo-blue);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #002d70;
+    }
+    .separator {
+      height: 1px;
+      background-color: #eee;
+      margin: 25px 0;
+    }
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .hidden {
+      display: none;
+    }
+    .show {
+      display: block;
+    }
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <!-- Logo SVG da Caveo -->
+      <svg class="logo" viewBox="0 0 291.3 98.7" xmlns="http://www.w3.org/2000/svg">
+        <style>.st0{fill:#003890;}.st1{fill:#65DC7C;}</style>
+        <g>
+          <path class="st0" d="M55,56.7c0.4,0,0.8,0.1,1.2,0.2c0.4,0.2,0.8,0.4,1.2,0.8l6.9,7.3c-3,4-6.8,7-11.4,9c-4.6,2-10,3-16.2,3c-5.7,0-10.9-1-15.4-2.9c-4.5-1.9-8.4-4.6-11.5-8.1c-3.2-3.4-5.6-7.5-7.3-12.2C0.8,49.2,0,44,0,38.5C0,32.9,1,27.7,2.9,23c1.9-4.7,4.6-8.8,8.1-12.2s7.6-6.1,12.5-8C28.3,0.9,33.6,0,39.4,0c2.8,0,5.5,0.3,8,0.8c2.5,0.5,4.8,1.2,7,2.1s4.2,1.9,6,3.2c1.8,1.2,3.5,2.6,4.9,4.1L59.4,18c-0.4,0.5-0.8,0.9-1.3,1.3c-0.5,0.4-1.2,0.6-2.2,0.6c-0.6,0-1.2-0.1-1.8-0.4c-0.6-0.3-1.1-0.6-1.8-1c-0.6-0.4-1.3-0.8-2-1.3c-0.7-0.5-1.6-0.9-2.6-1.3c-1-0.4-2.2-0.7-3.6-1c-1.4-0.3-3-0.4-4.8-0.4c-3.2,0-6.1,0.6-8.7,1.7c-2.6,1.1-4.9,2.7-6.8,4.8c-1.9,2.1-3.3,4.6-4.4,7.6c-1.1,3-1.6,6.3-1.6,10c0,3.9,0.5,7.3,1.6,10.3c1.1,3,2.5,5.5,4.3,7.6c1.8,2.1,3.9,3.6,6.3,4.7c2.4,1.1,5,1.6,7.8,1.6c1.6,0,3-0.1,4.3-0.2c1.3-0.2,2.5-0.4,3.6-0.8c1.1-0.4,2.2-0.9,3.2-1.5c1-0.6,2-1.4,3.1-2.3c0.4-0.3,0.9-0.6,1.3-0.9C54,56.9,54.5,56.7,55,56.7z M111.6,76.3c-1.5,0-2.7-0.2-3.4-0.6s-1.4-1.3-1.9-2.6l-1.1-3c-1.3,1.1-2.6,2.1-3.9,3c-1.2,0.9-2.5,1.6-3.9,2.2c-1.3,0.6-2.7,1.1-4.2,1.3c-1.5,0.3-3.2,0.4-5,0.4c-2.5,0-4.7-0.3-6.7-1c-2-0.6-3.7-1.6-5.1-2.8s-2.5-2.8-3.2-4.6c-0.8-1.9-1.1-4-1.1-6.4c0-1.9,0.5-3.9,1.4-5.9c1-2,2.6-3.8,5-5.5c2.4-1.6,5.6-3,9.6-4.1s9.1-1.7,15.3-1.7v-2.3c0-3.2-0.6-5.5-1.9-6.9c-1.3-1.4-3.1-2.1-5.5-2.1c-1.9,0-3.5,0.2-4.7,0.6c-1.2,0.4-2.3,0.9-3.2,1.4c-0.9,0.5-1.9,1-2.8,1.4c-0.9,0.4-2,0.6-3.2,0.6c-1.1,0-2-0.3-2.8-0.8c-0.8-0.5-1.4-1.2-1.8-2l-2.9-5c3.2-2.9,6.8-5,10.8-6.4c4-1.4,8.2-2.1,12.7-2.1c3.2,0,6.2,0.5,8.8,1.6c2.6,1.1,4.8,2.5,6.6,4.4c1.8,1.9,3.2,4.1,4.2,6.7c1,2.6,1.4,5.4,1.4,8.5v33.5H111.6z M93.2,66.5c2.1,0,3.9-0.4,5.4-1.1c1.6-0.7,3.1-1.9,4.7-3.5v-7.4c-3.2,0-5.8,0.2-7.9,0.6c-2.1,0.4-3.7,0.9-4.9,1.6c-1.2,0.6-2,1.3-2.5,2.1c-0.5,0.8-0.7,1.7-0.7,2.6c0,1.8,0.5,3.1,1.5,3.9C89.8,66.1,91.2,66.5,93.2,66.5z M156.7,76.3h-14.6l-20.8-53.7h13.4c1.1,0,2.1,0.3,2.9,0.8c0.8,0.5,1.3,1.2,1.6,2l7.5,24.1c0.6,2,1.1,3.9,1.7,5.7c0.5,1.9,1,3.7,1.4,5.6c0.4-1.9,0.8-3.7,1.4-5.6c0.6-1.9,1.1-3.8,1.8-5.7l7.8-24.1c0.3-0.8,0.8-1.5,1.6-2c0.8-0.5,1.7-0.8,2.7-0.8h12.7L156.7,76.3z M263.9,21.7c4.1,0,7.8,0.6,11.1,1.9c3.3,1.3,6.2,3.1,8.6,5.5c2.4,2.4,4.3,5.3,5.6,8.7c1.3,3.4,2,7.2,2,11.5c0,4.3-0.7,8.1-2,11.6c-1.3,3.4-3.2,6.4-5.6,8.7c-2.4,2.4-5.3,4.2-8.6,5.5c-3.3,1.3-7.1,1.9-11.1,1.9c-4.1,0-7.8-0.6-11.2-1.9c-3.4-1.3-6.3-3.1-8.7-5.5c-2.4-2.4-4.3-5.3-5.6-8.7c-1.3-3.4-2-7.3-2-11.6c0-4.2,0.7-8.1,2-11.5c1.3-3.4,3.2-6.3,5.6-8.7c2.4-2.4,5.3-4.2,8.7-5.5C256.1,22.4,259.8,21.7,263.9,21.7z M263.9,65.2c3.7,0,6.4-1.3,8.2-3.9c1.7-2.6,2.6-6.6,2.6-11.9c0-5.3-0.9-9.3-2.6-11.9c-1.7-2.6-4.5-3.9-8.2-3.9c-3.8,0-6.6,1.3-8.3,3.9c-1.8,2.6-2.6,6.5-2.6,11.9c0,5.3,0.9,9.3,2.6,11.9C257.3,63.9,260.1,65.2,263.9,65.2z"/>
+          <path class="st1" d="M208,21.7c3.6,0,6.8,0.6,9.8,1.7c3,1.1,5.5,2.7,7.6,4.8c2.1,2.1,3.8,4.7,5,7.7s1.8,6.5,1.8,10.4c0,1.2-0.1,2.2-0.2,3c-0.1,0.8-0.3,1.4-0.6,1.8c-0.3,0.4-0.6,0.8-1.1,0.9c-0.5,0.2-1.1,0.3-1.8,0.3h-31c0.5,4.5,1.9,7.7,4.1,9.8c2.2,2,5.1,3,8.5,3c1.9,0,3.5-0.2,4.8-0.7c1.3-0.4,2.5-0.9,3.6-1.5c1.1-0.6,2-1.1,2.9-1.5c0.9-0.4,1.8-0.7,2.8-0.7c1.3,0,2.2,0.5,2.9,1.4l4.7,5.7c-1.7,1.9-3.4,3.4-5.4,4.6s-3.9,2.1-5.9,2.8c-2,0.7-4,1.1-6.1,1.4s-3.9,0.4-5.8,0.4c-3.8,0-7.3-0.6-10.6-1.8c-3.3-1.2-6.2-3-8.6-5.5c-2.5-2.4-4.4-5.4-5.8-9c-1.4-3.6-2.1-7.8-2.1-12.5c0-3.6,0.6-7,1.8-10.2c1.2-3.2,3-6,5.3-8.4c2.3-2.4,5.1-4.3,8.3-5.7C200.2,22.5,203.9,21.7,208,21.7z M208.3,32.8c-3.1,0-5.5,0.9-7.2,2.6c-1.7,1.7-2.9,4.3-3.4,7.5h20c0-1.3-0.2-2.5-0.5-3.7c-0.3-1.2-0.9-2.3-1.6-3.2c-0.7-0.9-1.7-1.7-2.9-2.3C211.5,33.1,210,32.8,208.3,32.8z M201.6,86c-1.4-0.5-2.7-1-3.8-1.6c-1.1-0.6-2.1-1.1-3.1-1.5c-0.9-0.4-2-0.7-3-0.7c-1.4,0-2.5,0.5-3.2,1.4c-1.7,1.9-3.3,3.9-4.9,5.9c1.8,1.8,10.2,9.2,25,9.2s23.2-7.4,25-9.2c-1.6-2-3.2-3.9-4.9-5.9c-0.7-0.9-1.8-1.4-3.2-1.4c-1.1,0-2.1,0.2-3,0.7c-0.9,0.4-2,1-3.1,1.5c-1.1,0.6-2.4,1.1-3.8,1.6c-1.4,0.5-3.8,1.1-7.1,1.1C205.4,87.1,203,86.5,201.6,86z"/>
+        </g>
+      </svg>
+      <h1 class="title">Formulário Quantitativo</h1>
+      <p class="subtitle">Potenciais Membros da Comunidade Caveo</p>
+    </div>
 
+    <div class="form-container">
+      <form id="formulario">
+        <!-- Seção 1: Dados Gerais -->
+        <div class="section">
+          <h2 class="section-title">1. Dados Gerais</h2>
+
+          <div class="grid grid-2">
+            <div class="form-group">
+              <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite seu nome completo" required>
+            </div>
+
+            <div class="form-group">
+              <input type="number" id="idade" name="idade" class="form-control" placeholder="Sua idade" min="1" required>
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Cidade e Estado" required>
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="faculdade" name="faculdade" class="form-control" placeholder="Qual a sua Faculdade" required>
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="especialidade" name="especialidade" class="form-control" placeholder="Especialidade médica (ou pretendida)" required>
+            </div>
+
+            <div class="form-group">
+              <select id="situacao" name="situacao" class="form-control" required>
+                <option value="" disabled selected>Você está atualmente...</option>
+                <option value="Cursando graduação">Cursando graduação</option>
+                <option value="Recém-formado (até 3 anos)">Recém-formado (até 3 anos)</option>
+                <option value="Atuando como residente">Atuando como residente</option>
+                <option value="Atuando como generalista">Atuando como generalista</option>
+                <option value="Atuando como especialista">Atuando como especialista</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <!-- Seção 2: Questionário -->
+        <div class="section">
+          <h2 class="section-title">2. Questionário</h2>
+
+          <!-- Pergunta 1 -->
+          <div class="form-group">
+            <p class="question">1. Quais são os principais desafios que você enfrenta hoje como médico?</p>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input type="checkbox" id="desafio-1" name="desafios" value="Organização financeira">
+                <label for="desafio-1">Organização financeira</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="desafio-2" name="desafios" value="Saber me posicionar nas redes sociais">
+                <label for="desafio-2">Saber me posicionar nas redes sociais</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="desafio-3" name="desafios" value="Acesso a conteúdo prático e atualizado">
+                <label for="desafio-3">Acesso a conteúdo prático e atualizado</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="desafio-4" name="desafios" value="Falta de apoio na gestão da carreira">
+                <label for="desafio-4">Falta de apoio na gestão da carreira</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="desafio-5" name="desafios" value="Não sei por onde começar profissionalmente">
+                <label for="desafio-5">Não sei por onde começar profissionalmente</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="desafio-outro" name="desafios" value="Outro">
+                <label for="desafio-outro">Outro(s). Qual(is)?</label>
+              </div>
+              <input type="text" id="desafio-outro-texto" name="desafio_outro_texto" class="form-control other-input hidden" placeholder="Especifique outros desafios">
+            </div>
+          </div>
+
+          <!-- Pergunta 2 -->
+          <div class="form-group">
+            <p class="question">2. Em quais temas você teria mais interesse dentro de uma comunidade médica?</p>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-1" name="temas" value="Marketing e posicionamento médico">
+                <label for="tema-1">Marketing e posicionamento médico</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-2" name="temas" value="Gestão financeira e contábil">
+                <label for="tema-2">Gestão financeira e contábil</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-3" name="temas" value="Troca de experiências com colegas">
+                <label for="tema-3">Troca de experiências com colegas</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-4" name="temas" value="Planejamento de carreira">
+                <label for="tema-4">Planejamento de carreira</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-5" name="temas" value="Saúde mental e autocuidado">
+                <label for="tema-5">Saúde mental e autocuidado</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-outro" name="temas" value="Outro">
+                <label for="tema-outro">Outro(s). Qual(is)?</label>
+              </div>
+              <input type="text" id="tema-outro-texto" name="tema_outro_texto" class="form-control other-input hidden" placeholder="Especifique outros temas">
+            </div>
+          </div>
+
+          <!-- Pergunta 3 -->
+          <div class="form-group">
+            <p class="question">3. Qual formato de conteúdo você mais consome atualmente?</p>
+            <select name="formato" class="form-control" required>
+              <option value="" disabled selected>Selecione o formato de conteúdo</option>
+              <option value="Vídeos (YouTube, Reels etc.)">Vídeos (YouTube, Reels etc.)</option>
+              <option value="Podcasts">Podcasts</option>
+              <option value="Artigos/textos">Artigos/textos</option>
+              <option value="Webinars e lives">Webinars e lives</option>
+              <option value="Slides, resumos e mapas mentais">Slides, resumos e mapas mentais</option>
+              <option value="Outro">Outro</option>
+            </select>
+            <input type="text" id="formato-outro-texto" name="formato_outro_texto" class="form-control hidden" placeholder="Especifique outro formato" style="margin-top: 10px;">
+          </div>
+
+          <!-- Pergunta 4 -->
+          <div class="form-group">
+            <p class="question">4. Que tipo de evento você mais gosta de participar?</p>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input type="checkbox" id="evento-1" name="eventos" value="Webinars com especialistas">
+                <label for="evento-1">Webinars com especialistas</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="evento-2" name="eventos" value="Workshops práticos">
+                <label for="evento-2">Workshops práticos</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="evento-3" name="eventos" value="Encontros presenciais com médicos">
+                <label for="evento-3">Encontros presenciais com médicos</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="evento-4" name="eventos" value="Jantares e experiências sociais">
+                <label for="evento-4">Jantares e experiências sociais</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="evento-5" name="eventos" value="Mentorias em grupo">
+                <label for="evento-5">Mentorias em grupo</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="evento-outro" name="eventos" value="Outro">
+                <label for="evento-outro">Outro(s). Qual(is)?</label>
+              </div>
+              <input type="text" id="evento-outro-texto" name="evento_outro_texto" class="form-control other-input hidden" placeholder="Especifique outros eventos">
+            </div>
+          </div>
+
+          <!-- Pergunta 5 -->
+          <div class="form-group">
+            <p class="question">5. O que mais te atrai em uma comunidade de médicos?</p>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input type="checkbox" id="atracao-1" name="atracoes" value="A troca com outros médicos">
+                <label for="atracao-1">A troca com outros médicos</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="atracao-2" name="atracoes" value="Acesso a conteúdo exclusivo">
+                <label for="atracao-2">Acesso a conteúdo exclusivo</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="atracao-3" name="atracoes" value="Apoio para minha organização profissional">
+                <label for="atracao-3">Apoio para minha organização profissional</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="atracao-4" name="atracoes" value="Sensação de pertencimento">
+                <label for="atracao-4">Sensação de pertencimento</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="atracao-5" name="atracoes" value="Mentorias ou acompanhamento de carreira">
+                <label for="atracao-5">Mentorias ou acompanhamento de carreira</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="atracao-outro" name="atracoes" value="Outro">
+                <label for="atracao-outro">Outro(s). Qual(is)?</label>
+              </div>
+              <input type="text" id="atracao-outro-texto" name="atracao_outro_texto" class="form-control other-input hidden" placeholder="Especifique outras atrações">
+            </div>
+          </div>
+
+          <!-- Pergunta 6 -->
+          <div class="form-group">
+            <p class="question">6. Você sente que falta conteúdo direcionado a médicos que querem empreender ou gerir a própria carreira?</p>
+            <select name="falta_conteudo" class="form-control" required>
+              <option value="" disabled selected>Selecione uma opção</option>
+              <option value="Sim, com certeza">Sim, com certeza</option>
+              <option value="Um pouco, vejo pouco conteúdo prático">Um pouco, vejo pouco conteúdo prático</option>
+              <option value="Não, me sinto bem informado(a)">Não, me sinto bem informado(a)</option>
+            </select>
+          </div>
+
+          <!-- Pergunta 7 -->
+          <div class="form-group">
+            <p class="question">7. Quais dessas habilidades você gostaria de desenvolver nos próximos meses?</p>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input type="checkbox" id="habilidade-1" name="habilidades" value="Gestão do consultório/clínica">
+                <label for="habilidade-1">Gestão do consultório/clínica</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="habilidade-2" name="habilidades" value="Organização financeira e impostos">
+                <label for="habilidade-2">Organização financeira e impostos</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="habilidade-3" name="habilidades" value="Comunicação com pacientes">
+                <label for="habilidade-3">Comunicação com pacientes</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="habilidade-4" name="habilidades" value="Branding/marca pessoal">
+                <label for="habilidade-4">Branding/marca pessoal</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="habilidade-5" name="habilidades" value="Captação de pacientes">
+                <label for="habilidade-5">Captação de pacientes</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="habilidade-outro" name="habilidades" value="Outro">
+                <label for="habilidade-outro">Outro(s). Qual(is)?</label>
+              </div>
+              <input type="text" id="habilidade-outro-texto" name="habilidade_outro_texto" class="form-control other-input hidden" placeholder="Especifique outras habilidades">
+            </div>
+          </div>
+
+          <!-- Pergunta 8 -->
+          <div class="form-group">
+            <p class="question">8. Qual é o seu hobby ou atividade favorita fora da medicina?</p>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input type="checkbox" id="hobby-1" name="hobbies" value="Praticar esportes">
+                <label for="hobby-1">Praticar esportes</label>
+              </div>
+              <div class="checkbox-item hidden" id="qual-esporte-container">
+                <input type="text" id="qual-esporte" name="qual_esporte" class="form-control" placeholder="Qual esporte você pratica?" style="width: 90%; margin-left: 25px;">
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="hobby-2" name="hobbies" value="Participar de trilhas ou atividades ao ar livre">
+                <label for="hobby-2">Participar de trilhas ou atividades ao ar livre</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="hobby-3" name="hobbies" value="Cozinhar / Gastronomia">
+                <label for="hobby-3">Cozinhar / Gastronomia</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="hobby-4" name="hobbies" value="Viajar">
+                <label for="hobby-4">Viajar</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="hobby-5" name="hobbies" value="Ler livros">
+                <label for="hobby-5">Ler livros</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="hobby-6" name="hobbies" value="Ouvir música / Tocar instrumentos">
+                <label for="hobby-6">Ouvir música / Tocar instrumentos</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="hobby-outro" name="hobbies" value="Outro">
+                <label for="hobby-outro">Outro(s). Qual(is)?</label>
+              </div>
+              <input type="text" id="hobby-outro-texto" name="hobby_outro_texto" class="form-control other-input hidden" placeholder="Especifique outros hobbies">
+            </div>
+          </div>
+
+          <!-- Pergunta 9 -->
+          <div class="form-group">
+            <p class="question">9. Hoje, você já participa de alguma comunidade ou rede voltada para médicos?</p>
+            <select name="participa_comunidade" class="form-control" required>
+              <option value="" disabled selected>Selecione uma opção</option>
+              <option value="Sim, participo ativamente">Sim, participo ativamente</option>
+              <option value="Sim, mas participo pouco">Sim, mas participo pouco</option>
+              <option value="Não, mas tenho interesse">Não, mas tenho interesse</option>
+              <option value="Não, e não tenho interesse">Não, e não tenho interesse</option>
+            </select>
+          </div>
+
+          <!-- Pergunta 10 -->
+          <div class="form-group">
+            <p class="question">10. Você estaria disposto(a) a pagar por uma comunidade que apoie seu crescimento profissional e pessoal?</p>
+            <select name="disposto_pagar" class="form-control" required>
+              <option value="" disabled selected>Selecione uma opção</option>
+              <option value="Sim, se tiver benefícios reais">Sim, se tiver benefícios reais</option>
+              <option value="Talvez, dependendo do custo">Talvez, dependendo do custo</option>
+              <option value="Não sei dizer ainda">Não sei dizer ainda</option>
+            </select>
+          </div>
+
+          <!-- Pergunta 11 -->
+          <div class="form-group">
+            <p class="question">11. Quais temas mais chamariam sua atenção para participar de uma aula, workshop ou mentoria?</p>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-mentoria-1" name="temas_mentoria" value="Gestão de consultório">
+                <label for="tema-mentoria-1">Gestão de consultório</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-mentoria-2" name="temas_mentoria" value="Impostos e contabilidade para médicos PJ">
+                <label for="tema-mentoria-2">Impostos e contabilidade para médicos PJ</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-mentoria-3" name="temas_mentoria" value="Marketing pessoal">
+                <label for="tema-mentoria-3">Marketing pessoal</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-mentoria-4" name="temas_mentoria" value="Precificação de atendimentos">
+                <label for="tema-mentoria-4">Precificação de atendimentos</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-mentoria-5" name="temas_mentoria" value="Início de carreira e posicionamento">
+                <label for="tema-mentoria-5">Início de carreira e posicionamento</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-mentoria-outro" name="temas_mentoria" value="Outro">
+                <label for="tema-mentoria-outro">Outro(s). Qual(is)?</label>
+              </div>
+              <input type="text" id="tema-mentoria-outro-texto" name="tema_mentoria_outro_texto" class="form-control other-input hidden" placeholder="Especifique outros temas">
+            </div>
+          </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <!-- Seção 3: Perguntas Abertas -->
+        <div class="section">
+          <h2 class="section-title">Perguntas Abertas (opcionais)</h2>
+
+          <!-- Pergunta 12 -->
+          <div class="form-group">
+            <p class="question">12. Quais influencers ou criadores de conteúdo da área médica você acompanha e gosta?</p>
+            <textarea id="influencers" name="influencers" class="form-control" placeholder="Digite sua resposta aqui..."></textarea>
+          </div>
+
+          <!-- Pergunta 13 -->
+          <div class="form-group">
+            <p class="question">13. Se você pudesse participar de uma comunidade médica ideal, como ela seria? O que não poderia faltar?</p>
+            <textarea id="comunidade_ideal" name="comunidade_ideal" class="form-control" placeholder="Digite sua resposta aqui..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn">Enviar Formulário</button>
+      </form>
+    </div>
+
+    <!-- Mensagem de sucesso (inicialmente oculta) -->
+    <div id="success-message" class="success-message">
+      <svg class="logo" viewBox="0 0 291.3 98.7" xmlns="http://www.w3.org/2000/svg">
+        <style>.st0{fill:#003890;}.st1{fill:#65DC7C;}</style>
+        <g>
+          <path class="st0" d="M55,56.7c0.4,0,0.8,0.1,1.2,0.2c0.4,0.2,0.8,0.4,1.2,0.8l6.9,7.3c-3,4-6.8,7-11.4,9c-4.6,2-10,3-16.2,3c-5.7,0-10.9-1-15.4-2.9c-4.5-1.9-8.4-4.6-11.5-8.1c-3.2-3.4-5.6-7.5-7.3-12.2C0.8,49.2,0,44,0,38.5C0,32.9,1,27.7,2.9,23c1.9-4.7,4.6-8.8,8.1-12.2s7.6-6.1,12.5-8C28.3,0.9,33.6,0,39.4,0c2.8,0,5.5,0.3,8,0.8c2.5,0.5,4.8,1.2,7,2.1s4.2,1.9,6,3.2c1.8,1.2,3.5,2.6,4.9,4.1L59.4,18c-0.4,0.5-0.8,0.9-1.3,1.3c-0.5,0.4-1.2,0.6-2.2,0.6c-0.6,0-1.2-0.1-1.8-0.4c-0.6-0.3-1.1-0.6-1.8-1c-0.6-0.4-1.3-0.8-2-1.3c-0.7-0.5-1.6-0.9-2.6-1.3c-1-0.4-2.2-0.7-3.6-1c-1.4-0.3-3-0.4-4.8-0.4c-3.2,0-6.1,0.6-8.7,1.7c-2.6,1.1-4.9,2.7-6.8,4.8c-1.9,2.1-3.3,4.6-4.4,7.6c-1.1,3-1.6,6.3-1.6,10c0,3.9,0.5,7.3,1.6,10.3c1.1,3,2.5,5.5,4.3,7.6c1.8,2.1,3.9,3.6,6.3,4.7c2.4,1.1,5,1.6,7.8,1.6c1.6,0,3-0.1,4.3-0.2c1.3-0.2,2.5-0.4,3.6-0.8c1.1-0.4,2.2-0.9,3.2-1.5c1-0.6,2-1.4,3.1-2.3c0.4-0.3,0.9-0.6,1.3-0.9C54,56.9,54.5,56.7,55,56.7z M111.6,76.3c-1.5,0-2.7-0.2-3.4-0.6s-1.4-1.3-1.9-2.6l-1.1-3c-1.3,1.1-2.6,2.1-3.9,3c-1.2,0.9-2.5,1.6-3.9,2.2c-1.3,0.6-2.7,1.1-4.2,1.3c-1.5,0.3-3.2,0.4-5,0.4c-2.5,0-4.7-0.3-6.7-1c-2-0.6-3.7-1.6-5.1-2.8s-2.5-2.8-3.2-4.6c-0.8-1.9-1.1-4-1.1-6.4c0-1.9,0.5-3.9,1.4-5.9c1-2,2.6-3.8,5-5.5c2.4-1.6,5.6-3,9.6-4.1s9.1-1.7,15.3-1.7v-2.3c0-3.2-0.6-5.5-1.9-6.9c-1.3-1.4-3.1-2.1-5.5-2.1c-1.9,0-3.5,0.2-4.7,0.6c-1.2,0.4-2.3,0.9-3.2,1.4c-0.9,0.5-1.9,1-2.8,1.4c-0.9,0.4-2,0.6-3.2,0.6c-1.1,0-2-0.3-2.8-0.8c-0.8-0.5-1.4-1.2-1.8-2l-2.9-5c3.2-2.9,6.8-5,10.8-6.4c4-1.4,8.2-2.1,12.7-2.1c3.2,0,6.2,0.5,8.8,1.6c2.6,1.1,4.8,2.5,6.6,4.4c1.8,1.9,3.2,4.1,4.2,6.7c1,2.6,1.4,5.4,1.4,8.5v33.5H111.6z M93.2,66.5c2.1,0,3.9-0.4,5.4-1.1c1.6-0.7,3.1-1.9,4.7-3.5v-7.4c-3.2,0-5.8,0.2-7.9,0.6c-2.1,0.4-3.7,0.9-4.9,1.6c-1.2,0.6-2,1.3-2.5,2.1c-0.5,0.8-0.7,1.7-0.7,2.6c0,1.8,0.5,3.1,1.5,3.9C89.8,66.1,91.2,66.5,93.2,66.5z M156.7,76.3h-14.6l-20.8-53.7h13.4c1.1,0,2.1,0.3,2.9,0.8c0.8,0.5,1.3,1.2,1.6,2l7.5,24.1c0.6,2,1.1,3.9,1.7,5.7c0.5,1.9,1,3.7,1.4,5.6c0.4-1.9,0.8-3.7,1.4-5.6c0.6-1.9,1.1-3.8,1.8-5.7l7.8-24.1c0.3-0.8,0.8-1.5,1.6-2c0.8-0.5,1.7-0.8,2.7-0.8h12.7L156.7,76.3z M263.9,21.7c4.1,0,7.8,0.6,11.1,1.9c3.3,1.3,6.2,3.1,8.6,5.5c2.4,2.4,4.3,5.3,5.6,8.7c1.3,3.4,2,7.2,2,11.5c0,4.3-0.7,8.1-2,11.6c-1.3,3.4-3.2,6.4-5.6,8.7c-2.4,2.4-5.3,4.2-8.6,5.5c-3.3,1.3-7.1,1.9-11.1,1.9c-4.1,0-7.8-0.6-11.2-1.9c-3.4-1.3-6.3-3.1-8.7-5.5c-2.4-2.4-4.3-5.3-5.6-8.7c-1.3-3.4-2-7.3-2-11.6c0-4.2,0.7-8.1,2-11.5c1.3-3.4,3.2-6.3,5.6-8.7c2.4-2.4,5.3-4.2,8.7-5.5C256.1,22.4,259.8,21.7,263.9,21.7z M263.9,65.2c3.7,0,6.4-1.3,8.2-3.9c1.7-2.6,2.6-6.6,2.6-11.9c0-5.3-0.9-9.3-2.6-11.9c-1.7-2.6-4.5-3.9-8.2-3.9c-3.8,0-6.6,1.3-8.3,3.9c-1.8,2.6-2.6,6.5-2.6,11.9c0,5.3,0.9,9.3,2.6,11.9C257.3,63.9,260.1,65.2,263.9,65.2z"/>
+          <path class="st1" d="M208,21.7c3.6,0,6.8,0.6,9.8,1.7c3,1.1,5.5,2.7,7.6,4.8c2.1,2.1,3.8,4.7,5,7.7s1.8,6.5,1.8,10.4c0,1.2-0.1,2.2-0.2,3c-0.1,0.8-0.3,1.4-0.6,1.8c-0.3,0.4-0.6,0.8-1.1,0.9c-0.5,0.2-1.1,0.3-1.8,0.3h-31c0.5,4.5,1.9,7.7,4.1,9.8c2.2,2,5.1,3,8.5,3c1.9,0,3.5-0.2,4.8-0.7c1.3-0.4,2.5-0.9,3.6-1.5c1.1-0.6,2-1.1,2.9-1.5c0.9-0.4,1.8-0.7,2.8-0.7c1.3,0,2.2,0.5,2.9,1.4l4.7,5.7c-1.7,1.9-3.4,3.4-5.4,4.6s-3.9,2.1-5.9,2.8c-2,0.7-4,1.1-6.1,1.4s-3.9,0.4-5.8,0.4c-3.8,0-7.3-0.6-10.6-1.8c-3.3-1.2-6.2-3-8.6-5.5c-2.5-2.4-4.4-5.4-5.8-9c-1.4-3.6-2.1-7.8-2.1-12.5c0-3.6,0.6-7,1.8-10.2c1.2-3.2,3-6,5.3-8.4c2.3-2.4,5.1-4.3,8.3-5.7C200.2,22.5,203.9,21.7,208,21.7z M208.3,32.8c-3.1,0-5.5,0.9-7.2,2.6c-1.7,1.7-2.9,4.3-3.4,7.5h20c0-1.3-0.2-2.5-0.5-3.7c-0.3-1.2-0.9-2.3-1.6-3.2c-0.7-0.9-1.7-1.7-2.9-2.3C211.5,33.1,210,32.8,208.3,32.8z M201.6,86c-1.4-0.5-2.7-1-3.8-1.6c-1.1-0.6-2.1-1.1-3.1-1.5c-0.9-0.4-2-0.7-3-0.7c-1.4,0-2.5,0.5-3.2,1.4c-1.7,1.9-3.3,3.9-4.9,5.9c1.8,1.8,10.2,9.2,25,9.2s23.2-7.4,25-9.2c-1.6-2-3.2-3.9-4.9-5.9c-0.7-0.9-1.8-1.4-3.2-1.4c-1.1,0-2.1,0.2-3,0.7c-0.9,0.4-2,1-3.1,1.5c-1.1,0.6-2.4,1.1-3.8,1.6c-1.4,0.5-3.8,1.1-7.1,1.1C205.4,87.1,203,86.5,201.6,86z"/>
+        </g>
+      </svg>
+      <h2>Formulário Enviado com Sucesso!</h2>
+      <p>Obrigado por preencher o formulário. Seus dados foram recebidos com sucesso e em breve entraremos em contato.</p>
+      <button class="btn" onclick="window.location.reload()">Voltar ao Início</button>
+    </div>
+  </div>
+
+  <script>
+    // Mostrar/ocultar campos "Outro(s). Qual(is)?"
+    document.addEventListener('DOMContentLoaded', function() {
+      // Função para mostrar/ocultar campos "Outro"
+      function toggleOutroField(checkboxId, inputId) {
+        const checkbox = document.getElementById(checkboxId);
+        const input = document.getElementById(inputId);
+        
+        checkbox.addEventListener('change', function() {
+          input.classList.toggle('hidden', !this.checked);
+        });
+      }
+
+      // Configurar todos os campos "Outro"
+      toggleOutroField('desafio-outro', 'desafio-outro-texto');
+      toggleOutroField('tema-outro', 'tema-outro-texto');
+      toggleOutroField('evento-outro', 'evento-outro-texto');
+      toggleOutroField('atracao-outro', 'atracao-outro-texto');
+      toggleOutroField('habilidade-outro', 'habilidade-outro-texto');
+      toggleOutroField('hobby-outro', 'hobby-outro-texto');
+      toggleOutroField('tema-mentoria-outro', 'tema-mentoria-outro-texto');
+      
+      // Campo especial para formato
+      document.querySelector('select[name="formato"]').addEventListener('change', function() {
+        document.getElementById('formato-outro-texto').classList.toggle('hidden', this.value !== 'Outro');
+      });
+      
+      // Campo especial para esporte
+      document.getElementById('hobby-1').addEventListener('change', function() {
+        document.getElementById('qual-esporte-container').classList.toggle('hidden', !this.checked);
+      });
+      
+      // Envio do formulário
+      document.getElementById('formulario').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Aqui você pode adicionar código para enviar os dados para o Google Sheets
+        // Por enquanto, apenas mostramos a mensagem de sucesso
+        document.getElementById('formulario').style.display = 'none';
+        document.getElementById('success-message').style.display = 'block';
+        
+        // Rolar para o topo
+        window.scrollTo(0, 0);
+      });
+    });
+  </script>
+</body>
+</html>
