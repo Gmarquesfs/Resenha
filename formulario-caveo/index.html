@@ -726,29 +726,101 @@
         // Converter FormData para objeto de parâmetros de URL
         const params = new URLSearchParams();
         
-        // Processar todos os checkboxes - definir valores padrão para todos os campos de checkbox
-        const checkboxes = [
-          // Pergunta 1 - Desafios
-          "desafio_1", "desafio_2", "desafio_3", "desafio_4", "desafio_5", "desafio_outro",
-          
-          // Pergunta 2 - Temas
-          "tema_1", "tema_2", "tema_3", "tema_4", "tema_5", "tema_6", "tema_7", "tema_outro",
-          
-          // Pergunta 4 - Eventos
-          "evento_1", "evento_2", "evento_3", "evento_4", "evento_5", "evento_6", "evento_7", "evento_8", "evento_outro",
-          
-          // Pergunta 5 - Atrações
-          "atracao_1", "atracao_2", "atracao_3", "atracao_4", "atracao_5", "atracao_6", "atracao_outro",
-          
-          // Pergunta 7 - Habilidades
-          "habilidade_1", "habilidade_2", "habilidade_3", "habilidade_4", "habilidade_5", "habilidade_outro",
-          
-          // Pergunta 8 - Hobbies
-          "hobby_1", "hobby_2", "hobby_3", "hobby_4", "hobby_5", "hobby_6", "hobby_7", "hobby_8", "hobby_9", "hobby_outro",
-          
-          // Pergunta 11 - Temas para mentoria
-          "tema_mentoria_1", "tema_mentoria_2", "tema_mentoria_3", "tema_mentoria_4", "tema_mentoria_5", "tema_mentoria_6", "tema_mentoria_7", "tema_mentoria_outro"
-        ];
+       // Adicione este código dentro do seu event listener de submit do formulário
+
+// Processar todos os checkboxes - definir valores padrão para todos os campos de checkbox
+const checkboxes = [
+  // Pergunta 1 - Desafios
+  "desafio_1", "desafio_2", "desafio_3", "desafio_4", "desafio_5", "desafio_outro",
+  
+  // Pergunta 2 - Temas
+  "tema_1", "tema_2", "tema_3", "tema_4", "tema_5", "tema_6", "tema_7", "tema_outro",
+  
+  // Pergunta 4 - Eventos
+  "evento_1", "evento_2", "evento_3", "evento_4", "evento_5", "evento_6", "evento_7", "evento_8", "evento_outro",
+  
+  // Pergunta 5 - Atrações
+  "atracao_1", "atracao_2", "atracao_3", "atracao_4", "atracao_5", "atracao_6", "atracao_outro",
+  
+  // Pergunta 7 - Habilidades
+  "habilidade_1", "habilidade_2", "habilidade_3", "habilidade_4", "habilidade_5", "habilidade_outro",
+  
+  // Pergunta 8 - Hobbies
+  "hobby_1", "hobby_2", "hobby_3", "hobby_4", "hobby_5", "hobby_6", "hobby_7", "hobby_8", "hobby_9", "hobby_outro",
+  
+  // Pergunta 11 - Temas para mentoria
+  "tema_mentoria_1", "tema_mentoria_2", "tema_mentoria_3", "tema_mentoria_4", "tema_mentoria_5", "tema_mentoria_6", "tema_mentoria_7", "tema_mentoria_outro"
+];
+
+// Inicializar todos os checkboxes como não marcados
+checkboxes.forEach(checkbox => {
+  params.append(checkbox, document.getElementById(checkbox.replace('_', '-')).checked ? "Sim" : "Não");
+});
+
+// Adicionar timestamp
+params.append('timestamp', new Date().toISOString());
+
+// Adicionar descrições para os checkboxes marcados
+// Pergunta 1 - Desafios
+if (document.getElementById('desafio-1').checked) params.append('desafio_1_desc', 'Organização financeira');
+if (document.getElementById('desafio-2').checked) params.append('desafio_2_desc', 'Saber me posicionar nas redes sociais');
+if (document.getElementById('desafio-3').checked) params.append('desafio_3_desc', 'Acesso a conteúdo prático e atualizado');
+if (document.getElementById('desafio-4').checked) params.append('desafio_4_desc', 'Falta de apoio na gestão da carreira');
+if (document.getElementById('desafio-5').checked) params.append('desafio_5_desc', 'Não sei por onde começar profissionalmente');
+
+// Pergunta 2 - Temas
+if (document.getElementById('tema-1').checked) params.append('tema_1_desc', 'Marketing e posicionamento médico');
+if (document.getElementById('tema-2').checked) params.append('tema_2_desc', 'Gestão financeira e contábil');
+if (document.getElementById('tema-3').checked) params.append('tema_3_desc', 'Investimentos e educação financeira');
+if (document.getElementById('tema-4').checked) params.append('tema_4_desc', 'Conexão e networking com outros médicos');
+if (document.getElementById('tema-5').checked) params.append('tema_5_desc', 'Desenvolvimento de habilidades clínicas e técnicas');
+if (document.getElementById('tema-6').checked) params.append('tema_6_desc', 'Planejamento de carreira e estratégias de crescimento profissional');
+if (document.getElementById('tema-7').checked) params.append('tema_7_desc', 'Saúde mental, bem-estar e qualidade de vida');
+
+// Pergunta 4 - Eventos
+if (document.getElementById('evento-1').checked) params.append('evento_1_desc', 'Encontros online sobre temas médicos');
+if (document.getElementById('evento-2').checked) params.append('evento_2_desc', 'Encontros presenciais sobre temas médicos');
+if (document.getElementById('evento-3').checked) params.append('evento_3_desc', 'Encontros presenciais sobre temas fora da medicina');
+if (document.getElementById('evento-4').checked) params.append('evento_4_desc', 'Jantares e experiências sociais');
+if (document.getElementById('evento-5').checked) params.append('evento_5_desc', 'Mentorias em grupo');
+if (document.getElementById('evento-6').checked) params.append('evento_6_desc', 'Eventos de networking com outros médicos, drinks e boas conexões');
+if (document.getElementById('evento-7').checked) params.append('evento_7_desc', 'Café da manhã com conteúdo leve e insights práticos');
+if (document.getElementById('evento-8').checked) params.append('evento_8_desc', 'Imersões e eventos com conteúdos mais intensos');
+
+// Pergunta 5 - Atrações
+if (document.getElementById('atracao-1').checked) params.append('atracao_1_desc', 'A troca com outros médicos');
+if (document.getElementById('atracao-2').checked) params.append('atracao_2_desc', 'Acesso a conteúdo exclusivo');
+if (document.getElementById('atracao-3').checked) params.append('atracao_3_desc', 'Apoio para minha organização profissional');
+if (document.getElementById('atracao-4').checked) params.append('atracao_4_desc', 'Sensação de pertencimento');
+if (document.getElementById('atracao-5').checked) params.append('atracao_5_desc', 'Mentorias ou acompanhamento de carreira');
+if (document.getElementById('atracao-6').checked) params.append('atracao_6_desc', 'Descontos e benefícios');
+
+// Pergunta 7 - Habilidades
+if (document.getElementById('habilidade-1').checked) params.append('habilidade_1_desc', 'Gerenciamento de serviços');
+if (document.getElementById('habilidade-2').checked) params.append('habilidade_2_desc', 'Organização financeira');
+if (document.getElementById('habilidade-3').checked) params.append('habilidade_3_desc', 'Branding médico e construção de marca pessoal');
+if (document.getElementById('habilidade-4').checked) params.append('habilidade_4_desc', 'Conquistar meu primeiro trabalho ou plantão');
+if (document.getElementById('habilidade-5').checked) params.append('habilidade_5_desc', 'Ampliar minha rede de contatos profissionais');
+
+// Pergunta 8 - Hobbies
+if (document.getElementById('hobby-1').checked) params.append('hobby_1_desc', 'Praticar esportes');
+if (document.getElementById('hobby-2').checked) params.append('hobby_2_desc', 'Participar de trilhas ou atividades ao ar livre');
+if (document.getElementById('hobby-3').checked) params.append('hobby_3_desc', 'Cozinhar / Gastronomia');
+if (document.getElementById('hobby-4').checked) params.append('hobby_4_desc', 'Viajar');
+if (document.getElementById('hobby-5').checked) params.append('hobby_5_desc', 'Ler livros');
+if (document.getElementById('hobby-6').checked) params.append('hobby_6_desc', 'Ouvir música / Tocar instrumentos');
+if (document.getElementById('hobby-7').checked) params.append('hobby_7_desc', 'Assistir séries ou filmes');
+if (document.getElementById('hobby-8').checked) params.append('hobby_8_desc', 'Produzir conteúdo nas redes sociais');
+if (document.getElementById('hobby-9').checked) params.append('hobby_9_desc', 'Frequentar eventos sociais (jantares, festas, networking)');
+
+// Pergunta 11 - Temas para mentoria
+if (document.getElementById('tema-mentoria-1').checked) params.append('tema_mentoria_1_desc', 'Como conseguir meus primeiros plantões e oportunidades de trabalho');
+if (document.getElementById('tema-mentoria-2').checked) params.append('tema_mentoria_2_desc', 'Tipos de contratação e como pagar menos impostos');
+if (document.getElementById('tema-mentoria-3').checked) params.append('tema_mentoria_3_desc', 'Organização financeira e controle de ganhos desde o início');
+if (document.getElementById('tema-mentoria-4').checked) params.append('tema_mentoria_4_desc', 'Introdução ao mundo dos investimentos para médicos');
+if (document.getElementById('tema-mentoria-5').checked) params.append('tema_mentoria_5_desc', 'Marketing pessoal e posicionamento profissional');
+if (document.getElementById('tema-mentoria-6').checked) params.append('tema_mentoria_6_desc', 'Como escolher e planejar a minha carreira médica');
+if (document.getElementById('tema-mentoria-7').checked) params.append('tema_mentoria_7_desc', 'Estratégias para me destacar mesmo sem experiência');
         
         // Inicializar todos os checkboxes como não marcados
         checkboxes.forEach(checkbox => {
@@ -793,38 +865,214 @@
           console.log('Resposta recebida:', response);
           
           // Como estamos usando no-cors, não podemos verificar o status da resposta
-          // Vamos assumir que foi bem-sucedido se chegamos aqui
-          console.log('Formulário enviado com sucesso!');
-          
-          // Esconder indicador de carregamento
-          document.getElementById('loading').style.display = 'none';
-          
-          // Mostrar mensagem de sucesso
-          document.getElementById('success-message').style.display = 'block';
-          
-          // Rolar para o topo
-          window.scrollTo(0, 0);
-        })
-        .catch(error => {
-          // Limpar o timeout pois recebemos um erro
-          clearTimeout(timeoutId);
-          
-          console.error('Erro ao enviar o formulário:', error);
-          
-          // Esconder indicador de carregamento
-          document.getElementById('loading').style.display = 'none';
-          
-          // Mostrar mensagem de erro com detalhes
-          document.getElementById('error-details').textContent = 'Ocorreu um erro ao enviar o formulário: ' + error.message;
-          document.getElementById('debug-info').textContent = 'URL: ' + scriptURL + '\nModo: no-cors\nMétodo: POST';
-          document.getElementById('debug-info').style.display = 'block';
-          document.getElementById('error-message').style.display = 'block';
-          
-          // Mostrar o formulário novamente
-          document.querySelector('.form-container').style.display = 'block';
-        });
-      });
+         document.addEventListener('DOMContentLoaded', function() {
+  // URL do seu Web App do Google Apps Script
+  const scriptURL = 'SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI';
+  
+  // Função para mostrar/ocultar campos "Outro"
+  function toggleOutroField(checkboxId, inputId) {
+    const checkbox = document.getElementById(checkboxId);
+    const input = document.getElementById(inputId);
+    
+    checkbox.addEventListener('change', function() {
+      input.classList.toggle('hidden', !this.checked);
     });
-  </script>
-</body>
-</html>
+  }
+
+  // Configurar todos os campos "Outro"
+  toggleOutroField('desafio-outro', 'desafio-outro-texto');
+  toggleOutroField('tema-outro', 'tema-outro-texto');
+  toggleOutroField('evento-outro', 'evento-outro-texto');
+  toggleOutroField('atracao-outro', 'atracao-outro-texto');
+  toggleOutroField('habilidade-outro', 'habilidade-outro-texto');
+  toggleOutroField('hobby-outro', 'hobby-outro-texto');
+  toggleOutroField('tema-mentoria-outro', 'tema-mentoria-outro-texto');
+  
+  // Campo especial para formato
+  document.querySelector('select[name="formato"]').addEventListener('change', function() {
+    document.getElementById('formato-outro-texto').classList.toggle('hidden', this.value !== 'Outro');
+  });
+  
+  // Campo especial para esporte
+  document.getElementById('hobby-1').addEventListener('change', function() {
+    document.getElementById('qual-esporte-container').classList.toggle('hidden', !this.checked);
+  });
+  
+  // Envio do formulário
+  document.getElementById('formulario').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Esconder mensagem de erro se estiver visível
+    document.getElementById('error-message').style.display = 'none';
+    
+    // Mostrar indicador de carregamento
+    document.querySelector('.form-container').style.display = 'none';
+    document.getElementById('loading').style.display = 'block';
+    
+    // Preparar dados para envio
+    const formData = new FormData(this);
+    
+    // Converter FormData para objeto de parâmetros de URL
+    const params = new URLSearchParams();
+    
+    // Processar todos os checkboxes - definir valores padrão para todos os campos de checkbox
+    const checkboxes = [
+      // Pergunta 1 - Desafios
+      "desafio_1", "desafio_2", "desafio_3", "desafio_4", "desafio_5", "desafio_outro",
+      
+      // Pergunta 2 - Temas
+      "tema_1", "tema_2", "tema_3", "tema_4", "tema_5", "tema_6", "tema_7", "tema_outro",
+      
+      // Pergunta 4 - Eventos
+      "evento_1", "evento_2", "evento_3", "evento_4", "evento_5", "evento_6", "evento_7", "evento_8", "evento_outro",
+      
+      // Pergunta 5 - Atrações
+      "atracao_1", "atracao_2", "atracao_3", "atracao_4", "atracao_5", "atracao_6", "atracao_outro",
+      
+      // Pergunta 7 - Habilidades
+      "habilidade_1", "habilidade_2", "habilidade_3", "habilidade_4", "habilidade_5", "habilidade_outro",
+      
+      // Pergunta 8 - Hobbies
+      "hobby_1", "hobby_2", "hobby_3", "hobby_4", "hobby_5", "hobby_6", "hobby_7", "hobby_8", "hobby_9", "hobby_outro",
+      
+      // Pergunta 11 - Temas para mentoria
+      "tema_mentoria_1", "tema_mentoria_2", "tema_mentoria_3", "tema_mentoria_4", "tema_mentoria_5", "tema_mentoria_6", "tema_mentoria_7", "tema_mentoria_outro"
+    ];
+    
+    // Inicializar todos os checkboxes como não marcados
+    checkboxes.forEach(checkbox => {
+      params.append(checkbox, document.getElementById(checkbox.replace('_', '-')).checked ? "Sim" : "Não");
+    });
+    
+    // Adicionar todos os outros campos do formulário
+    for (const [key, value] of formData.entries()) {
+      // Não adicionar novamente os checkboxes que já foram processados
+      if (!checkboxes.includes(key)) {
+        params.append(key, value);
+      }
+    }
+    
+    // Adicionar timestamp
+    params.append('timestamp', new Date().toISOString());
+    
+    // Adicionar descrições para os checkboxes marcados
+    // Pergunta 1 - Desafios
+    if (document.getElementById('desafio-1').checked) params.append('desafio_1_desc', 'Organização financeira');
+    if (document.getElementById('desafio-2').checked) params.append('desafio_2_desc', 'Saber me posicionar nas redes sociais');
+    if (document.getElementById('desafio-3').checked) params.append('desafio_3_desc', 'Acesso a conteúdo prático e atualizado');
+    if (document.getElementById('desafio-4').checked) params.append('desafio_4_desc', 'Falta de apoio na gestão da carreira');
+    if (document.getElementById('desafio-5').checked) params.append('desafio_5_desc', 'Não sei por onde começar profissionalmente');
+
+    // Pergunta 2 - Temas
+    if (document.getElementById('tema-1').checked) params.append('tema_1_desc', 'Marketing e posicionamento médico');
+    if (document.getElementById('tema-2').checked) params.append('tema_2_desc', 'Gestão financeira e contábil');
+    if (document.getElementById('tema-3').checked) params.append('tema_3_desc', 'Investimentos e educação financeira');
+    if (document.getElementById('tema-4').checked) params.append('tema_4_desc', 'Conexão e networking com outros médicos');
+    if (document.getElementById('tema-5').checked) params.append('tema_5_desc', 'Desenvolvimento de habilidades clínicas e técnicas');
+    if (document.getElementById('tema-6').checked) params.append('tema_6_desc', 'Planejamento de carreira e estratégias de crescimento profissional');
+    if (document.getElementById('tema-7').checked) params.append('tema_7_desc', 'Saúde mental, bem-estar e qualidade de vida');
+
+    // Pergunta 4 - Eventos
+    if (document.getElementById('evento-1').checked) params.append('evento_1_desc', 'Encontros online sobre temas médicos');
+    if (document.getElementById('evento-2').checked) params.append('evento_2_desc', 'Encontros presenciais sobre temas médicos');
+    if (document.getElementById('evento-3').checked) params.append('evento_3_desc', 'Encontros presenciais sobre temas fora da medicina');
+    if (document.getElementById('evento-4').checked) params.append('evento_4_desc', 'Jantares e experiências sociais');
+    if (document.getElementById('evento-5').checked) params.append('evento_5_desc', 'Mentorias em grupo');
+    if (document.getElementById('evento-6').checked) params.append('evento_6_desc', 'Eventos de networking com outros médicos, drinks e boas conexões');
+    if (document.getElementById('evento-7').checked) params.append('evento_7_desc', 'Café da manhã com conteúdo leve e insights práticos');
+    if (document.getElementById('evento-8').checked) params.append('evento_8_desc', 'Imersões e eventos com conteúdos mais intensos');
+
+    // Pergunta 5 - Atrações
+    if (document.getElementById('atracao-1').checked) params.append('atracao_1_desc', 'A troca com outros médicos');
+    if (document.getElementById('atracao-2').checked) params.append('atracao_2_desc', 'Acesso a conteúdo exclusivo');
+    if (document.getElementById('atracao-3').checked) params.append('atracao_3_desc', 'Apoio para minha organização profissional');
+    if (document.getElementById('atracao-4').checked) params.append('atracao_4_desc', 'Sensação de pertencimento');
+    if (document.getElementById('atracao-5').checked) params.append('atracao_5_desc', 'Mentorias ou acompanhamento de carreira');
+    if (document.getElementById('atracao-6').checked) params.append('atracao_6_desc', 'Descontos e benefícios');
+
+    // Pergunta 7 - Habilidades
+    if (document.getElementById('habilidade-1').checked) params.append('habilidade_1_desc', 'Gerenciamento de serviços');
+    if (document.getElementById('habilidade-2').checked) params.append('habilidade_2_desc', 'Organização financeira');
+    if (document.getElementById('habilidade-3').checked) params.append('habilidade_3_desc', 'Branding médico e construção de marca pessoal');
+    if (document.getElementById('habilidade-4').checked) params.append('habilidade_4_desc', 'Conquistar meu primeiro trabalho ou plantão');
+    if (document.getElementById('habilidade-5').checked) params.append('habilidade_5_desc', 'Ampliar minha rede de contatos profissionais');
+
+    // Pergunta 8 - Hobbies
+    if (document.getElementById('hobby-1').checked) params.append('hobby_1_desc', 'Praticar esportes');
+    if (document.getElementById('hobby-2').checked) params.append('hobby_2_desc', 'Participar de trilhas ou atividades ao ar livre');
+    if (document.getElementById('hobby-3').checked) params.append('hobby_3_desc', 'Cozinhar / Gastronomia');
+    if (document.getElementById('hobby-4').checked) params.append('hobby_4_desc', 'Viajar');
+    if (document.getElementById('hobby-5').checked) params.append('hobby_5_desc', 'Ler livros');
+    if (document.getElementById('hobby-6').checked) params.append('hobby_6_desc', 'Ouvir música / Tocar instrumentos');
+    if (document.getElementById('hobby-7').checked) params.append('hobby_7_desc', 'Assistir séries ou filmes');
+    if (document.getElementById('hobby-8').checked) params.append('hobby_8_desc', 'Produzir conteúdo nas redes sociais');
+    if (document.getElementById('hobby-9').checked) params.append('hobby_9_desc', 'Frequentar eventos sociais (jantares, festas, networking)');
+
+    // Pergunta 11 - Temas para mentoria
+    if (document.getElementById('tema-mentoria-1').checked) params.append('tema_mentoria_1_desc', 'Como conseguir meus primeiros plantões e oportunidades de trabalho');
+    if (document.getElementById('tema-mentoria-2').checked) params.append('tema_mentoria_2_desc', 'Tipos de contratação e como pagar menos impostos');
+    if (document.getElementById('tema-mentoria-3').checked) params.append('tema_mentoria_3_desc', 'Organização financeira e controle de ganhos desde o início');
+    if (document.getElementById('tema-mentoria-4').checked) params.append('tema_mentoria_4_desc', 'Introdução ao mundo dos investimentos para médicos');
+    if (document.getElementById('tema-mentoria-5').checked) params.append('tema_mentoria_5_desc', 'Marketing pessoal e posicionamento profissional');
+    if (document.getElementById('tema-mentoria-6').checked) params.append('tema_mentoria_6_desc', 'Como escolher e planejar a minha carreira médica');
+    if (document.getElementById('tema-mentoria-7').checked) params.append('tema_mentoria_7_desc', 'Estratégias para me destacar mesmo sem experiência');
+    
+    // Configurar um timeout para garantir que o usuário não fique preso no carregamento
+    const timeoutId = setTimeout(() => {
+      console.error('Timeout: O servidor não respondeu em tempo hábil');
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error-details').textContent = 'O servidor não respondeu em tempo hábil. Por favor, tente novamente.';
+      document.getElementById('debug-info').textContent = 'URL: ' + scriptURL + '\nModo: no-cors\nMétodo: POST\nTimeout: 30 segundos';
+      document.getElementById('debug-info').style.display = 'block';
+      document.getElementById('error-message').style.display = 'block';
+      document.querySelector('.form-container').style.display = 'block';
+    }, 30000); // 30 segundos de timeout
+    
+    // Enviar dados para o Google Apps Script
+    fetch(scriptURL, {
+      method: 'POST',
+      mode: 'no-cors', // Importante para evitar erros de CORS
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: params.toString()
+    })
+    .then(response => {
+      // Limpar o timeout pois recebemos uma resposta
+      clearTimeout(timeoutId);
+      
+      console.log('Resposta recebida:', response);
+      
+      // Como estamos usando no-cors, não podemos verificar o status da resposta
+      // Vamos assumir que foi bem-sucedido se chegamos aqui
+      console.log('Formulário enviado com sucesso!');
+      
+      // Esconder indicador de carregamento
+      document.getElementById('loading').style.display = 'none';
+      
+      // Mostrar mensagem de sucesso
+      document.getElementById('success-message').style.display = 'block';
+      
+      // Rolar para o topo
+      window.scrollTo(0, 0);
+    })
+    .catch(error => {
+      // Limpar o timeout pois recebemos um erro
+      clearTimeout(timeoutId);
+      
+      console.error('Erro ao enviar o formulário:', error);
+      
+      // Esconder indicador de carregamento
+      document.getElementById('loading').style.display = 'none';
+      
+      // Mostrar mensagem de erro com detalhes
+      document.getElementById('error-details').textContent = 'Ocorreu um erro ao enviar o formulário: ' + error.message;
+      document.getElementById('debug-info').textContent = 'URL: ' + scriptURL + '\nModo: no-cors\nMétodo: POST';
+      document.getElementById('debug-info').style.display = 'block';
+      document.getElementById('error-message').style.display = 'block';
+      
+      // Mostrar o formulário novamente
+      document.querySelector('.form-container').style.display = 'block';
+    });
+  });
+});
