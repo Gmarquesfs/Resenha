@@ -341,7 +341,7 @@
             </div>
           </div>
 
-          <!-- Pergunta 2 (CORRIGIDA) -->
+          <!-- Pergunta 2 -->
           <div class="form-group">
             <p class="question">2. Quais temas você tem mais interesse em ver como pilares de conteúdo e troca dentro da comunidade médica da Caveo?</p>
             <div class="checkbox-group">
@@ -381,11 +381,10 @@
             </div>
           </div>
 
-          <!-- Pergunta 3 (ATUALIZADA) -->
+          <!-- Pergunta 3 -->
           <div class="form-group">
             <p class="question">3. Qual formato de conteúdo você mais consome atualmente?</p>
             <select name="formato" id="formato" class="form-control" required>
-              <option value="" disabled selected>Selecione o formato de conteúdo</option>  required>
               <option value="" disabled selected>Selecione o formato de conteúdo</option>
               <option value="Vídeos (YouTube, Reels etc.)">Vídeos (YouTube, Reels etc.)</option>
               <option value="Podcasts">Podcasts</option>
@@ -398,7 +397,7 @@
             <input type="text" id="formato-outro-texto" name="formato_outro_texto" class="form-control hidden" placeholder="Especifique outro formato" style="margin-top: 10px;">
           </div>
 
-          <!-- Pergunta 4 (ATUALIZADA) -->
+          <!-- Pergunta 4 -->
           <div class="form-group">
             <p class="question">4. Que tipo de evento você mais gosta de participar?</p>
             <div class="checkbox-group">
@@ -442,7 +441,7 @@
             </div>
           </div>
 
-          <!-- Pergunta 5 (ATUALIZADA) -->
+          <!-- Pergunta 5 -->
           <div class="form-group">
             <p class="question">5. O que mais te atrai em uma comunidade de médicos?</p>
             <div class="checkbox-group">
@@ -478,7 +477,7 @@
             </div>
           </div>
 
-          <!-- Pergunta 6 (MANTIDA) -->
+          <!-- Pergunta 6 -->
           <div class="form-group">
             <p class="question">6. Você sente que falta conteúdo direcionado a médicos que querem empreender ou gerir a própria carreira?</p>
             <select name="falta_conteudo" id="falta_conteudo" class="form-control" required>
@@ -489,7 +488,7 @@
             </select>
           </div>
 
-          <!-- Pergunta 7 (ATUALIZADA) -->
+          <!-- Pergunta 7 -->
           <div class="form-group">
             <p class="question">7. Quais dessas habilidades você gostaria de desenvolver nos próximos meses?</p>
             <div class="checkbox-group">
@@ -521,7 +520,7 @@
             </div>
           </div>
 
-          <!-- Pergunta 8 (ATUALIZADA) -->
+          <!-- Pergunta 8 -->
           <div class="form-group">
             <p class="question">8. Qual é o seu hobby ou atividade favorita fora da medicina?</p>
             <div class="checkbox-group">
@@ -572,7 +571,7 @@
             </div>
           </div>
 
-          <!-- Pergunta 9 (MANTIDA) -->
+          <!-- Pergunta 9 -->
           <div class="form-group">
             <p class="question">9. Hoje, você já participa de alguma comunidade ou rede voltada para médicos?</p>
             <select name="participa_comunidade" id="participa_comunidade" class="form-control" required>
@@ -584,7 +583,7 @@
             </select>
           </div>
 
-          <!-- Pergunta 10 (MANTIDA) -->
+          <!-- Pergunta 10 -->
           <div class="form-group">
             <p class="question">10. Você estaria disposto(a) a pagar por uma comunidade que apoie seu crescimento profissional e pessoal?</p>
             <select name="disposto_pagar" id="disposto_pagar" class="form-control" required>
@@ -595,7 +594,7 @@
             </select>
           </div>
 
-          <!-- Pergunta 11 (ATUALIZADA) -->
+          <!-- Pergunta 11 -->
           <div class="form-group">
             <p class="question">11. Quais temas mais chamariam sua atenção para participar de uma aula, workshop ou mentoria?</p>
             <div class="checkbox-group">
@@ -764,66 +763,8 @@
           }
         }
         
-        // Adicionar descrições para melhor legibilidade no Google Sheets
-        if (document.getElementById('desafio-1').checked) params.append('desafio_1_desc', 'Organização financeira');
-        if (document.getElementById('desafio-2').checked) params.append('desafio_2_desc', 'Saber me posicionar nas redes sociais');
-        if (document.getElementById('desafio-3').checked) params.append('desafio_3_desc', 'Acesso a conteúdo prático e atualizado');
-        if (document.getElementById('desafio-4').checked) params.append('desafio_4_desc', 'Falta de apoio na gestão da carreira');
-        if (document.getElementById('desafio-5').checked) params.append('desafio_5_desc', 'Não sei por onde começar profissionalmente');
-
-        // Pergunta 2 - Temas
-        if (document.getElementById('tema-1').checked) params.append('tema_1_desc', 'Marketing e posicionamento médico');
-        if (document.getElementById('tema-2').checked) params.append('tema_2_desc', 'Gestão financeira e contábil');
-        if (document.getElementById('tema-3').checked) params.append('tema_3_desc', 'Investimentos e educação financeira');
-        if (document.getElementById('tema-4').checked) params.append('tema_4_desc', 'Conexão e networking com outros médicos');
-        if (document.getElementById('tema-5').checked) params.append('tema_5_desc', 'Desenvolvimento de habilidades clínicas e técnicas');
-        if (document.getElementById('tema-6').checked) params.append('tema_6_desc', 'Planejamento de carreira e estratégias de crescimento profissional');
-        if (document.getElementById('tema-7').checked) params.append('tema_7_desc', 'Saúde mental, bem-estar e qualidade de vida');
-
-        // Pergunta 4 - Eventos
-        if (document.getElementById('evento-1').checked) params.append('evento_1_desc', 'Encontros online sobre temas médicos');
-        if (document.getElementById('evento-2').checked) params.append('evento_2_desc', 'Encontros presenciais sobre temas médicos');
-        if (document.getElementById('evento-3').checked) params.append('evento_3_desc', 'Encontros presenciais fora da medicina');
-        if (document.getElementById('evento-4').checked) params.append('evento_4_desc', 'Jantares e experiências sociais');
-        if (document.getElementById('evento-5').checked) params.append('evento_5_desc', 'Mentorias em grupo');
-        if (document.getElementById('evento-6').checked) params.append('evento_6_desc', 'Eventos de networking (drinks & conexões)');
-        if (document.getElementById('evento-7').checked) params.append('evento_7_desc', 'Café da manhã com insights práticos');
-        if (document.getElementById('evento-8').checked) params.append('evento_8_desc', 'Imersões e eventos intensos');
-
-        // Pergunta 5 - Atrações
-        if (document.getElementById('atracao-1').checked) params.append('atracao_1_desc', 'A troca com outros médicos');
-        if (document.getElementById('atracao-2').checked) params.append('atracao_2_desc', 'Acesso a conteúdo exclusivo');
-        if (document.getElementById('atracao-3').checked) params.append('atracao_3_desc', 'Apoio para minha organização profissional');
-        if (document.getElementById('atracao-4').checked) params.append('atracao_4_desc', 'Sensação de pertencimento');
-        if (document.getElementById('atracao-5').checked) params.append('atracao_5_desc', 'Mentorias ou acompanhamento de carreira');
-        if (document.getElementById('atracao-6').checked) params.append('atracao_6_desc', 'Descontos e benefícios');
-
-        // Pergunta 7 - Habilidades
-        if (document.getElementById('habilidade-1').checked) params.append('habilidade_1_desc', 'Gerenciamento de serviços');
-        if (document.getElementById('habilidade-2').checked) params.append('habilidade_2_desc', 'Organização financeira');
-        if (document.getElementById('habilidade-3').checked) params.append('habilidade_3_desc', 'Branding médico e construção de marca pessoal');
-        if (document.getElementById('habilidade-4').checked) params.append('habilidade_4_desc', 'Conquistar meu primeiro trabalho ou plantão');
-        if (document.getElementById('habilidade-5').checked) params.append('habilidade_5_desc', 'Ampliar minha rede de contatos profissionais');
-
-        // Pergunta 8 - Hobbies
-        if (document.getElementById('hobby-1').checked) params.append('hobby_1_desc', 'Praticar esportes');
-        if (document.getElementById('hobby-2').checked) params.append('hobby_2_desc', 'Participar de trilhas ou atividades ao ar livre');
-        if (document.getElementById('hobby-3').checked) params.append('hobby_3_desc', 'Cozinhar / Gastronomia');
-        if (document.getElementById('hobby-4').checked) params.append('hobby_4_desc', 'Viajar');
-        if (document.getElementById('hobby-5').checked) params.append('hobby_5_desc', 'Ler livros');
-        if (document.getElementById('hobby-6').checked) params.append('hobby_6_desc', 'Ouvir música / Tocar instrumentos');
-        if (document.getElementById('hobby-7').checked) params.append('hobby_7_desc', 'Assistir séries ou filmes');
-        if (document.getElementById('hobby-8').checked) params.append('hobby_8_desc', 'Produzir conteúdo nas redes sociais');
-        if (document.getElementById('hobby-9').checked) params.append('hobby_9_desc', 'Frequentar eventos sociais (jantares, festas, networking)');
-
-        // Pergunta 11 - Temas para mentoria
-        if (document.getElementById('tema-mentoria-1').checked) params.append('tema_mentoria_1_desc', 'Como conseguir meus primeiros plantões e oportunidades de trabalho');
-        if (document.getElementById('tema-mentoria-2').checked) params.append('tema_mentoria_2_desc', 'Tipos de contratação e como pagar menos impostos');
-        if (document.getElementById('tema-mentoria-3').checked) params.append('tema_mentoria_3_desc', 'Organização financeira e controle de ganhos desde o início');
-        if (document.getElementById('tema-mentoria-4').checked) params.append('tema_mentoria_4_desc', 'Introdução ao mundo dos investimentos para médicos');
-        if (document.getElementById('tema-mentoria-5').checked) params.append('tema_mentoria_5_desc', 'Marketing pessoal e posicionamento profissional');
-        if (document.getElementById('tema-mentoria-6').checked) params.append('tema_mentoria_6_desc', 'Como escolher e planejar a minha carreira médica');
-        if (document.getElementById('tema-mentoria-7').checked) params.append('tema_mentoria_7_desc', 'Estratégias para me destacar mesmo sem experiência');
+        // Adicionar timestamp para garantir dados únicos
+        params.append('timestamp', new Date().toISOString());
         
         // Configurar um timeout para garantir que o usuário não fique preso no carregamento
         const timeoutId = setTimeout(() => {
