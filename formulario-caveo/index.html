@@ -269,7 +269,7 @@
       <form id="formulario">
         <!-- Seção 1: Dados Gerais -->
         <div class="section">
-          <h2 class="section-title">1. Dados Gerais</h2>
+          <h2 class="section-title">1. Dados Gerais (perfil do médico)</h2>
 
           <div class="grid grid-2">
             <div class="form-group">
@@ -341,9 +341,9 @@
             </div>
           </div>
 
-          <!-- Pergunta 2 -->
+          <!-- Pergunta 2 (ATUALIZADA) -->
           <div class="form-group">
-            <p class="question">2. Em quais temas você teria mais interesse dentro de uma comunidade médica?</p>
+            <p class="question">2. Quais temas você tem mais interesse em ver como pilares de conteúdo e troca dentro da comunidade médica da Caveo?</p>
             <div class="checkbox-group">
               <div class="checkbox-item">
                 <input type="checkbox" id="tema-1" name="tema_1" value="Sim">
@@ -355,15 +355,24 @@
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="tema-3" name="tema_3" value="Sim">
-                <label for="tema-3">Troca de experiências com colegas</label>
+                <label for="tema-3">Investimentos e educação financeira</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="tema-4" name="tema_4" value="Sim">
-                <label for="tema-4">Planejamento de carreira</label>
+                <label for="tema-4">Conexão e networking com outros médicos</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="tema-5" name="tema_5" value="Sim">
-                <label for="tema-5">Saúde mental e autocuidado</label>
+                <label for="tema-5">Desenvolvimento de habilidades clínicas e técnicas</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-6" name="tema_6" value="Sim">
+                <label for="tema-6">Planejamento de carreira e estratégias de crescimento profissional</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-7" name="tema_7" value="Sim">
+                <label for="tema-7">Saúde mental, bem-estar e qualidade de  value="Sim">
+                <label for="tema-7">Saúde mental, bem-estar e qualidade de vida</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="tema-outro" name="tema_outro" value="Sim">
@@ -373,7 +382,7 @@
             </div>
           </div>
 
-          <!-- Pergunta 3 -->
+          <!-- Pergunta 3 (ATUALIZADA) -->
           <div class="form-group">
             <p class="question">3. Qual formato de conteúdo você mais consome atualmente?</p>
             <select name="formato" id="formato" class="form-control" required>
@@ -381,28 +390,29 @@
               <option value="Vídeos (YouTube, Reels etc.)">Vídeos (YouTube, Reels etc.)</option>
               <option value="Podcasts">Podcasts</option>
               <option value="Artigos/textos">Artigos/textos</option>
-              <option value="Webinars e lives">Webinars e lives</option>
+              <option value="Livros">Livros</option>
+              <option value="Encontros online e lives">Encontros online e lives</option>
               <option value="Slides, resumos e mapas mentais">Slides, resumos e mapas mentais</option>
               <option value="Outro">Outro</option>
             </select>
             <input type="text" id="formato-outro-texto" name="formato_outro_texto" class="form-control hidden" placeholder="Especifique outro formato" style="margin-top: 10px;">
           </div>
 
-          <!-- Pergunta 4 -->
+          <!-- Pergunta 4 (ATUALIZADA) -->
           <div class="form-group">
             <p class="question">4. Que tipo de evento você mais gosta de participar?</p>
             <div class="checkbox-group">
               <div class="checkbox-item">
                 <input type="checkbox" id="evento-1" name="evento_1" value="Sim">
-                <label for="evento-1">Webinars com especialistas</label>
+                <label for="evento-1">Encontros online sobre temas médicos</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="evento-2" name="evento_2" value="Sim">
-                <label for="evento-2">Workshops práticos</label>
+                <label for="evento-2">Encontros presenciais sobre temas médicos</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="evento-3" name="evento_3" value="Sim">
-                <label for="evento-3">Encontros presenciais com médicos</label>
+                <label for="evento-3">Encontros presenciais sobre temas fora da medicina (marketing, investimentos, empreendedorismo, etc.)</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="evento-4" name="evento_4" value="Sim">
@@ -413,6 +423,18 @@
                 <label for="evento-5">Mentorias em grupo</label>
               </div>
               <div class="checkbox-item">
+                <input type="checkbox" id="evento-6" name="evento_6" value="Sim">
+                <label for="evento-6">Eventos de networking com outros médicos, drinks e boas conexões</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="evento-7" name="evento_7" value="Sim">
+                <label for="evento-7">Café da manhã com conteúdo leve e insights práticos</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="evento-8" name="evento_8" value="Sim">
+                <label for="evento-8">Imersões e eventos com conteúdos mais intensos</label>
+              </div>
+              <div class="checkbox-item">
                 <input type="checkbox" id="evento-outro" name="evento_outro" value="Sim">
                 <label for="evento-outro">Outro(s). Qual(is)?</label>
               </div>
@@ -420,7 +442,7 @@
             </div>
           </div>
 
-          <!-- Pergunta 5 -->
+          <!-- Pergunta 5 (ATUALIZADA) -->
           <div class="form-group">
             <p class="question">5. O que mais te atrai em uma comunidade de médicos?</p>
             <div class="checkbox-group">
@@ -445,6 +467,10 @@
                 <label for="atracao-5">Mentorias ou acompanhamento de carreira</label>
               </div>
               <div class="checkbox-item">
+                <input type="checkbox" id="atracao-6" name="atracao_6" value="Sim">
+                <label for="atracao-6">Descontos e benefícios</label>
+              </div>
+              <div class="checkbox-item">
                 <input type="checkbox" id="atracao-outro" name="atracao_outro" value="Sim">
                 <label for="atracao-outro">Outro(s). Qual(is)?</label>
               </div>
@@ -452,7 +478,7 @@
             </div>
           </div>
 
-          <!-- Pergunta 6 -->
+          <!-- Pergunta 6 (MANTIDA) -->
           <div class="form-group">
             <p class="question">6. Você sente que falta conteúdo direcionado a médicos que querem empreender ou gerir a própria carreira?</p>
             <select name="falta_conteudo" id="falta_conteudo" class="form-control" required>
@@ -463,29 +489,29 @@
             </select>
           </div>
 
-          <!-- Pergunta 7 -->
+          <!-- Pergunta 7 (ATUALIZADA) -->
           <div class="form-group">
             <p class="question">7. Quais dessas habilidades você gostaria de desenvolver nos próximos meses?</p>
             <div class="checkbox-group">
               <div class="checkbox-item">
                 <input type="checkbox" id="habilidade-1" name="habilidade_1" value="Sim">
-                <label for="habilidade-1">Gestão do consultório/clínica</label>
+                <label for="habilidade-1">Gerenciamento de serviços</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="habilidade-2" name="habilidade_2" value="Sim">
-                <label for="habilidade-2">Organização financeira e impostos</label>
+                <label for="habilidade-2">Organização financeira</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="habilidade-3" name="habilidade_3" value="Sim">
-                <label for="habilidade-3">Comunicação com pacientes</label>
+                <label for="habilidade-3">Branding médico e construção de marca pessoal</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="habilidade-4" name="habilidade_4" value="Sim">
-                <label for="habilidade-4">Branding/marca pessoal</label>
+                <label for="habilidade-4">Conquistar meu primeiro trabalho ou plantão</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="habilidade-5" name="habilidade_5" value="Sim">
-                <label for="habilidade-5">Captação de pacientes</label>
+                <label for="habilidade-5">Ampliar minha rede de contatos profissionais</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="habilidade-outro" name="habilidade_outro" value="Sim">
@@ -495,7 +521,7 @@
             </div>
           </div>
 
-          <!-- Pergunta 8 -->
+          <!-- Pergunta 8 (ATUALIZADA) -->
           <div class="form-group">
             <p class="question">8. Qual é o seu hobby ou atividade favorita fora da medicina?</p>
             <div class="checkbox-group">
@@ -527,6 +553,18 @@
                 <label for="hobby-6">Ouvir música / Tocar instrumentos</label>
               </div>
               <div class="checkbox-item">
+                <input type="checkbox" id="hobby-7" name="hobby_7" value="Sim">
+                <label for="hobby-7">Assistir séries ou filmes</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="hobby-8" name="hobby_8" value="Sim">
+                <label for="hobby-8">Produzir conteúdo nas redes sociais</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="hobby-9" name="hobby_9" value="Sim">
+                <label for="hobby-9">Frequentar eventos sociais (jantares, festas, networking)</label>
+              </div>
+              <div class="checkbox-item">
                 <input type="checkbox" id="hobby-outro" name="hobby_outro" value="Sim">
                 <label for="hobby-outro">Outro(s). Qual(is)?</label>
               </div>
@@ -534,7 +572,7 @@
             </div>
           </div>
 
-          <!-- Pergunta 9 -->
+          <!-- Pergunta 9 (MANTIDA) -->
           <div class="form-group">
             <p class="question">9. Hoje, você já participa de alguma comunidade ou rede voltada para médicos?</p>
             <select name="participa_comunidade" id="participa_comunidade" class="form-control" required>
@@ -546,7 +584,7 @@
             </select>
           </div>
 
-          <!-- Pergunta 10 -->
+          <!-- Pergunta 10 (MANTIDA) -->
           <div class="form-group">
             <p class="question">10. Você estaria disposto(a) a pagar por uma comunidade que apoie seu crescimento profissional e pessoal?</p>
             <select name="disposto_pagar" id="disposto_pagar" class="form-control" required>
@@ -557,29 +595,37 @@
             </select>
           </div>
 
-          <!-- Pergunta 11 -->
+          <!-- Pergunta 11 (ATUALIZADA) -->
           <div class="form-group">
             <p class="question">11. Quais temas mais chamariam sua atenção para participar de uma aula, workshop ou mentoria?</p>
             <div class="checkbox-group">
               <div class="checkbox-item">
                 <input type="checkbox" id="tema-mentoria-1" name="tema_mentoria_1" value="Sim">
-                <label for="tema-mentoria-1">Gestão de consultório</label>
+                <label for="tema-mentoria-1">Como conseguir meus primeiros plantões e oportunidades de trabalho</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="tema-mentoria-2" name="tema_mentoria_2" value="Sim">
-                <label for="tema-mentoria-2">Impostos e contabilidade para médicos PJ</label>
+                <label for="tema-mentoria-2">Tipos de contratação e como pagar menos impostos</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="tema-mentoria-3" name="tema_mentoria_3" value="Sim">
-                <label for="tema-mentoria-3">Marketing pessoal</label>
+                <label for="tema-mentoria-3">Organização financeira e controle de ganhos desde o início</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="tema-mentoria-4" name="tema_mentoria_4" value="Sim">
-                <label for="tema-mentoria-4">Precificação de atendimentos</label>
+                <label for="tema-mentoria-4">Introdução ao mundo dos investimentos para médicos</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="tema-mentoria-5" name="tema_mentoria_5" value="Sim">
-                <label for="tema-mentoria-5">Início de carreira e posicionamento</label>
+                <label for="tema-mentoria-5">Marketing pessoal e posicionamento profissional</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-mentoria-6" name="tema_mentoria_6" value="Sim">
+                <label for="tema-mentoria-6">Como escolher e planejar a minha carreira médica</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="tema-mentoria-7" name="tema_mentoria_7" value="Sim">
+                <label for="tema-mentoria-7">Estratégias para me destacar mesmo sem experiência</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="tema-mentoria-outro" name="tema_mentoria_outro" value="Sim">
@@ -694,27 +740,33 @@
         
         if (document.getElementById('tema-1').checked) params.append('tema_1_desc', 'Marketing e posicionamento médico');
         if (document.getElementById('tema-2').checked) params.append('tema_2_desc', 'Gestão financeira e contábil');
-        if (document.getElementById('tema-3').checked) params.append('tema_3_desc', 'Troca de experiências com colegas');
-        if (document.getElementById('tema-4').checked) params.append('tema_4_desc', 'Planejamento de carreira');
-        if (document.getElementById('tema-5').checked) params.append('tema_5_desc', 'Saúde mental e autocuidado');
+        if (document.getElementById('tema-3').checked) params.append('tema_3_desc', 'Investimentos e educação financeira');
+        if (document.getElementById('tema-4').checked) params.append('tema_4_desc', 'Conexão e networking com outros médicos');
+        if (document.getElementById('tema-5').checked) params.append('tema_5_desc', 'Desenvolvimento de habilidades clínicas e técnicas');
+        if (document.getElementById('tema-6').checked) params.append('tema_6_desc', 'Planejamento de carreira e estratégias de crescimento profissional');
+        if (document.getElementById('tema-7').checked) params.append('tema_7_desc', 'Saúde mental, bem-estar e qualidade de vida');
         
-        if (document.getElementById('evento-1').checked) params.append('evento_1_desc', 'Webinars com especialistas');
-        if (document.getElementById('evento-2').checked) params.append('evento_2_desc', 'Workshops práticos');
-        if (document.getElementById('evento-3').checked) params.append('evento_3_desc', 'Encontros presenciais com médicos');
+        if (document.getElementById('evento-1').checked) params.append('evento_1_desc', 'Encontros online sobre temas médicos');
+        if (document.getElementById('evento-2').checked) params.append('evento_2_desc', 'Encontros presenciais sobre temas médicos');
+        if (document.getElementById('evento-3').checked) params.append('evento_3_desc', 'Encontros presenciais sobre temas fora da medicina');
         if (document.getElementById('evento-4').checked) params.append('evento_4_desc', 'Jantares e experiências sociais');
         if (document.getElementById('evento-5').checked) params.append('evento_5_desc', 'Mentorias em grupo');
+        if (document.getElementById('evento-6').checked) params.append('evento_6_desc', 'Eventos de networking com outros médicos, drinks e boas conexões');
+        if (document.getElementById('evento-7').checked) params.append('evento_7_desc', 'Café da manhã com conteúdo leve e insights práticos');
+        if (document.getElementById('evento-8').checked) params.append('evento_8_desc', 'Imersões e eventos com conteúdos mais intensos');
         
         if (document.getElementById('atracao-1').checked) params.append('atracao_1_desc', 'A troca com outros médicos');
         if (document.getElementById('atracao-2').checked) params.append('atracao_2_desc', 'Acesso a conteúdo exclusivo');
         if (document.getElementById('atracao-3').checked) params.append('atracao_3_desc', 'Apoio para minha organização profissional');
         if (document.getElementById('atracao-4').checked) params.append('atracao_4_desc', 'Sensação de pertencimento');
         if (document.getElementById('atracao-5').checked) params.append('atracao_5_desc', 'Mentorias ou acompanhamento de carreira');
+        if (document.getElementById('atracao-6').checked) params.append('atracao_6_desc', 'Descontos e benefícios');
         
-        if (document.getElementById('habilidade-1').checked) params.append('habilidade_1_desc', 'Gestão do consultório/clínica');
-        if (document.getElementById('habilidade-2').checked) params.append('habilidade_2_desc', 'Organização financeira e impostos');
-        if (document.getElementById('habilidade-3').checked) params.append('habilidade_3_desc', 'Comunicação com pacientes');
-        if (document.getElementById('habilidade-4').checked) params.append('habilidade_4_desc', 'Branding/marca pessoal');
-        if (document.getElementById('habilidade-5').checked) params.append('habilidade_5_desc', 'Captação de pacientes');
+        if (document.getElementById('habilidade-1').checked) params.append('habilidade_1_desc', 'Gerenciamento de serviços');
+        if (document.getElementById('habilidade-2').checked) params.append('habilidade_2_desc', 'Organização financeira');
+        if (document.getElementById('habilidade-3').checked) params.append('habilidade_3_desc', 'Branding médico e construção de marca pessoal');
+        if (document.getElementById('habilidade-4').checked) params.append('habilidade_4_desc', 'Conquistar meu primeiro trabalho ou plantão');
+        if (document.getElementById('habilidade-5').checked) params.append('habilidade_5_desc', 'Ampliar minha rede de contatos profissionais');
         
         if (document.getElementById('hobby-1').checked) params.append('hobby_1_desc', 'Praticar esportes');
         if (document.getElementById('hobby-2').checked) params.append('hobby_2_desc', 'Participar de trilhas ou atividades ao ar livre');
@@ -722,12 +774,17 @@
         if (document.getElementById('hobby-4').checked) params.append('hobby_4_desc', 'Viajar');
         if (document.getElementById('hobby-5').checked) params.append('hobby_5_desc', 'Ler livros');
         if (document.getElementById('hobby-6').checked) params.append('hobby_6_desc', 'Ouvir música / Tocar instrumentos');
+        if (document.getElementById('hobby-7').checked) params.append('hobby_7_desc', 'Assistir séries ou filmes');
+        if (document.getElementById('hobby-8').checked) params.append('hobby_8_desc', 'Produzir conteúdo nas redes sociais');
+        if (document.getElementById('hobby-9').checked) params.append('hobby_9_desc', 'Frequentar eventos sociais (jantares, festas, networking)');
         
-        if (document.getElementById('tema-mentoria-1').checked) params.append('tema_mentoria_1_desc', 'Gestão de consultório');
-        if (document.getElementById('tema-mentoria-2').checked) params.append('tema_mentoria_2_desc', 'Impostos e contabilidade para médicos PJ');
-        if (document.getElementById('tema-mentoria-3').checked) params.append('tema_mentoria_3_desc', 'Marketing pessoal');
-        if (document.getElementById('tema-mentoria-4').checked) params.append('tema_mentoria_4_desc', 'Precificação de atendimentos');
-        if (document.getElementById('tema-mentoria-5').checked) params.append('tema_mentoria_5_desc', 'Início de carreira e posicionamento');
+        if (document.getElementById('tema-mentoria-1').checked) params.append('tema_mentoria_1_desc', 'Como conseguir meus primeiros plantões e oportunidades de trabalho');
+        if (document.getElementById('tema-mentoria-2').checked) params.append('tema_mentoria_2_desc', 'Tipos de contratação e como pagar menos impostos');
+        if (document.getElementById('tema-mentoria-3').checked) params.append('tema_mentoria_3_desc', 'Organização financeira e controle de ganhos desde o início');
+        if (document.getElementById('tema-mentoria-4').checked) params.append('tema_mentoria_4_desc', 'Introdução ao mundo dos investimentos para médicos');
+        if (document.getElementById('tema-mentoria-5').checked) params.append('tema_mentoria_5_desc', 'Marketing pessoal e posicionamento profissional');
+        if (document.getElementById('tema-mentoria-6').checked) params.append('tema_mentoria_6_desc', 'Como escolher e planejar a minha carreira médica');
+        if (document.getElementById('tema-mentoria-7').checked) params.append('tema_mentoria_7_desc', 'Estratégias para me destacar mesmo sem experiência');
         
         // Enviar dados para o Google Apps Script
         fetch(scriptURL, {
