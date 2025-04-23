@@ -204,6 +204,24 @@
       color: #666;
       margin-bottom: 25px;
     }
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border-left-color: var(--caveo-blue);
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -222,7 +240,7 @@
     </div>
 
     <div class="form-container">
-      <form id="formulario">
+      <form id="formulario" method="POST">
         <!-- Seção 1: Dados Gerais -->
         <div class="section">
           <h2 class="section-title">1. Dados Gerais</h2>
@@ -270,27 +288,27 @@
             <p class="question">1. Quais são os principais desafios que você enfrenta hoje como médico?</p>
             <div class="checkbox-group">
               <div class="checkbox-item">
-                <input type="checkbox" id="desafio-1" name="desafios" value="Organização financeira" data-question-id="q1" data-option-id="1">
+                <input type="checkbox" id="desafio-1" name="desafios" value="Organização financeira">
                 <label for="desafio-1">Organização financeira</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="desafio-2" name="desafios" value="Saber me posicionar nas redes sociais" data-question-id="q1" data-option-id="2">
+                <input type="checkbox" id="desafio-2" name="desafios" value="Saber me posicionar nas redes sociais">
                 <label for="desafio-2">Saber me posicionar nas redes sociais</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="desafio-3" name="desafios" value="Acesso a conteúdo prático e atualizado" data-question-id="q1" data-option-id="3">
+                <input type="checkbox" id="desafio-3" name="desafios" value="Acesso a conteúdo prático e atualizado">
                 <label for="desafio-3">Acesso a conteúdo prático e atualizado</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="desafio-4" name="desafios" value="Falta de apoio na gestão da carreira" data-question-id="q1" data-option-id="4">
+                <input type="checkbox" id="desafio-4" name="desafios" value="Falta de apoio na gestão da carreira">
                 <label for="desafio-4">Falta de apoio na gestão da carreira</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="desafio-5" name="desafios" value="Não sei por onde começar profissionalmente" data-question-id="q1" data-option-id="5">
+                <input type="checkbox" id="desafio-5" name="desafios" value="Não sei por onde começar profissionalmente">
                 <label for="desafio-5">Não sei por onde começar profissionalmente</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="desafio-outro" name="desafios" value="Outro" data-question-id="q1" data-option-id="6">
+                <input type="checkbox" id="desafio-outro" name="desafios" value="Outro">
                 <label for="desafio-outro">Outro(s). Qual(is)?</label>
               </div>
               <input type="text" id="desafio-outro-texto" name="desafio_outro_texto" class="form-control other-input hidden" placeholder="Especifique outros desafios">
@@ -302,27 +320,27 @@
             <p class="question">2. Em quais temas você teria mais interesse dentro de uma comunidade médica?</p>
             <div class="checkbox-group">
               <div class="checkbox-item">
-                <input type="checkbox" id="tema-1" name="temas" value="Marketing e posicionamento médico" data-question-id="q2" data-option-id="1">
+                <input type="checkbox" id="tema-1" name="temas" value="Marketing e posicionamento médico">
                 <label for="tema-1">Marketing e posicionamento médico</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="tema-2" name="temas" value="Gestão financeira e contábil" data-question-id="q2" data-option-id="2">
+                <input type="checkbox" id="tema-2" name="temas" value="Gestão financeira e contábil">
                 <label for="tema-2">Gestão financeira e contábil</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="tema-3" name="temas" value="Troca de experiências com colegas" data-question-id="q2" data-option-id="3">
+                <input type="checkbox" id="tema-3" name="temas" value="Troca de experiências com colegas">
                 <label for="tema-3">Troca de experiências com colegas</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="tema-4" name="temas" value="Planejamento de carreira" data-question-id="q2" data-option-id="4">
+                <input type="checkbox" id="tema-4" name="temas" value="Planejamento de carreira">
                 <label for="tema-4">Planejamento de carreira</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="tema-5" name="temas" value="Saúde mental e autocuidado" data-question-id="q2" data-option-id="5">
+                <input type="checkbox" id="tema-5" name="temas" value="Saúde mental e autocuidado">
                 <label for="tema-5">Saúde mental e autocuidado</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="tema-outro" name="temas" value="Outro" data-question-id="q2" data-option-id="6">
+                <input type="checkbox" id="tema-outro" name="temas" value="Outro">
                 <label for="tema-outro">Outro(s). Qual(is)?</label>
               </div>
               <input type="text" id="tema-outro-texto" name="tema_outro_texto" class="form-control other-input hidden" placeholder="Especifique outros temas">
@@ -334,13 +352,12 @@
             <p class="question">3. Qual formato de conteúdo você mais consome atualmente?</p>
             <select name="formato" id="formato" class="form-control" required>
               <option value="" disabled selected>Selecione o formato de conteúdo</option>
-              <option value="Vídeos (YouTube, Reels etc.)" data-question-id="q3" data-option-id="1">Vídeos (YouTube, Reels etc.)</option>
-              <option value="Podcasts" data-question-id="q3" data-option-id="2">Podcasts</option>
-              <option value="Artigos/textos" data-question  data-option-id="2">Podcasts</option>
-              <option value="Artigos/textos" data-question-id="q3" data-option-id="3">Artigos/textos</option>
-              <option value="Webinars e lives" data-question-id="q3" data-option-id="4">Webinars e lives</option>
-              <option value="Slides, resumos e mapas mentais" data-question-id="q3" data-option-id="5">Slides, resumos e mapas mentais</option>
-              <option value="Outro" data-question-id="q3" data-option-id="6">Outro</option>
+              <option value="Vídeos (YouTube, Reels etc.)">Vídeos (YouTube, Reels etc.)</option>
+              <option value="Podcasts">Podcasts</option>
+              <option value="Artigos/textos">Artigos/textos</option>
+              <option value="Webinars e lives">Webinars e lives</option>
+              <option value="Slides, resumos e mapas mentais">Slides, resumos e mapas mentais</option>
+              <option value="Outro">Outro</option>
             </select>
             <input type="text" id="formato-outro-texto" name="formato_outro_texto" class="form-control hidden" placeholder="Especifique outro formato" style="margin-top: 10px;">
           </div>
@@ -350,27 +367,27 @@
             <p class="question">4. Que tipo de evento você mais gosta de participar?</p>
             <div class="checkbox-group">
               <div class="checkbox-item">
-                <input type="checkbox" id="evento-1" name="eventos" value="Webinars com especialistas" data-question-id="q4" data-option-id="1">
+                <input type="checkbox" id="evento-1" name="eventos" value="Webinars com especialistas">
                 <label for="evento-1">Webinars com especialistas</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="evento-2" name="eventos" value="Workshops práticos" data-question-id="q4" data-option-id="2">
+                <input type="checkbox" id="evento-2" name="eventos" value="Workshops práticos">
                 <label for="evento-2">Workshops práticos</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="evento-3" name="eventos" value="Encontros presenciais com médicos" data-question-id="q4" data-option-id="3">
+                <input type="checkbox" id="evento-3" name="eventos" value="Encontros presenciais com médicos">
                 <label for="evento-3">Encontros presenciais com médicos</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="evento-4" name="eventos" value="Jantares e experiências sociais" data-question-id="q4" data-option-id="4">
+                <input type="checkbox" id="evento-4" name="eventos" value="Jantares e experiências sociais">
                 <label for="evento-4">Jantares e experiências sociais</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="evento-5" name="eventos" value="Mentorias em grupo" data-question-id="q4" data-option-id="5">
+                <input type="checkbox" id="evento-5" name="eventos" value="Mentorias em grupo">
                 <label for="evento-5">Mentorias em grupo</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="evento-outro" name="eventos" value="Outro" data-question-id="q4" data-option-id="6">
+                <input type="checkbox" id="evento-outro" name="eventos" value="Outro">
                 <label for="evento-outro">Outro(s). Qual(is)?</label>
               </div>
               <input type="text" id="evento-outro-texto" name="evento_outro_texto" class="form-control other-input hidden" placeholder="Especifique outros eventos">
@@ -382,27 +399,27 @@
             <p class="question">5. O que mais te atrai em uma comunidade de médicos?</p>
             <div class="checkbox-group">
               <div class="checkbox-item">
-                <input type="checkbox" id="atracao-1" name="atracoes" value="A troca com outros médicos" data-question-id="q5" data-option-id="1">
+                <input type="checkbox" id="atracao-1" name="atracoes" value="A troca com outros médicos">
                 <label for="atracao-1">A troca com outros médicos</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="atracao-2" name="atracoes" value="Acesso a conteúdo exclusivo" data-question-id="q5" data-option-id="2">
+                <input type="checkbox" id="atracao-2" name="atracoes" value="Acesso a conteúdo exclusivo">
                 <label for="atracao-2">Acesso a conteúdo exclusivo</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="atracao-3" name="atracoes" value="Apoio para minha organização profissional" data-question-id="q5" data-option-id="3">
+                <input type="checkbox" id="atracao-3" name="atracoes" value="Apoio para minha organização profissional">
                 <label for="atracao-3">Apoio para minha organização profissional</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="atracao-4" name="atracoes" value="Sensação de pertencimento" data-question-id="q5" data-option-id="4">
+                <input type="checkbox" id="atracao-4" name="atracoes" value="Sensação de pertencimento">
                 <label for="atracao-4">Sensação de pertencimento</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="atracao-5" name="atracoes" value="Mentorias ou acompanhamento de carreira" data-question-id="q5" data-option-id="5">
+                <input type="checkbox" id="atracao-5" name="atracoes" value="Mentorias ou acompanhamento de carreira">
                 <label for="atracao-5">Mentorias ou acompanhamento de carreira</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="atracao-outro" name="atracoes" value="Outro" data-question-id="q5" data-option-id="6">
+                <input type="checkbox" id="atracao-outro" name="atracoes" value="Outro">
                 <label for="atracao-outro">Outro(s). Qual(is)?</label>
               </div>
               <input type="text" id="atracao-outro-texto" name="atracao_outro_texto" class="form-control other-input hidden" placeholder="Especifique outras atrações">
@@ -414,9 +431,9 @@
             <p class="question">6. Você sente que falta conteúdo direcionado a médicos que querem empreender ou gerir a própria carreira?</p>
             <select name="falta_conteudo" id="falta_conteudo" class="form-control" required>
               <option value="" disabled selected>Selecione uma opção</option>
-              <option value="Sim, com certeza" data-question-id="q6" data-option-id="1">Sim, com certeza</option>
-              <option value="Um pouco, vejo pouco conteúdo prático" data-question-id="q6" data-option-id="2">Um pouco, vejo pouco conteúdo prático</option>
-              <option value="Não, me sinto bem informado(a)" data-question-id="q6" data-option-id="3">Não, me sinto bem informado(a)</option>
+              <option value="Sim, com certeza">Sim, com certeza</option>
+              <option value="Um pouco, vejo pouco conteúdo prático">Um pouco, vejo pouco conteúdo prático</option>
+              <option value="Não, me sinto bem informado(a)">Não, me sinto bem informado(a)</option>
             </select>
           </div>
 
@@ -425,27 +442,27 @@
             <p class="question">7. Quais dessas habilidades você gostaria de desenvolver nos próximos meses?</p>
             <div class="checkbox-group">
               <div class="checkbox-item">
-                <input type="checkbox" id="habilidade-1" name="habilidades" value="Gestão do consultório/clínica" data-question-id="q7" data-option-id="1">
+                <input type="checkbox" id="habilidade-1" name="habilidades" value="Gestão do consultório/clínica">
                 <label for="habilidade-1">Gestão do consultório/clínica</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="habilidade-2" name="habilidades" value="Organização financeira e impostos" data-question-id="q7" data-option-id="2">
+                <input type="checkbox" id="habilidade-2" name="habilidades" value="Organização financeira e impostos">
                 <label for="habilidade-2">Organização financeira e impostos</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="habilidade-3" name="habilidades" value="Comunicação com pacientes" data-question-id="q7" data-option-id="3">
+                <input type="checkbox" id="habilidade-3" name="habilidades" value="Comunicação com pacientes">
                 <label for="habilidade-3">Comunicação com pacientes</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="habilidade-4" name="habilidades" value="Branding/marca pessoal" data-question-id="q7" data-option-id="4">
+                <input type="checkbox" id="habilidade-4" name="habilidades" value="Branding/marca pessoal">
                 <label for="habilidade-4">Branding/marca pessoal</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="habilidade-5" name="habilidades" value="Captação de pacientes" data-question-id="q7" data-option-id="5">
+                <input type="checkbox" id="habilidade-5" name="habilidades" value="Captação de pacientes">
                 <label for="habilidade-5">Captação de pacientes</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="habilidade-outro" name="habilidades" value="Outro" data-question-id="q7" data-option-id="6">
+                <input type="checkbox" id="habilidade-outro" name="habilidades" value="Outro">
                 <label for="habilidade-outro">Outro(s). Qual(is)?</label>
               </div>
               <input type="text" id="habilidade-outro-texto" name="habilidade_outro_texto" class="form-control other-input hidden" placeholder="Especifique outras habilidades">
@@ -457,34 +474,34 @@
             <p class="question">8. Qual é o seu hobby ou atividade favorita fora da medicina?</p>
             <div class="checkbox-group">
               <div class="checkbox-item">
-                <input type="checkbox" id="hobby-1" name="hobbies" value="Praticar esportes" data-question-id="q8" data-option-id="1">
+                <input type="checkbox" id="hobby-1" name="hobbies" value="Praticar esportes">
                 <label for="hobby-1">Praticar esportes</label>
               </div>
               <div class="checkbox-item hidden" id="qual-esporte-container">
                 <input type="text" id="qual-esporte" name="qual_esporte" class="form-control" placeholder="Qual esporte você pratica?" style="width: 90%; margin-left: 25px;">
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="hobby-2" name="hobbies" value="Participar de trilhas ou atividades ao ar livre" data-question-id="q8" data-option-id="2">
+                <input type="checkbox" id="hobby-2" name="hobbies" value="Participar de trilhas ou atividades ao ar livre">
                 <label for="hobby-2">Participar de trilhas ou atividades ao ar livre</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="hobby-3" name="hobbies" value="Cozinhar / Gastronomia" data-question-id="q8" data-option-id="3">
+                <input type="checkbox" id="hobby-3" name="hobbies" value="Cozinhar / Gastronomia">
                 <label for="hobby-3">Cozinhar / Gastronomia</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="hobby-4" name="hobbies" value="Viajar" data-question-id="q8" data-option-id="4">
+                <input type="checkbox" id="hobby-4" name="hobbies" value="Viajar">
                 <label for="hobby-4">Viajar</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="hobby-5" name="hobbies" value="Ler livros" data-question-id="q8" data-option-id="5">
+                <input type="checkbox" id="hobby-5" name="hobbies" value="Ler livros">
                 <label for="hobby-5">Ler livros</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="hobby-6" name="hobbies" value="Ouvir música / Tocar instrumentos" data-question-id="q8" data-option-id="6">
+                <input type="checkbox" id="hobby-6" name="hobbies" value="Ouvir música / Tocar instrumentos">
                 <label for="hobby-6">Ouvir música / Tocar instrumentos</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="hobby-outro" name="hobbies" value="Outro" data-question-id="q8" data-option-id="7">
+                <input type="checkbox" id="hobby-outro" name="hobbies" value="Outro">
                 <label for="hobby-outro">Outro(s). Qual(is)?</label>
               </div>
               <input type="text" id="hobby-outro-texto" name="hobby_outro_texto" class="form-control other-input hidden" placeholder="Especifique outros hobbies">
@@ -496,10 +513,10 @@
             <p class="question">9. Hoje, você já participa de alguma comunidade ou rede voltada para médicos?</p>
             <select name="participa_comunidade" id="participa_comunidade" class="form-control" required>
               <option value="" disabled selected>Selecione uma opção</option>
-              <option value="Sim, participo ativamente" data-question-id="q9" data-option-id="1">Sim, participo ativamente</option>
-              <option value="Sim, mas participo pouco" data-question-id="q9" data-option-id="2">Sim, mas participo pouco</option>
-              <option value="Não, mas tenho interesse" data-question-id="q9" data-option-id="3">Não, mas tenho interesse</option>
-              <option value="Não, e não tenho interesse" data-question-id="q9" data-option-id="4">Não, e não tenho interesse</option>
+              <option value="Sim, participo ativamente">Sim, participo ativamente</option>
+              <option value="Sim, mas participo pouco">Sim, mas participo pouco</option>
+              <option value="Não, mas tenho interesse">Não, mas tenho interesse</option>
+              <option value="Não, e não tenho interesse">Não, e não tenho interesse</option>
             </select>
           </div>
 
@@ -508,9 +525,9 @@
             <p class="question">10. Você estaria disposto(a) a pagar por uma comunidade que apoie seu crescimento profissional e pessoal?</p>
             <select name="disposto_pagar" id="disposto_pagar" class="form-control" required>
               <option value="" disabled selected>Selecione uma opção</option>
-              <option value="Sim, se tiver benefícios reais" data-question-id="q10" data-option-id="1">Sim, se tiver benefícios reais</option>
-              <option value="Talvez, dependendo do custo" data-question-id="q10" data-option-id="2">Talvez, dependendo do custo</option>
-              <option value="Não sei dizer ainda" data-question-id="q10" data-option-id="3">Não sei dizer ainda</option>
+              <option value="Sim, se tiver benefícios reais">Sim, se tiver benefícios reais</option>
+              <option value="Talvez, dependendo do custo">Talvez, dependendo do custo</option>
+              <option value="Não sei dizer ainda">Não sei dizer ainda</option>
             </select>
           </div>
 
@@ -519,27 +536,27 @@
             <p class="question">11. Quais temas mais chamariam sua atenção para participar de uma aula, workshop ou mentoria?</p>
             <div class="checkbox-group">
               <div class="checkbox-item">
-                <input type="checkbox" id="tema-mentoria-1" name="temas_mentoria" value="Gestão de consultório" data-question-id="q11" data-option-id="1">
+                <input type="checkbox" id="tema-mentoria-1" name="temas_mentoria" value="Gestão de consultório">
                 <label for="tema-mentoria-1">Gestão de consultório</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="tema-mentoria-2" name="temas_mentoria" value="Impostos e contabilidade para médicos PJ" data-question-id="q11" data-option-id="2">
+                <input type="checkbox" id="tema-mentoria-2" name="temas_mentoria" value="Impostos e contabilidade para médicos PJ">
                 <label for="tema-mentoria-2">Impostos e contabilidade para médicos PJ</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="tema-mentoria-3" name="temas_mentoria" value="Marketing pessoal" data-question-id="q11" data-option-id="3">
+                <input type="checkbox" id="tema-mentoria-3" name="temas_mentoria" value="Marketing pessoal">
                 <label for="tema-mentoria-3">Marketing pessoal</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="tema-mentoria-4" name="temas_mentoria" value="Precificação de atendimentos" data-question-id="q11" data-option-id="4">
+                <input type="checkbox" id="tema-mentoria-4" name="temas_mentoria" value="Precificação de atendimentos">
                 <label for="tema-mentoria-4">Precificação de atendimentos</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="tema-mentoria-5" name="temas_mentoria" value="Início de carreira e posicionamento" data-question-id="q11" data-option-id="5">
+                <input type="checkbox" id="tema-mentoria-5" name="temas_mentoria" value="Início de carreira e posicionamento">
                 <label for="tema-mentoria-5">Início de carreira e posicionamento</label>
               </div>
               <div class="checkbox-item">
-                <input type="checkbox" id="tema-mentoria-outro" name="temas_mentoria" value="Outro" data-question-id="q11" data-option-id="6">
+                <input type="checkbox" id="tema-mentoria-outro" name="temas_mentoria" value="Outro">
                 <label for="tema-mentoria-outro">Outro(s). Qual(is)?</label>
               </div>
               <input type="text" id="tema-mentoria-outro-texto" name="tema_mentoria_outro_texto" class="form-control other-input hidden" placeholder="Especifique outros temas">
@@ -566,6 +583,12 @@
 
         <button type="submit" id="submitBtn" class="btn">Enviar Formulário</button>
       </form>
+    </div>
+
+    <!-- Indicador de carregamento -->
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Enviando formulário...</p>
     </div>
 
     <!-- Mensagem de sucesso (inicialmente oculta) -->
@@ -613,93 +636,65 @@
         document.getElementById('qual-esporte-container').classList.toggle('hidden', !this.checked);
       });
       
+      // URL do seu Web App do Google Apps Script
+      // SUBSTITUA ESTA URL PELA URL DO SEU WEB APP APÓS A IMPLANTAÇÃO
+      const scriptURL = 'COLOQUE_AQUI_A_URL_DO_SEU_WEB_APP';
+      
       // Envio do formulário
       document.getElementById('formulario').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Preparar dados para envio ao Google Sheets
-        const formData = prepareFormDataForAnalysis();
-        
-        console.log('Dados formatados para análise:', formData);
-        
-        // Aqui você pode adicionar código para enviar os dados para o Google Sheets
-        // Por enquanto, apenas mostramos a mensagem de sucesso
+        // Mostrar indicador de carregamento
         document.querySelector('.form-container').style.display = 'none';
-        document.getElementById('success-message').style.display = 'block';
+        document.getElementById('loading').style.display = 'block';
         
-        // Rolar para o topo
-        window.scrollTo(0, 0);
-      });
-      
-      // Função para preparar os dados para análise
-      function prepareFormDataForAnalysis() {
-        const formData = {};
-        const form = document.getElementById('formulario');
+        // Preparar dados para envio
+        const formData = new FormData(this);
         
-        // Dados básicos
-        formData.timestamp = new Date().toISOString();
-        formData.nome = form.nome.value;
-        formData.idade = form.idade.value;
-        formData.cidade = form.cidade.value;
-        formData.faculdade = form.faculdade.value;
-        formData.especialidade = form.especialidade.value;
-        formData.situacao = form.situacao.value;
+        // Processar checkboxes (que podem ter múltiplos valores)
+        const checkboxGroups = ['desafios', 'temas', 'eventos', 'atracoes', 'habilidades', 'hobbies', 'temas_mentoria'];
         
-        // Processar perguntas de múltipla escolha (checkboxes)
-        const checkboxGroups = [
-          { name: 'desafios', question: 'q1' },
-          { name: 'temas', question: 'q2' },
-          { name: 'eventos', question: 'q4' },
-          { name: 'atracoes', question: 'q5' },
-          { name: 'habilidades', question: 'q7' },
-          { name: 'hobbies', question: 'q8' },
-          { name: 'temas_mentoria', question: 'q11' }
-        ];
-        
-        // Método 1: Valores concatenados com delimitador
         checkboxGroups.forEach(group => {
-          const checkboxes = form.querySelectorAll(`input[name="${group.name}"]:checked`);
-          const values = Array.from(checkboxes).map(cb => cb.value);
-          formData[group.name] = values.join('; ');
-          
-          // Adicionar texto de "outro" se aplicável
-          const outroCheckbox = document.getElementById(`${group.name.replace('s', '')}-outro`);
-          if (outroCheckbox && outroCheckbox.checked) {
-            const outroTexto = document.getElementById(`${group.name.replace('s', '')}-outro-texto`).value;
-            formData[`${group.name}_outro_texto`] = outroTexto;
+          const checkboxes = document.querySelectorAll(`input[name="${group}"]:checked`);
+          if (checkboxes.length > 0) {
+            const values = Array.from(checkboxes).map(cb => cb.value).join('; ');
+            // Remover os valores individuais e adicionar o valor combinado
+            formData.delete(group);
+            formData.append(group, values);
           }
         });
         
-        // Método 2: Colunas individuais para cada opção (formato booleano)
-        checkboxGroups.forEach(group => {
-          const checkboxes = form.querySelectorAll(`input[name="${group.name}"]`);
-          checkboxes.forEach(cb => {
-            const optionId = cb.getAttribute('data-option-id');
-            formData[`${group.question}_op${optionId}`] = cb.checked ? '1' : '0';
-          });
+        // Converter FormData para objeto de parâmetros de URL
+        const params = new URLSearchParams();
+        for (const [key, value] of formData.entries()) {
+          params.append(key, value);
+        }
+        
+        // Enviar dados para o Google Apps Script
+        fetch(scriptURL, {
+          method: 'POST',
+          mode: 'no-cors', // Importante para evitar erros de CORS
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: params.toString()
+        })
+        .then(() => {
+          // Esconder indicador de carregamento
+          document.getElementById('loading').style.display = 'none';
+          // Mostrar mensagem de sucesso
+          document.getElementById('success-message').style.display = 'block';
+          // Rolar para o topo
+          window.scrollTo(0, 0);
+        })
+        .catch(error => {
+          console.error('Erro ao enviar o formulário:', error);
+          alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
+          // Esconder indicador de carregamento e mostrar o formulário novamente
+          document.getElementById('loading').style.display = 'none';
+          document.querySelector('.form-container').style.display = 'block';
         });
-        
-        // Processar selects
-        formData.formato = form.formato.value;
-        if (form.formato.value === 'Outro') {
-          formData.formato_outro_texto = form.formato_outro_texto.value;
-        }
-        
-        formData.falta_conteudo = form.falta_conteudo.value;
-        formData.participa_comunidade = form.participa_comunidade.value;
-        formData.disposto_pagar = form.disposto_pagar.value;
-        
-        // Processar campos especiais
-        if (document.getElementById('hobby-1').checked) {
-          formData.qual_esporte = form.qual_esporte.value;
-        }
-        
-        // Perguntas abertas
-        formData.influencers = form.influencers.value;
-        formData.comunidade_ideal = form.comunidade_ideal.value;
-        
-        return formData;
-      }
+      });
     });
   </script>
 </body>
