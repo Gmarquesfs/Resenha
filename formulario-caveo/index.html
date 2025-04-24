@@ -381,10 +381,6 @@
           </div>
         </div>
 
-        <!-- Pergunta 3   placeholder="Especifique outros temas">
-          </div>
-        </div>
-
         <!-- Pergunta 3 -->
         <div class="form-group">
           <p class="question">3. Qual formato de conteúdo você mais consome atualmente?</p>
@@ -683,7 +679,25 @@
   document.addEventListener('DOMContentLoaded', function() {
     // URL do seu Web App do Google Apps Script
     // SUBSTITUA ESTA URL PELA URL DO SEU WEB APP APÓS A IMPLANTAÇÃO
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxs4cw_k3WeItxo14RVICEF2XTqR71WQ3vp7-R0pbMZb60u5mbfHv-t-XfnrLGw5C3tWA/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwzEs1ufKDabAQUSQVF_dLNNdYMhiQAk3LHGQ2a6T8HAeVSaviB8WQTb_cQuLmhTSOJ/exec';
+    
+    // Função para mostrar mensagem de erro
+    function showError(message, details) {
+      document.getElementById('loading').style.display = 'none';
+      document.querySelector('.form-container').style.display = 'block';
+      
+      const errorMessage = document.getElementById('error-message');
+      const errorDetails = document.getElementById('error-details');
+      const debugInfo = document.getElementById('debug-info');
+      
+      errorDetails.textContent = message;
+      debugInfo.textContent = details || '';
+      debugInfo.style.display = details ? 'block' : 'none';
+      errorMessage.style.display = 'block';
+      
+      // Rolar para o topo
+      window.scrollTo(0, 0);
+    }
     
     // Função para mostrar/ocultar campos "Outro"
     function toggleOutroField(checkboxId, inputId) {
@@ -732,6 +746,7 @@
       const params = new URLSearchParams();
       for (const [key, value] of formData.entries()) {
         params.append(key, value);
+        console.log(`Enviando: ${key} = ${value}`);
       }
       
       // Adicionar descrições para os checkboxes (para facilitar a análise)
@@ -789,6 +804,9 @@
       if (document.getElementById('tema-mentoria-6').checked) params.append('tema_mentoria_6_desc', 'Como escolher e planejar a minha carreira médica');
       if (document.getElementById('tema-mentoria-7').checked) params.append('tema_mentoria_7_desc', 'Estratégias para me destacar mesmo sem experiência');
       
+      console.log('URL do script:', scriptURL);
+      console.log('Parâmetros:', params.toString().substring(0, 100) + '...');
+      
       // Enviar dados para o Google Apps Script
       fetch(scriptURL, {
         method: 'POST',
@@ -799,28 +817,21 @@
         body: params.toString()
       })
       .then(response => {
-        console.log('Formulário enviado com sucesso!');
-        // Esconder indicador de carregamento
+        console.log('Resposta recebida:', response);
+        
+        // Como estamos usando mode: 'no-cors', não podemos ler a resposta
+        // Vamos assumir que foi bem-sucedido
         document.getElementById('loading').style.display = 'none';
-        // Mostrar mensagem de sucesso
         document.getElementById('success-message').style.display = 'block';
-        // Rolar para o topo
         window.scrollTo(0, 0);
       })
       .catch(error => {
         console.error('Erro ao enviar o formulário:', error);
         
-        // Esconder indicador de carregamento
-        document.getElementById('loading').style.display = 'none';
-        
-        // Mostrar mensagem de erro com detalhes
-        document.getElementById('error-details').textContent = 'Ocorreu um erro ao enviar o formulário: ' + error.message;
-        document.getElementById('debug-info').textContent = 'URL: ' + scriptURL + '\nModo: no-cors\nMétodo: POST';
-        document.getElementById('debug-info').style.display = 'block';
-        document.getElementById('error-message').style.display = 'block';
-        
-        // Mostrar o formulário novamente
-        document.querySelector('.form-container').style.display = 'block';
+        showError(
+          'Ocorreu um erro ao enviar o formulário: ' + error.message,
+          'URL: ' + scriptURL + '\nModo: no-cors\nMétodo: POST\nDetalhes: ' + error.toString()
+        );
       });
     });
   });
