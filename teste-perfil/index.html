@@ -192,6 +192,114 @@
             display: none;
         }
 
+        /* Terms checkbox styles */
+        .terms-group {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 2px solid #e9d8fd;
+            text-align: center;
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #6b46c1;
+            cursor: pointer;
+        }
+
+        .terms-checkbox label {
+            font-size: 15px;
+            color: #4a5568;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .terms-link {
+            color: #6b46c1;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .terms-link:hover {
+            color: #553c9a;
+            text-decoration: none;
+        }
+
+        .terms-content {
+            display: none;
+            background: linear-gradient(135deg, #f8f4ff 0%, #f0e6ff 100%);
+            border: 2px solid #e9d8fd;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px auto 0;
+            font-size: 14px;
+            line-height: 1.7;
+            max-height: 350px;
+            overflow-y: auto;
+            max-width: 90%;
+            box-shadow: 0 4px 15px rgba(107, 70, 193, 0.1);
+        }
+
+        .terms-content h4 {
+            color: #6b46c1;
+            margin-bottom: 20px;
+            font-size: 18px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .terms-content h5 {
+            color: #553c9a;
+            margin: 18px 0 10px 0;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .terms-content p {
+            margin-bottom: 15px;
+            color: #4a5568;
+            text-align: justify;
+        }
+
+        .terms-content p:last-child {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e9d8fd;
+            text-align: center;
+            font-weight: 600;
+            color: #6b46c1;
+        }
+
+        /* Custom scrollbar for terms content */
+        .terms-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .terms-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .terms-content::-webkit-scrollbar-thumb {
+            background: #6b46c1;
+            border-radius: 4px;
+        }
+
+        .terms-content::-webkit-scrollbar-thumb:hover {
+            background: #553c9a;
+        }
+
         /* Form styles (hidden initially) */
         .assessment-form {
             display: none;
@@ -436,6 +544,16 @@
             .pagination-info {
                 font-size: 14px;
             }
+
+            .terms-checkbox {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .terms-content {
+                max-width: 95%;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -516,6 +634,35 @@
                     <label for="company">Empresa*</label>
                     <input type="text" id="company" name="company" required>
                     <div class="error" id="company-error">Por favor, informe o nome da empresa.</div>
+                </div>
+                
+                <!-- Terms and Conditions -->
+                <div class="terms-group">
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="terms-accept" name="terms-accept" required>
+                        <label for="terms-accept">
+                            Aceito os <span class="terms-link" onclick="toggleTerms()">Termos de Aceite e Consentimento</span>*
+                        </label>
+                    </div>
+                    
+                    <div class="terms-content" id="terms-content">
+                        <h4>Termos de Aceite e Consentimento</h4>
+                        <p>Declaro que estou ciente e de acordo com os seguintes termos:</p>
+                        
+                        <h5>Uso dos Dados:</h5>
+                        <p>Autorizo o uso dos dados pessoais fornecidos (nome, e-mail, telefone, empresa e respostas) para fins exclusivos de realização deste diagnóstico comportamental e eventuais comunicações relacionadas.</p>
+                        
+                        <h5>Finalidade do Diagnóstico:</h5>
+                        <p>Estou ciente de que este diagnóstico possui caráter exclusivamente informativo, sem validade científica comprovada, e que tem como objetivo auxiliar no autoconhecimento e desenvolvimento pessoal e profissional.</p>
+                        
+                        <h5>Confidencialidade:</h5>
+                        <p>Meus dados serão tratados de forma confidencial, não sendo compartilhados com terceiros, exceto para os fins específicos deste diagnóstico.</p>
+                        
+                        <h5>Isenção de Responsabilidade:</h5>
+                        <p>Compreendo que os resultados não devem ser utilizados como diagnóstico psicológico, psiquiátrico, clínico ou qualquer tipo de laudo profissional. A utilização das informações é de minha inteira responsabilidade.</p>
+                        
+                        <p><strong>Ao selecionar o checkbox de aceite, confirmo que li, compreendi e estou de acordo com os termos acima.</strong></p>
+                    </div>
                 </div>
                 
                 <button type="button" class="submit-button" onclick="validateRegistration()">Continuar</button>
@@ -1338,12 +1485,23 @@
             window.scrollTo(0, 0);
         }
         
+        // Function to toggle terms visibility
+        function toggleTerms() {
+            const termsContent = document.getElementById('terms-content');
+            if (termsContent.style.display === 'none' || termsContent.style.display === '') {
+                termsContent.style.display = 'block';
+            } else {
+                termsContent.style.display = 'none';
+            }
+        }
+        
         // Function to validate registration form
         function validateRegistration() {
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const company = document.getElementById('company').value.trim();
+            const termsAccepted = document.getElementById('terms-accept').checked;
             
             let isValid = true;
             
@@ -1380,13 +1538,20 @@
                 document.getElementById('company-error').style.display = 'none';
             }
             
+            // Validate terms acceptance
+            if (!termsAccepted) {
+                alert('É necessário aceitar os termos para continuar.');
+                isValid = false;
+            }
+            
             if (isValid) {
                 // Save user info to localStorage
                 const userInfo = {
                     name: name,
                     email: email,
                     phone: phone,
-                    company: company
+                    company: company,
+                    termsAccepted: termsAccepted
                 };
                 
                 localStorage.setItem('userInfo', JSON.stringify(userInfo));
